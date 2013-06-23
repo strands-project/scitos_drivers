@@ -15,7 +15,7 @@
 # ROS
 build/
 devel/
-src/cfg/cpp
-src/PackageList
+src/cfg/cpp/
+src/PackageList.txt
 src/scitos_driver/src/scitos_driver
-src/scritos_driver/docs
+src/scitos_driver/docs/
