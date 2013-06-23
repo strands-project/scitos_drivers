@@ -1,0 +1,118 @@
+<root>
+	<unit id="Robot" class="mira::robot::SCITOSManager">
+		<RobotType>G5</RobotType>
+		<RobotModelProvider>
+			<include file="SCITOS-G5-model.xml" />
+		</RobotModelProvider>
+
+		<Modules>
+			<MainControlUnit>
+				<OdometryInterval>100</OdometryInterval>
+				<Force>80</Force>
+				<RFIDReaderEnabled>true</RFIDReaderEnabled>
+				<FrontLaser>
+					<MaxCurrent>2.5</MaxCurrent>
+					<Enabled>true</Enabled>
+				</FrontLaser>
+				<EBC_5V>
+					<MaxCurrent>2.5</MaxCurrent>
+					<Enabled>true</Enabled>
+				</EBC_5V>
+				<EBC_12V>
+					<MaxCurrent>2.5</MaxCurrent>
+					<Enabled>true</Enabled>
+				</EBC_12V>
+				<EBC_24V>
+					<MaxCurrent>4</MaxCurrent>
+					<Enabled>true</Enabled>
+				</EBC_24V>
+
+				<if sonar="true">
+					<USSensorModeSelection>1</USSensorModeSelection>
+					<SonarEnabled>true</SonarEnabled>
+					<USSensorHG1LowNoiseMode>false</USSensorHG1LowNoiseMode>
+					<USSensorHG1MeasurementInterval>100</USSensorHG1MeasurementInterval>
+					<USSensorHG1SensorsPerMeasurement>3</USSensorHG1SensorsPerMeasurement>
+					<!-- In the following example, the four sonars at the back
+					     of the robot will not be used. -->
+					<!--
+					<USSensorHG1IgnoredSensors>
+						<item>0</item>
+						<item>1</item>
+						<item>22</item>
+						<item>23</item>
+					</USSensorHG1IgnoredSensors>
+					-->
+				</if>
+			</MainControlUnit>
+			<Drive>
+				<OdometryInterval>100</OdometryInterval>
+				<StopOnEmergency>true</StopOnEmergency>
+				<UseTransRotPID>false</UseTransRotPID>
+
+				<WheelPID>
+					<Kp>0.400</Kp>
+					<Ki>0.001</Ki>
+					<Kd>0.001</Kd>
+				</WheelPID>
+				<TransPID>
+					<Kp>0.270</Kp>
+					<Ki>2.000</Ki>
+					<Kd>0.000</Kd>
+				</TransPID>
+				<RotPID>
+					<Kp>0.800</Kp>
+					<Ki>1.200</Ki>
+					<Kd>0.014</Kd>
+				</RotPID>
+
+				<CurrentLimit7ms>200</CurrentLimit7ms>
+				<CurrentLimit115ms>120</CurrentLimit115ms>
+				<CurrentLimit1800ms>100</CurrentLimit1800ms>
+
+				<StallMaxPWMSpeedThreshold>0.300</StallMaxPWMSpeedThreshold>
+				<StallSpeedThreshold>0.100</StallSpeedThreshold>
+				<StallPWMMaxStep>50</StallPWMMaxStep>
+				<StallMaxPWMSlowSpeed>175</StallMaxPWMSlowSpeed>
+				<StallMaxPWMFastSpeed>511</StallMaxPWMFastSpeed>
+				<StallMaxPWMStall>80</StallMaxPWMStall>
+			</Drive>
+			<EBC7>
+				<Port0_5V>
+					<MaxCurrent>2.5</MaxCurrent>
+					<Enabled>true</Enabled>
+				</Port0_5V>
+				<Port0_12V>
+					<MaxCurrent>2.5</MaxCurrent>
+					<Enabled>true</Enabled>
+				</Port0_12V>
+				<Port0_24V>
+					<MaxCurrent>4</MaxCurrent>
+					<Enabled>true</Enabled>
+				</Port0_24V>
+				<Port1_24V>
+					<MaxCurrent>2.5</MaxCurrent>
+					<Enabled>true</Enabled>
+				</Port1_24V>
+			</EBC7>
+			<if sonar="true">
+				<Sonar>
+					<SonarEnabled>true</SonarEnabled>
+					<SensorsPerMeasurement>3</SensorsPerMeasurement>
+					<!-- In the following example, the four sonars at the back
+					     of the robot will not be used. -->
+					<!--
+					<IgnoredSensors>
+						<item>0</item>
+						<item>1</item>
+						<item>22</item>
+						<item>23</item>
+					</IgnoredSensors>
+					-->
+				</Sonar>
+			</if>
+		</Modules>
+	</unit>
+
+	<link child="RobotFrame" parent="OdometryFrame" />
+</root>

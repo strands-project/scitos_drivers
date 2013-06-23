@@ -1,0 +1,37 @@
+<root>
+	<!-- Type of robot [SCITOS-G3, SCITOS-A5, SCITOS-G5, SCITOS-G6, SCITOS-G6-small] -->
+	<var robot="SCITOS-G5" />
+
+	<!-- Type of the CAN bus [PCAN, MLCAN] -->
+	<var canType="MLCAN" />
+	<!-- CAN bus device (default=[PCAN: /dev/pcan32, MLCAN:/dev/ttyUSB2]) -->
+	<var canDevice="/dev/ttyUSB2" />
+
+	<!-- Type of mounted front laser [SickS300, LeuzeRS4, Hokuyo-URG-04LX, LZRU901] -->
+	<var frontLaser="none" />
+	<!-- Device of the front laser (default=/dev/ttyUSB0) -->
+	<var frontLaserDevice="/dev/ttyUSB0" />
+
+	<!-- Type of mounted back laser [none, SickS300, LeuzeRS4, Hokuyo-URG-04LX, LZRU901] -->
+	<var rearLaser="none" />
+	<!-- Device of the rear laser (default=/dev/ttyUSB1) -->
+	<var rearLaserDevice="/dev/ttyUSB1" />
+
+	<!-- Does the robot have sonar -->
+	<var sonar="false" />
+
+	<!-- Body type for G6 robots [normal, tray] -->
+	<var bodyType="normal" />
+
+	<!-- Cover type for A5 and G5 robots [2008, 2011, 2012]
+	     2008 = Older robots with cover with stabilizers
+	     2011 = Older robots with cover without stabilizers
+	     2012 = Newer robots with more field of view for the laser. -->
+	<var coverType="2012" />
+
+	<!-- Cover color r g b -->
+	<var color="0.42 0.59 0.69" />
+
+	<!-- Only for G5 robots. Does the robot have a human machine interface (display, head) -->
+	<var hmi="true" />
+</root>

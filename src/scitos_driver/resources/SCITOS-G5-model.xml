@@ -1,0 +1,248 @@
+<root>
+	<Model class="mira::robot::DifferentialRobotModel">
+		<MaxForwardVelocity>1.0</MaxForwardVelocity>
+		<MaxBackwardVelocity>-0.4</MaxBackwardVelocity>
+		<MaxRotVelocity>120</MaxRotVelocity>
+		<TransEpsilonVelocity>0.02</TransEpsilonVelocity>
+		<RotEpsilonVelocity>1</RotEpsilonVelocity>
+		<MaxTransAcceleration>0.8</MaxTransAcceleration>
+		<MaxTransDeceleration>0.9</MaxTransDeceleration>
+		<MaxRotAcceleration>180</MaxRotAcceleration>
+		<MaxRotDeceleration>260</MaxRotDeceleration>
+		<MaxEmergencyDeceleration>1.6</MaxEmergencyDeceleration>
+		<WheelDistance>0.31</WheelDistance>
+
+		<AlphaRotRot>0.0005</AlphaRotRot>
+		<AlphaRotTrans>0.0005</AlphaRotTrans>
+		<AlphaTransTrans>0.0005</AlphaTransTrans>
+		<AlphaTransRot>0.0005</AlphaTransRot>
+		<RMDF>
+			<model name="SCITOS-G5">
+				<include file="${findpkg SCITOS}/etc/SCITOS-materials.xml" />
+				<material name="coverColor">
+					<color rgba="${color}" />
+				</material>
+				<link name="RobotFrame">
+					<collision>
+						<include file="${findpkg SCITOS}/etc/SCITOS-G5-footprint.xml" />
+					</collision>
+				</link>
+				<link name="BaseFrame">
+					<visual>
+						<origin xyz="0 0 0.03" rpy="0 0 -90" />
+						<geometry>
+							<mesh filename="${findpkg SCITOS}/etc/SCITOS-G5-cover.stl" scale="0.001"/>
+						</geometry>
+						<material name="coverColor" />
+					</visual>
+					<visual>
+						<origin xyz="0 0 0.03" rpy="0 0 -90" />
+						<geometry>
+							<mesh filename="${findpkg SCITOS}/etc/SCITOS-G5-bumper.stl" scale="0.001"/>
+						</geometry>
+						<material name="darkgray" />
+					</visual>
+				</link>
+				<joint name="RobotToBase" type="fixed">
+					<parent link="RobotFrame" />
+					<child link="BaseFrame" />
+					<origin xyz="-0.075 0 0" rpy="0 0 0" />
+				</joint>
+				<link name="MountingPlane2Frame">
+					<visual>
+						<geometry>
+							<cylinder length="0.005" radius="0.25" />
+						</geometry>
+						<origin xyz="0 0 -0.0025" />
+						<material name="darkgray"/>
+					</visual>
+					<visual>
+						<geometry>
+							<box size="0.02 0.02 0.31" />
+						</geometry>
+						<origin xyz="-0.1275 0.1275 0.155" rpy="0 0 0" />
+						<material name="gray"/>
+					</visual>
+					<visual>
+						<geometry>
+							<box size="0.02 0.02 0.31" />
+						</geometry>
+						<origin xyz="0.0575 0.1275 0.155" rpy="0 0 0" />
+						<material name="gray"/>
+					</visual>
+					<visual>
+						<geometry>
+							<box size="0.02 0.02 0.31" />
+						</geometry>
+						<origin xyz="-0.1275 -0.1275 0.155" rpy="0 0 0" />
+						<material name="gray"/>
+					</visual>
+					<visual>
+						<geometry>
+							<box size="0.02 0.02 0.31" />
+						</geometry>
+						<origin xyz="0.05275 -0.1275 0.155" rpy="0 0 0" />
+						<material name="gray"/>
+					</visual>
+					<visual>
+						<geometry>
+							<box size="0.18 0.235 0.265" />
+						</geometry>
+						<origin xyz="-0.0475 0 0.1325" rpy="0 0 0" />
+						<material name="gray"/>
+					</visual>
+					<visual>
+						<geometry>
+							<cylinder length="0.16" radius="0.06" />
+						</geometry>
+						<origin xyz="0.175 0 0.08" rpy="0 0 0" />
+						<material name="yellow" />
+					</visual>
+				</link>
+				<joint name="BaseToMP2" type="fixed">
+					<parent link="BaseFrame" />
+					<child link="MountingPlane2Frame" />
+					<origin xyz="0 0 0.265" rpy="0 0 0" />
+				</joint>
+				<link name="MountingPlane3Frame">
+					<visual>
+						<geometry>
+							<cylinder length="0.005" radius="0.195" />
+						</geometry>
+						<origin xyz="0 0 -0.0025" rpy="0 0 0" />
+						<material name="darkgray"/>
+					</visual>
+				</link>
+				<joint name="MP2ToMP3" type="fixed">
+					<parent link="MountingPlane2Frame" />
+					<child link="MountingPlane3Frame" />
+					<origin xyz="0 0 0.312" rpy="0 0 0" />
+				</joint>
+				<if hmi="true">
+					<link name="HMIFrame">
+						<visual>
+							<geometry>
+								<box size="0.08 0.08 0.6" />
+							</geometry>
+							<origin xyz="0.0 0 0.3" />
+							<material name="gray" />
+						</visual>
+						<visual>
+							<geometry>
+								<box size="0.05 0.3 0.3" />
+							</geometry>
+							<origin xyz="-0.2 0 0.32" rpy="0 25 0" />
+							<material name="coverColor" />
+						</visual>
+						<visual>
+							<geometry>
+								<box size="0.2 0.08 0.08" />
+							</geometry>
+							<origin xyz="-0.1 0 0.32" rpy="0 0 0" />
+							<material name="gray" />
+						</visual>
+					</link>
+					<joint name="MP3ToHMI" type="fixed">
+						<parent link="MountingPlane3Frame" />
+						<child link="HMIFrame" />
+					</joint>
+
+					<!-- HEAD -->
+					<joint name="HMIToHeadBase" type="fixed">
+						<parent link="HMIFrame" />
+						<child link="head/HeadBaseFrame" />
+						<origin xyz="0 0 0.7375" />
+					</joint>
+
+					<link name="head/HeadSwivelFrame">
+						<visual>
+							<geometry>
+								<cylinder length="0.1" radius="0.05" />
+							</geometry>
+							<material name="gray" />
+						</visual>
+					</link>
+					<joint name="BaseHeadToHeadSwivel" type="continuous">
+						<parent link="head/HeadBaseFrame" />
+						<child link="head/HeadSwivelFrame" />
+						<axis xyz="0 0 1" />
+					</joint>
+
+					<link name="head/HeadFrame">
+						<visual>
+							<geometry>
+								<box size="0.175 0.19 0.07" />
+							</geometry>
+							<origin xyz="0 0 0.02" rpy="0 0 0" />
+							<material name="gray" />
+						</visual>
+					</link>
+					<joint name="HeadSwivelToHead" type="continuous">
+						<parent link="head/HeadSwivelFrame" />
+						<child link="head/HeadFrame" />
+						<axis xyz="0 1 0" />
+					</joint>
+
+					<link name="head/LeftEyeFrame">
+						<visual>
+							<geometry>
+								<sphere radius="0.025" />
+							</geometry>
+							<material name="white" />
+						</visual>
+					</link>
+					<joint name="HeadToLeftEyeBase" type="fixed">
+						<parent link="head/HeadFrame" />
+						<child link="head/LeftEyeBaseFrame" />
+						<origin xyz="0.08 0.05 0.02" />
+					</joint>
+					<joint name="LeftEyeBaseToLeftEyeSwivel" type="continuous">
+						<parent link="head/LeftEyeBaseFrame" />
+						<child link="head/LeftEyeSwivelFrame" />
+						<axis xyz="0 1 0" />
+					</joint>
+					<joint name="LeftEyeSwivelToLeftEye" type="continuous">
+						<parent link="head/LeftEyeSwivelFrame" />
+						<child link="head/LeftEyeFrame" />
+						<axis xyz="0 0 1" />
+					</joint>
+
+					<link name="head/RightEyeFrame">
+						<visual>
+							<geometry>
+								<sphere radius="0.025" />
+							</geometry>
+							<material name="white" />
+						</visual>
+					</link>
+					<joint name="HeadToRightEyeBase" type="fixed">
+						<parent link="head/HeadFrame" />
+						<child link="head/RightEyeBaseFrame" />
+						<origin xyz="0.08 -0.05 0.02" />
+					</joint>
+					<joint name="RightEyeBaseToRightEyeSwivel" type="continuous">
+						<parent link="head/RightEyeBaseFrame" />
+						<child link="head/RightEyeSwivelFrame" />
+						<axis xyz="0 1 0" />
+					</joint>
+					<joint name="RightEyeSwivelToRightEye" type="continuous">
+						<parent link="head/RightEyeSwivelFrame" />
+						<child link="head/RightEyeFrame" />
+						<axis xyz="0 0 1" />
+					</joint>
+
+					<link name="head/HeadBaseFrame">
+						<visual>
+							<geometry>
+								<sphere radius="0.15" />
+							</geometry>
+							<material name="glass" />
+						</visual>
+					</link>
+				</if>
+
+				<!-- SENSORS -->
+			</model>
+		</RMDF>
+	</Model>
+</root>

@@ -11,3 +11,11 @@
 *.lai
 *.la
 *.a
+
+# ROS
+build/
+devel/
+src/cfg/cpp
+src/PackageList
+src/scitos_driver/src/scitos_driver
+src/scritos_driver/docs
