@@ -16,6 +16,7 @@
 build/
 devel/
 src/cfg/cpp/
+src/scitos_driver/cfg/cpp/
 src/PackageList.txt
 src/scitos_driver/src/scitos_driver
 src/scitos_driver/docs/

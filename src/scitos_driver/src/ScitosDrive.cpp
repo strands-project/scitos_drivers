@@ -11,7 +11,7 @@
 #include <scitos_driver/ScitosG5.h>
 
 ScitosDrive::ScitosDrive() : ScitosModule() { //ScitosG5 *robot, ros::NodeHandle &nh) : ScitosModule(robot, nh){
-	ROS_INFO("Creating Scitos Charger module.");
+	ROS_INFO("Creating Drive module.");
 }
 
 void ScitosDrive::initialize() {
