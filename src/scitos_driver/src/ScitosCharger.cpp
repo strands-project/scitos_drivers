@@ -7,8 +7,7 @@
 #include <scitos_driver/ScitosG5.h>
 
 
-ScitosCharger::ScitosCharger() : ScitosModule()  {
-	ROS_INFO("Creating Charger module.");
+ScitosCharger::ScitosCharger() : ScitosModule(std::string ("Charger")), reconfigure_srv_(name_)  {
 }
 
 void ScitosCharger::initialize() {

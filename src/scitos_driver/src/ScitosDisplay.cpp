@@ -1,7 +1,6 @@
 #include "scitos_driver/ScitosDisplay.h"
 
-ScitosDisplay::ScitosDisplay() : ScitosModule() {
-	ROS_INFO("Creating Display module.");
+ScitosDisplay::ScitosDisplay() : ScitosModule(std::string ("Display")) {
 }
 
 void ScitosDisplay::initialize() {
