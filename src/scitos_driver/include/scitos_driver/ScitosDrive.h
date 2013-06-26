@@ -25,13 +25,15 @@ public:
 
 	void velocity_command_callback(const geometry_msgs::Twist::ConstPtr& msg);
 
-	void odometry_data_callback(mira::ChannelRead<mira::robot::Odometry2> data,
-			int i);
+	void odometry_data_callback(mira::ChannelRead<mira::robot::Odometry2> data,	int i);
+
+	void bumper_data_callback(mira::ChannelRead<bool> data, int i);
 
 private:
 	ScitosDrive();
 	ros::Subscriber cmd_vel_subscriber_;
 	ros::Publisher odometry_pub_;
+	ros::Publisher bumper_pub_;
 };
 
 #endif
