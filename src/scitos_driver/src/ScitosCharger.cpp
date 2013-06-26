@@ -62,4 +62,6 @@ void ScitosCharger::charger_status_callback(mira::ChannelRead<uint8> data, int i
 void ScitosCharger::reconfigure_callback( scitos_driver::ChargerParametersConfig& config, uint32_t level) {
 	ROS_DEBUG("Reconfigure request on ScitosCharger module.");
 	//Set the MIRA parameters to what was selected...
+
+	// TODO: Decide if this is a good idea: all parameters relate to contact control, which might be dangerous and not needed.
 }

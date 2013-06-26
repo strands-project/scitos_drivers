@@ -11,6 +11,8 @@ ScitosG5::ScitosG5() : authority_("/", "sctios_ros", mira::Authority::ANONYMOUS)
     modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("Drive"), this) );
     modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("Charger"), this) );
     modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("EBC"), this) );
+    modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("Display"), this) );
+    modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("Head"), this) );
     initialize();
 }
 
