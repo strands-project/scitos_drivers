@@ -7,7 +7,7 @@
 #include <tf/transform_broadcaster.h>
 
 #include <geometry_msgs/TransformStamped.h>
-
+#include <std_msgs/Bool.h>
 #include <scitos_driver/ScitosG5.h>
 
 ScitosDrive::ScitosDrive() : ScitosModule(std::string ("Drive")) { 
@@ -16,9 +16,13 @@ ScitosDrive::ScitosDrive() : ScitosModule(std::string ("Drive")) {
 void ScitosDrive::initialize() {
 	robot_->getMiraAuthority().subscribe<mira::robot::Odometry2>("/robot/Odometry", //&ScitosBase::odometry_cb);
 			boost::bind(&ScitosDrive::odometry_data_callback, this, _1, 1));
+	robot_->getMiraAuthority().subscribe<bool>("/robot/Bumper",
+			boost::bind(&ScitosDrive::bumper_data_callback, this, _1, 1));
+	
 	cmd_vel_subscriber_ = robot_->getRosNode().subscribe("/cmd_vel", 1000, &ScitosDrive::velocity_command_callback,
 				this);
 	odometry_pub_ = robot_->getRosNode().advertise<nav_msgs::Odometry>("/odom", 20);
+	bumper_pub_ = robot_->getRosNode().advertise<std_msgs::Bool>("/bumper", 20);
 }
 
 void ScitosDrive::velocity_command_callback(const geometry_msgs::Twist::ConstPtr& msg) {
@@ -26,6 +30,12 @@ void ScitosDrive::velocity_command_callback(const geometry_msgs::Twist::ConstPtr
 	mira::RPCFuture<void> r = robot_->getMiraAuthority().callService<void>("/robot/Robot",
 			"setVelocity", speed);
 	r.wait();
+}
+
+void ScitosDrive::bumper_data_callback(mira::ChannelRead<bool> data, int i) {
+  std_msgs::Bool out;
+  out.data=data->value();					   
+  bumper_pub_.publish(out);
 }
 
 void ScitosDrive::odometry_data_callback(mira::ChannelRead<mira::robot::Odometry2> data,
