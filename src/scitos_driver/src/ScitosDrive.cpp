@@ -16,9 +16,9 @@ ScitosDrive::ScitosDrive() : ScitosModule(std::string ("Drive")) {
 void ScitosDrive::initialize() {
 	robot_->getMiraAuthority().subscribe<mira::robot::Odometry2>("/robot/Odometry", //&ScitosBase::odometry_cb);
 			boost::bind(&ScitosDrive::odometry_data_callback, this, _1, 1));
-	cmd_vel_subscriber = robot_->getRosNode().subscribe("/cmd_vel", 1000, &ScitosDrive::velocity_command_callback,
+	cmd_vel_subscriber_ = robot_->getRosNode().subscribe("/cmd_vel", 1000, &ScitosDrive::velocity_command_callback,
 				this);
-	odometry_pub = robot_->getRosNode().advertise<nav_msgs::Odometry>("/odom", 20);
+	odometry_pub_ = robot_->getRosNode().advertise<nav_msgs::Odometry>("/odom", 20);
 }
 
 void ScitosDrive::velocity_command_callback(const geometry_msgs::Twist::ConstPtr& msg) {
@@ -50,7 +50,7 @@ void ScitosDrive::odometry_data_callback(mira::ChannelRead<mira::robot::Odometry
 	odom_msg.twist.twist.linear.x = data->value().velocity.x();
 	odom_msg.twist.twist.angular.z = data->value().velocity.phi();
 
-	odometry_pub.publish(odom_msg);
+	odometry_pub_.publish(odom_msg);
 
 	// Publish a TF
 	geometry_msgs::TransformStamped odom_tf;
