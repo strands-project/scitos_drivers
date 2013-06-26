@@ -9,6 +9,8 @@
 #define SCITODISPLAY_H_
 
 #include <scitos_driver/ScitosModule.h>
+#include <dynamic_reconfigure/server.h>
+#include <scitos_driver/DisplayParametersConfig.h>
 
 class ScitosDisplay: public ScitosModule {
 public:
@@ -17,8 +19,14 @@ public:
 	}
 
 	void initialize();
+	
+	void reconfigure_callback(scitos_driver::DisplayParametersConfig &config, uint32_t level);
+	void menu_data_callback(mira::ChannelRead<uint8> data,	int i);
+
 private:
 	ScitosDisplay();
+	dynamic_reconfigure::Server<scitos_driver::DisplayParametersConfig> reconfigure_srv_;
+	ros::Publisher display_data_pub_;
 };
 
 #endif
