@@ -9,12 +9,13 @@
 
 #include <ros/ros.h>
 #include <fw/Framework.h>
+#include <string>
 
 class ScitosG5;
 
 class ScitosModule {
 public:
-	ScitosModule();
+  ScitosModule(std::string name);
 	void setRobot(ScitosG5 *robot) { robot_ = robot; };
 
 	virtual void initialize() = 0;
@@ -23,6 +24,9 @@ public:
 
 protected:
   ScitosG5 *robot_;
+  std::string name_;
+  ros::NodeHandle module_handle_;
+
 };
 
 typedef ScitosModule* (*ModuleCreator)(void);

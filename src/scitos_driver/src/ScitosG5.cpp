@@ -10,7 +10,12 @@ ScitosG5::ScitosG5() : authority_("/", "sctios_ros", mira::Authority::ANONYMOUS)
 	//       Maybe lookup on MIRA framework.
     modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("Drive"), this) );
     modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("Charger"), this) );
+    modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("EBC"), this) );
+    initialize();
+}
 
+void ScitosG5::initialize() {
+  // Initialise all of the modules
     for(std::vector<ScitosModule*>::iterator it = modules_.begin(); it != modules_.end(); ++it) {
     	(*it)->initialize();
     }

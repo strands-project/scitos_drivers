@@ -10,8 +10,7 @@
 
 #include <scitos_driver/ScitosG5.h>
 
-ScitosDrive::ScitosDrive() : ScitosModule() { //ScitosG5 *robot, ros::NodeHandle &nh) : ScitosModule(robot, nh){
-	ROS_INFO("Creating Drive module.");
+ScitosDrive::ScitosDrive() : ScitosModule(std::string ("Drive")) { //ScitosG5 *robot, ros::NodeHandle &nh) : ScitosModule(robot, nh){
 }
 
 void ScitosDrive::initialize() {
