@@ -7,7 +7,7 @@
 #include <scitos_driver/ScitosG5.h>
 
 
-ScitosCharger::ScitosCharger() : ScitosModule(std::string ("Charger"))  {
+ScitosCharger::ScitosCharger() : ScitosModule(std::string ("Charger")), reconfigure_srv_(name_)  {
 }
 
 void ScitosCharger::initialize() {
