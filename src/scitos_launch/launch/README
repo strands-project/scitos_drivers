@@ -1,0 +1,14 @@
+To get the SICK S300 laser up and running on your robot, follow these instructions:
+
+1. Get the code: 
+svn co http://ais-bonn-ros-pkg.googlecode.com/svn/trunk/stacks/ais_bonn_drivers/sicks300
+
+2. Add it to your ros path
+export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:<path_to_your_S300_checkout>
+
+3. Compile 
+rosmake sicks300 sicks300
+
+4. Run
+rosrun sicks300 sick300_driver
+(or use the provided launch file)
