@@ -8,6 +8,7 @@
 #define SCITOHEAD_H_
 
 #include <scitos_driver/ScitosModule.h>
+#include <sensor_msgs/JointState.h>
 
 class ScitosHead: public ScitosModule {
 public:
@@ -16,8 +17,10 @@ public:
 	}
 
 	void initialize();
+	void joint_state_command_callback(const sensor_msgs::JointState::ConstPtr& msg);
 private:
 	ScitosHead();
+	ros::Subscriber joint_state_command_subscriber_;
 };
 
 #endif /* SCITOSHEAD_H_ */

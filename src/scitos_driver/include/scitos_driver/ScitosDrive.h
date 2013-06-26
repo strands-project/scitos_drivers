@@ -30,8 +30,8 @@ public:
 
 private:
 	ScitosDrive();
-	ros::Subscriber cmd_vel_subscriber;
-	ros::Publisher odometry_pub;
+	ros::Subscriber cmd_vel_subscriber_;
+	ros::Publisher odometry_pub_;
 };
 
 #endif
