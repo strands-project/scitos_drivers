@@ -19,8 +19,11 @@ class ScitosG5{
 public:
   ScitosG5();
   ~ScitosG5();
+
   mira::Authority& getMiraAuthority();
   ros::NodeHandle& getRosNode();
+
+  void initialize();
 
   tf::TransformBroadcaster& getTFBroadcaster();
 
