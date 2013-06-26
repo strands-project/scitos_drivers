@@ -28,12 +28,14 @@ public:
 	void odometry_data_callback(mira::ChannelRead<mira::robot::Odometry2> data,	int i);
 
 	void bumper_data_callback(mira::ChannelRead<bool> data, int i);
+	void mileage_data_callback(mira::ChannelRead<float> data, int i);
 
 private:
 	ScitosDrive();
 	ros::Subscriber cmd_vel_subscriber_;
 	ros::Publisher odometry_pub_;
 	ros::Publisher bumper_pub_;
+	ros::Publisher mileage_pub_;
 };
 
 #endif
