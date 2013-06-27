@@ -26,6 +26,7 @@ void ScitosG5::initialize() {
 }
 
 void ScitosG5::spin() {
+  //  ros::spin();
   ros::Rate r(30);
   while (ros::ok()) {
   	ros::spinOnce();

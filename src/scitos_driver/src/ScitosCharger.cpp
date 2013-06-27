@@ -11,15 +11,13 @@ ScitosCharger::ScitosCharger() : ScitosModule(std::string ("Charger")), reconfig
 }
 
 void ScitosCharger::initialize() {
+	battery_pub_ = robot_->getRosNode().advertise<scitos_msgs::BatteryState>("/battery_state", 20);
 	robot_->getMiraAuthority().subscribe<mira::robot::BatteryState>("/robot/charger/Battery",
 							boost::bind(&ScitosCharger::battery_data_callback, this, _1, 1));
-	battery_pub_ = robot_->getRosNode().advertise<scitos_msgs::BatteryState>("/battery_state", 20);
 
+	charger_pub_ = robot_->getRosNode().advertise<scitos_msgs::ChargerStatus>("/charger_status", 20);
 	robot_->getMiraAuthority().subscribe<uint8>("/robot/charger/ChargerStatus",
 							boost::bind(&ScitosCharger::charger_status_callback, this, _1, 1));
-	charger_pub_ = robot_->getRosNode().advertise<scitos_msgs::ChargerStatus>("/charger_status", 20);
-
-
 
 	reconfigure_srv_.setCallback(boost::bind(&ScitosCharger::reconfigure_callback, this, _1, _2));
 }
