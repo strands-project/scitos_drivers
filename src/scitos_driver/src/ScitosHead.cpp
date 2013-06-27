@@ -65,3 +65,4 @@ void ScitosHead::publish_joint_state_actual() {
 	joint_state_actual_pub_.publish(js);
   
 }
+

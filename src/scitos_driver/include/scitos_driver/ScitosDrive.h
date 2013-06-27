@@ -14,6 +14,10 @@
 #include <geometry_msgs/Twist.h>
 #include <robot/Odometry.h> //# MIRA odometry
 #include <scitos_driver/ScitosModule.h>
+#include <scitos_msgs/ResetMotorStop.h>
+#include <scitos_msgs/ResetOdometry.h>
+#include <scitos_msgs/EmergencyStop.h>
+#include <scitos_msgs/EnableMotors.h>
 
 class ScitosDrive: public ScitosModule {
 public:
@@ -30,12 +34,21 @@ public:
 	void bumper_data_callback(mira::ChannelRead<bool> data, int i);
 	void mileage_data_callback(mira::ChannelRead<float> data, int i);
 
+	bool reset_motor_stop(scitos_msgs::ResetMotorStop::Request  &req, scitos_msgs::ResetMotorStop::Response &res);
+	bool reset_odometry(scitos_msgs::ResetOdometry::Request  &req, scitos_msgs::ResetOdometry::Response &res);
+	bool emergency_stop(scitos_msgs::EmergencyStop::Request  &req, scitos_msgs::EmergencyStop::Response &res);
+	bool enable_motors(scitos_msgs::EnableMotors::Request  &req, scitos_msgs::EnableMotors::Response &res);
+
 private:
 	ScitosDrive();
 	ros::Subscriber cmd_vel_subscriber_;
 	ros::Publisher odometry_pub_;
 	ros::Publisher bumper_pub_;
 	ros::Publisher mileage_pub_;
+	ros::ServiceServer reset_motor_stop_service_;
+	ros::ServiceServer reset_odometry_service_;
+	ros::ServiceServer emergency_stop_service_;
+	ros::ServiceServer enable_motors_service_;
 };
 
 #endif
