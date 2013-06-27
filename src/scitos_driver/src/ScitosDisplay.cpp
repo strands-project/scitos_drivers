@@ -8,9 +8,10 @@ ScitosDisplay::ScitosDisplay() : ScitosModule(std::string ("Display")), reconfig
 
 void ScitosDisplay::initialize() {
 	reconfigure_srv_.setCallback(boost::bind(&ScitosDisplay::reconfigure_callback, this, _1, _2));
+	
+	display_data_pub_ = robot_->getRosNode().advertise<std_msgs::Int8>("/user_menu_selected", 1);
 	robot_->getMiraAuthority().subscribe<uint8>("/robot/StatusDisplayUserMenuEvent", 
 			boost::bind(&ScitosDisplay::menu_data_callback, this, _1, 1));
-	display_data_pub_ = robot_->getRosNode().advertise<std_msgs::Int8>("/user_menu_selected", 1);
 
 }
 
