@@ -1,3 +1,4 @@
+
 #include <scitos_driver/ScitosDrive.h>
 
 #include <transform/RigidTransform.h>
@@ -27,6 +28,11 @@ void ScitosDrive::initialize() {
 	odometry_pub_ = robot_->getRosNode().advertise<nav_msgs::Odometry>("/odom", 20);
 	bumper_pub_ = robot_->getRosNode().advertise<std_msgs::Bool>("/bumper", 20);
 	mileage_pub_ = robot_->getRosNode().advertise<std_msgs::Float32>("/mileage", 20);
+
+	reset_motor_stop_service_ = robot_->getRosNode().advertiseService("/reset_motorstop", &ScitosDrive::reset_motor_stop, this);
+	reset_odometry_service_ = robot_->getRosNode().advertiseService("/reset_odometry", &ScitosDrive::reset_odometry, this);
+	emergency_stop_service_ = robot_->getRosNode().advertiseService("/emergency_stop", &ScitosDrive::emergency_stop, this);
+	enable_motors_service_ = robot_->getRosNode().advertiseService("/enable_motors", &ScitosDrive::enable_motors, this);
 }
 
 void ScitosDrive::velocity_command_callback(const geometry_msgs::Twist::ConstPtr& msg) {
@@ -44,7 +50,7 @@ void ScitosDrive::bumper_data_callback(mira::ChannelRead<bool> data, int i) {
 
 void ScitosDrive::mileage_data_callback(mira::ChannelRead<float> data, int i) {
   std_msgs::Float32 out;
-  out.data=data->value();					   
+  out.data = data->value();					   
   mileage_pub_.publish(out);
 }
 
@@ -86,3 +92,40 @@ void ScitosDrive::odometry_data_callback(mira::ChannelRead<mira::robot::Odometry
 	robot_->getTFBroadcaster().sendTransform(odom_tf);
 }
 
+bool ScitosDrive::reset_motor_stop(scitos_msgs::ResetMotorStop::Request  &req, scitos_msgs::ResetMotorStop::Response &res) {
+  //  call_mira_service
+  mira::RPCFuture<void> r = robot_->getMiraAuthority().callService<void>("/robot/Robot", std::string("resetMotorStop"));
+  r.timedWait(mira::Duration::seconds(1));
+  r.get(); 
+
+  return true;
+}
+
+bool ScitosDrive::reset_odometry(scitos_msgs::ResetOdometry::Request  &req, scitos_msgs::ResetOdometry::Response &res) {
+  //  call_mira_service
+  mira::RPCFuture<void> r = robot_->getMiraAuthority().callService<void>("/robot/Robot", std::string("resetOdometry"));
+  r.timedWait(mira::Duration::seconds(1));
+  r.get(); 
+
+  return true;
+}
+
+
+bool ScitosDrive::emergency_stop(scitos_msgs::EmergencyStop::Request  &req, scitos_msgs::EmergencyStop::Response &res) {
+  //  call_mira_service
+  mira::RPCFuture<void> r = robot_->getMiraAuthority().callService<void>("/robot/Robot", std::string("emergencyStop"));
+  r.timedWait(mira::Duration::seconds(1));
+  r.get(); 
+
+  return true;
+}
+
+
+bool ScitosDrive::enable_motors(scitos_msgs::EnableMotors::Request  &req, scitos_msgs::EnableMotors::Response &res) {
+  //  call_mira_service
+  mira::RPCFuture<void> r = robot_->getMiraAuthority().callService<void>("/robot/Robot", std::string("enableMotors"),(bool)req.enable);
+  r.timedWait(mira::Duration::seconds(1));
+  r.get(); 
+
+  return true;
+}
