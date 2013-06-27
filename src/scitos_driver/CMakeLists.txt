@@ -32,11 +32,11 @@ MIRA_REQUIRE_PACKAGE(SCITOS 0.19.0)
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
+#add_service_files(
 #   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+#   ResetMotorStop.srv
+#
+#)
 
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
