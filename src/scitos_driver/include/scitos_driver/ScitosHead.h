@@ -18,9 +18,11 @@ public:
 
 	void initialize();
 	void joint_state_command_callback(const sensor_msgs::JointState::ConstPtr& msg);
+	void publish_joint_state_actual();
 private:
 	ScitosHead();
 	ros::Subscriber joint_state_command_subscriber_;
+	ros::Publisher  joint_state_actual_pub_;
 };
 
 #endif /* SCITOSHEAD_H_ */

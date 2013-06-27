@@ -2,6 +2,8 @@
 
 #include <scitos_driver/ModuleFactory.h>
 
+#include <boost/function.hpp>
+#include <boost/bind.hpp>
 
 ScitosG5::ScitosG5() : authority_("/", "sctios_ros", mira::Authority::ANONYMOUS),
 					    node_() {
@@ -23,6 +25,17 @@ void ScitosG5::initialize() {
     }
 }
 
+void ScitosG5::spin() {
+  ros::Rate r(30);
+  while (ros::ok()) {
+  	ros::spinOnce();
+	for (std::vector< boost::function<void ()> >::iterator i = spin_functions_.begin(); i!=spin_functions_.end(); i++){
+	  (*i)();
+	}
+	r.sleep();
+  }
+}
+
 ScitosG5::~ScitosG5() {
     for(std::vector<ScitosModule*>::iterator it = modules_.begin(); it != modules_.end(); ++it) {
 	  delete (*it);
@@ -39,4 +52,8 @@ ros::NodeHandle& ScitosG5::getRosNode() {
 
 tf::TransformBroadcaster& ScitosG5::getTFBroadcaster() {
 	return tf_broadcaster_;
+}
+
+void ScitosG5::registerSpinFunction(boost::function<void ()> function) {
+    spin_functions_.push_back(function);
 }

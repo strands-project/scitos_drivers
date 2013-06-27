@@ -24,6 +24,7 @@ public:
 
 protected:
 	bool set_mira_param_(std::string param_name, std::string value);
+	std::string get_mira_param_(std::string param_name);
   ScitosG5 *robot_;
   std::string name_;
   ros::NodeHandle module_handle_;

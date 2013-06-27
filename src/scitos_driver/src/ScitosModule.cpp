@@ -19,4 +19,9 @@ bool ScitosModule::set_mira_param_(std::string param_name, std::string value) {
 	return true; // TODO: catch exception and return correctly
 }
 
+std::string ScitosModule::get_mira_param_(std::string param_name) {
+  mira::RPCFuture<std::string> r = robot_->getMiraAuthority().callService<std::string>("/robot/Robot#builtin", std::string("getProperty"), param_name); 
+	r.timedWait(mira::Duration::seconds(1)); // timeout after a second of trying...
+	return r.get(); // throw excepton if no good...
+}
 
