@@ -24,7 +24,9 @@ public:
   ros::NodeHandle& getRosNode();
 
   void initialize();
+  void spin();
 
+  void registerSpinFunction(boost::function<void ()> function);
   tf::TransformBroadcaster& getTFBroadcaster();
 
 private:
@@ -32,6 +34,7 @@ private:
   tf::TransformBroadcaster tf_broadcaster_;
   ros::NodeHandle node_;
   std::vector<ScitosModule*> modules_;
+  std::vector< boost::function<void ()> > spin_functions_;
 
 };
 

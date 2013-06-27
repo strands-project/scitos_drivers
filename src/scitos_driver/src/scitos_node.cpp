@@ -23,6 +23,7 @@ int main(int argc, char **argv) {
 	  if (ros::param::get("~server_port", port_number))  {
 		args.push_back(std::string("-p"));
 		args.push_back(port_number);
+		ROS_INFO_STREAM("Loading with MIRA multiprocess communication support on port " << port_number);
 	  } else {
 		ROS_INFO("Not loading with MIRA multiprocess support.");
 	  }
@@ -44,6 +45,6 @@ int main(int argc, char **argv) {
 	ROS_INFO("Creating G5...");
 	ScitosG5 s;
 	ROS_INFO("Going into main loop.");
-	ros::spin();
+	s.spin();
 	return 0;
 }
