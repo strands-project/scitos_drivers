@@ -16,6 +16,11 @@ ScitosDrive::ScitosDrive() : ScitosModule(std::string ("Drive")) {
 }
 
 void ScitosDrive::initialize() {
+
+  odometry_pub_ = robot_->getRosNode().advertise<nav_msgs::Odometry>("/odom", 20);
+  bumper_pub_ = robot_->getRosNode().advertise<std_msgs::Bool>("/bumper", 20);
+	mileage_pub_ = robot_->getRosNode().advertise<std_msgs::Float32>("/mileage", 20);
+
 	robot_->getMiraAuthority().subscribe<mira::robot::Odometry2>("/robot/Odometry", //&ScitosBase::odometry_cb);
 			boost::bind(&ScitosDrive::odometry_data_callback, this, _1, 1));
 	robot_->getMiraAuthority().subscribe<bool>("/robot/Bumper",
@@ -25,9 +30,6 @@ void ScitosDrive::initialize() {
 	
 	cmd_vel_subscriber_ = robot_->getRosNode().subscribe("/cmd_vel", 1000, &ScitosDrive::velocity_command_callback,
 				this);
-	odometry_pub_ = robot_->getRosNode().advertise<nav_msgs::Odometry>("/odom", 20);
-	bumper_pub_ = robot_->getRosNode().advertise<std_msgs::Bool>("/bumper", 20);
-	mileage_pub_ = robot_->getRosNode().advertise<std_msgs::Float32>("/mileage", 20);
 
 	reset_motor_stop_service_ = robot_->getRosNode().advertiseService("/reset_motorstop", &ScitosDrive::reset_motor_stop, this);
 	reset_odometry_service_ = robot_->getRosNode().advertiseService("/reset_odometry", &ScitosDrive::reset_odometry, this);
