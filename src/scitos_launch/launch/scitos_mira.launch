@@ -5,9 +5,14 @@
         <node pkg="sicks300" type="sick300_driver" name="sick300" output="screen">
 		<param name="devicename" value="/dev/ttyUSB0" type="string"/>
 		<param name="reduced_fov" value="1.0" type="double"/>
+		<remap from="laserscan" to="scan"/>
 	</node>
 
 	<!-- Asus Xtion -->
         <include file="$(find openni_launch)/launch/openni.launch"/>
+
+	<!--- Robot state publisher -->
+        <include file="$(find scitos_description)/launch/state_publisher.launch"/>
+	
 
 </launch>
