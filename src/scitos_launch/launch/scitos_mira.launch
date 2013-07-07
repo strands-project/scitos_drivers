@@ -13,7 +13,7 @@
         <include file="$(find openni_launch)/launch/openni.launch"/>
 
 	<!--- Robot state publisher -->
-        <include file="$(find scitos_description)/launch/state_publisher.launch"/>
+        <include file="$(find scitos_description)/launch/scitos_state_publisher.launch"/>
 	
 
 </launch>
