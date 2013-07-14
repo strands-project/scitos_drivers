@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package>
+  <name>scitos_mira</name>
+  <version>0.0.1</version>
+  <description>
+	Driver for Scitos-G5 using the MIRA framework.
+  </description>
+
+  <maintainer email="cburbridge@gmail.com">Chris Burbridge</maintainer>
+
+  <license>GPL</license>
+
+  <url type="website">http://github.com/strands-project/scitos_mira</url>
+
+  <author email="cburbridge@gmail.com">Chris Burbridge</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>scitos_driver</run_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>
