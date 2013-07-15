@@ -5,47 +5,7 @@ Scitos G5 drivers that interface ROS to MIRA.
 
 Installation
 ------------
-Install ROS Groovy on the robot: follow http://www.ros.org/wiki/groovy/Installation/Ubuntu
-
-Check out the repository onto the robot and compile:
-
-```
-cd ~
-git clone https://github.com/strands-project/scitos_mira.git
-cd scitos_mira
-catkin_make
-. devel/setup.bash
-```
-
-Next download and build the SICK S300 driver from AIS-Bonn:
-
-```
-cd ~
-mkdir rosbuild_ws
-cd rosbuild_ws
-svn co http://ais-bonn-ros-pkg.googlecode.com/svn/trunk/stacks/ais_bonn_drivers/sicks300
-export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:/localhome/demo/rosbuild_ws
-rosmake sicks300 sicks300
-```
-
-Make sure that you have the OpenNI drivers installed for the Xtion:
-
-```
-sudo apt-get install ros-groovy-openni-camera
-sudo apt-get install ros-groovy-openni-launch
-```
-
-Edit the OpenNI driver file /etc/openni/GlobalDefaults.ini, find the line "UsbInterface" and uncomment it to force it to use 'BULK' endpoints. It should read  "UsbInterface=2".
-
-
-Next launch the bridge:
-
-```
-roslaunch scitos_launch scitos_mira.launch
-```
-
-This will start the Laser, Camera and Scitos base.
-
+See [https://github.com/strands-project/strands_systems]
 
 Using the robot
 ---------------
