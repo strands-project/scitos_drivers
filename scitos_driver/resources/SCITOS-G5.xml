@@ -111,6 +111,16 @@
 					-->
 				</Sonar>
 			</if>
+			<Head>
+			  <!--
+				<SpeakerVolume>0.8</SpeakerVolume>
+				<SpeakerMute>false</SpeakerMute>
+			  -->
+			  <HeadLightInterval/>
+			</Head>
+			<Display />
+			<StatusDisplay />
+
 		</Modules>
 	</unit>
 
