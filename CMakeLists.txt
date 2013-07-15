@@ -78,9 +78,10 @@ add_executable(ptu_d46 src/ptu46_node.cc)
 # add_dependencies(flir-pan-tilt-d46_node flir-pan-tilt-d46_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(flir-pan-tilt-d46_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(ptu_d46
+  ${catkin_LIBRARIES}
+  flir_pantilt_d46
+)
 
 #############
 ## Install ##

@@ -2,7 +2,7 @@
 <package>
   <name>flir_pantilt_d46</name>
   <version>0.0.0</version>
-  <description brief="FLIR Pan-Tilt D46 driver">
+  <description>
      Driver for the FLIR ptu46 pan/tilt, forked from wu_robotics, which was forked from player.
   </description>
 
