@@ -4,7 +4,7 @@ project(flir_pantilt_d46)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS actionlib diagnostic_updater roscpp rospy sensor_msgs)
+find_package(catkin REQUIRED COMPONENTS actionlib actionlib_msgs diagnostic_updater roscpp rospy sensor_msgs std_msgs)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -14,7 +14,7 @@ find_package(catkin REQUIRED COMPONENTS actionlib diagnostic_updater roscpp rosp
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
-# catkin_python_setup()
+catkin_python_setup()
 
 #######################################
 ## Declare ROS messages and services ##
@@ -34,11 +34,20 @@ find_package(catkin REQUIRED COMPONENTS actionlib diagnostic_updater roscpp rosp
 #   Service2.srv
 # )
 
+# Actions
+add_action_files(
+   FILES
+   PtuReset.action
+   PtuSetVel.action
+   PtuGoto.action
+)
+
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   sensor_msgs
-# )
+ generate_messages(
+   DEPENDENCIES
+   actionlib_msgs
+   sensor_msgs
+ )
 
 ###################################
 ## catkin specific configuration ##
@@ -75,7 +84,7 @@ add_executable(ptu_d46 src/ptu46_node.cc)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(flir-pan-tilt-d46_node flir-pan-tilt-d46_generate_messages_cpp)
+# add_dependencies(flir_pantilt_d46_node flir_pantilt_d46_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(ptu_d46
@@ -98,7 +107,7 @@ target_link_libraries(ptu_d46
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS flir-pan-tilt-d46 flir-pan-tilt-d46_node
+# install(TARGETS flir_pantilt_d46 flir_pantilt_d46_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -123,7 +132,7 @@ target_link_libraries(ptu_d46
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_flir-pan-tilt-d46.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_flir_pantilt_d46.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

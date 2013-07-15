@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-import roslib; roslib.load_manifest('ptu46')
+#import roslib; roslib.load_manifest('ptu46')
 import rospy
-import ptu_control.msg
+import flir_pantilt_d46.msg
 import actionlib
 from sensor_msgs.msg import JointState
 import threading
@@ -27,9 +27,9 @@ class PTUControl(object):
 		rospy.Subscriber('state', JointState, self.cb_ptu_state)
 		self.ptu_pub = rospy.Publisher('cmd', JointState)
 		self.as_goto = actionlib.SimpleActionServer('SetPTUState', \
-		     ptu_control.msg.PtuGotoAction, execute_cb=self.cb_goto)
+		     flir_pantilt_d46.msg.PtuGotoAction, execute_cb=self.cb_goto)
 		self.as_reset  = actionlib.SimpleActionServer('ResetPtu', \
-			 ptu_control.msg.PtuResetAction, execute_cb=self.cb_reset)
+			 flir_pantilt_d46.msg.PtuResetAction, execute_cb=self.cb_reset)
 	
 	def cb_goto(self, msg):
 		pan, tilt, pan_vel, tilt_vel = np.radians((msg.pan, msg.tilt, msg.pan_vel, msg.tilt_vel))
@@ -41,13 +41,13 @@ class PTUControl(object):
 
 		self._goto(pan, tilt, pan_vel, tilt_vel)
 
-		result = ptu_control.msg.PtuGotoResult()
+		result = flir_pantilt_d46.msg.PtuGotoResult()
 		result.state.position = self._get_state()
 		self.as_goto.set_succeeded(result)
 		
 	def cb_reset(self, msg):
 		self._goto(0,0, self.psmax, self.tsmax)
-		result = ptu_control.msg.PtuResetResult()
+		result = flir_pantilt_d46.msg.PtuResetResult()
 		self.as_reset.set_succeeded(result)
 
 	def _goto(self, pan, tilt, pan_vel, tilt_vel):
