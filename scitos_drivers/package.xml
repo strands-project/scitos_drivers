@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <package>
-  <name>scitos_mira</name>
+  <name>scitos_drivers</name>
   <version>0.0.1</version>
   <description>
-	Driver for Scitos-G5 using the MIRA framework.
+	Driver for Scitos-G5 using the MIRA framework. Includes drivers for other typical Scitos Hardware, eg laser scanner.
   </description>
 
   <maintainer email="cburbridge@gmail.com">Chris Burbridge</maintainer>
 
   <license>GPL</license>
 
-  <url type="website">http://github.com/strands-project/scitos_mira</url>
+  <url type="website">http://github.com/strands-project/scitos_drivers</url>
 
   <author email="cburbridge@gmail.com">Chris Burbridge</author>
 
