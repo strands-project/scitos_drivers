@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <package>
-  <name>scitos_driver</name>
+  <name>scitos_mira</name>
   <version>0.0.0</version>
   <description>Driver for Scitos-G5 using the MIRA framework.</description>
 
   <maintainer email="cburbridge@gmail.com">cburbridge</maintainer>
 
-  <license>TODO</license>
+  <license>GPL</license>
 
   <buildtool_depend>catkin</buildtool_depend>
 
