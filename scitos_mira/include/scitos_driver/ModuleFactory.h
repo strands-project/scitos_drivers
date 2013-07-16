@@ -11,8 +11,8 @@
 #include <string>
 #include <ros/ros.h>
 
-#include <scitos_driver/ScitosModule.h>
-#include <scitos_driver/ScitosG5.h>
+#include <scitos_mira/ScitosModule.h>
+#include <scitos_mira/ScitosG5.h>
 
 class ModuleFactory {
 private:

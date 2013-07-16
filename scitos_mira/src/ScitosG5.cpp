@@ -1,6 +1,6 @@
-#include <scitos_driver/ScitosG5.h>
+#include <scitos_mira/ScitosG5.h>
 
-#include <scitos_driver/ModuleFactory.h>
+#include <scitos_mira/ModuleFactory.h>
 
 #include <boost/function.hpp>
 #include <boost/bind.hpp>

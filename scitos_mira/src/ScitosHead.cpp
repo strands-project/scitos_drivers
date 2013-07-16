@@ -1,5 +1,5 @@
-#include "scitos_driver/ScitosHead.h"
-#include <scitos_driver/ScitosG5.h>
+#include "scitos_mira/ScitosHead.h"
+#include <scitos_mira/ScitosG5.h>
 
 ScitosHead::ScitosHead() : ScitosModule(std::string ("Head")) {
 

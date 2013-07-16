@@ -1,5 +1,5 @@
 
-#include <scitos_driver/ScitosDrive.h>
+#include <scitos_mira/ScitosDrive.h>
 
 #include <transform/RigidTransform.h>
 #include <geometry_msgs/Quaternion.h>
@@ -10,7 +10,7 @@
 #include <geometry_msgs/TransformStamped.h>
 #include <std_msgs/Bool.h>
 #include <std_msgs/Float32.h>
-#include <scitos_driver/ScitosG5.h>
+#include <scitos_mira/ScitosG5.h>
 
 ScitosDrive::ScitosDrive() : ScitosModule(std::string ("Drive")) { 
 }

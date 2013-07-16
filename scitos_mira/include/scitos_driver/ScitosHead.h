@@ -7,7 +7,7 @@
 #ifndef SCITOHEAD_H_
 #define SCITOHEAD_H_
 
-#include <scitos_driver/ScitosModule.h>
+#include <scitos_mira/ScitosModule.h>
 #include <sensor_msgs/JointState.h>
 
 class ScitosHead: public ScitosModule {

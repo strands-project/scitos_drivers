@@ -13,7 +13,7 @@
 
 #include <geometry_msgs/Twist.h>
 #include <robot/Odometry.h> //# MIRA odometry
-#include <scitos_driver/ScitosModule.h>
+#include <scitos_mira/ScitosModule.h>
 #include <scitos_msgs/ResetMotorStop.h>
 #include <scitos_msgs/ResetOdometry.h>
 #include <scitos_msgs/EmergencyStop.h>

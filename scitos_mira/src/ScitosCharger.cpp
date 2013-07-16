@@ -1,10 +1,10 @@
 
-#include "scitos_driver/ScitosCharger.h"
+#include "scitos_mira/ScitosCharger.h"
 
 #include <scitos_msgs/BatteryState.h>
 #include <scitos_msgs/ChargerStatus.h>
 
-#include <scitos_driver/ScitosG5.h>
+#include <scitos_mira/ScitosG5.h>
 
 
 ScitosCharger::ScitosCharger() : ScitosModule(std::string ("Charger")), reconfigure_srv_(name_)  {
@@ -57,7 +57,7 @@ void ScitosCharger::charger_status_callback(mira::ChannelRead<uint8> data, int i
 	charger_pub_.publish(s);
 }
 
-void ScitosCharger::reconfigure_callback( scitos_driver::ChargerParametersConfig& config, uint32_t level) {
+void ScitosCharger::reconfigure_callback( scitos_mira::ChargerParametersConfig& config, uint32_t level) {
 	ROS_DEBUG("Reconfigure request on ScitosCharger module.");
 	//Set the MIRA parameters to what was selected...
 

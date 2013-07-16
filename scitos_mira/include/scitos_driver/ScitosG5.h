@@ -12,7 +12,7 @@
 #include <ros/ros.h>
 #include <tf/transform_broadcaster.h>
 #include <fw/Framework.h>
-#include <scitos_driver/ScitosModule.h>
+#include <scitos_mira/ScitosModule.h>
 #include <vector>
 
 class ScitosG5{

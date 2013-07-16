@@ -8,13 +8,13 @@
 #ifndef SCITOSCHARGER_H_
 #define SCITOSCHARGER_H_
 
-#include <scitos_driver/ScitosModule.h>
+#include <scitos_mira/ScitosModule.h>
 
 //
 //#include <fw/Framework.h>
 #include <robot/BatteryState.h>
 #include <dynamic_reconfigure/server.h>
-#include <scitos_driver/ChargerParametersConfig.h>
+#include <scitos_mira/ChargerParametersConfig.h>
 
 class ScitosCharger: public ScitosModule {
 public:
@@ -26,13 +26,13 @@ public:
 
 	void battery_data_callback(mira::ChannelRead<mira::robot::BatteryState> data,	int i);
 	void charger_status_callback(mira::ChannelRead<uint8> data,	int i);
-	void reconfigure_callback(scitos_driver::ChargerParametersConfig &config, uint32_t level);
+	void reconfigure_callback(scitos_mira::ChargerParametersConfig &config, uint32_t level);
 private:
 
 	ScitosCharger();
 	ros::Publisher battery_pub_;
 	ros::Publisher charger_pub_;
-	dynamic_reconfigure::Server<scitos_driver::ChargerParametersConfig> reconfigure_srv_;
+	dynamic_reconfigure::Server<scitos_mira::ChargerParametersConfig> reconfigure_srv_;
 };
 
 #endif /* SCITOSCHARGER_H_ */

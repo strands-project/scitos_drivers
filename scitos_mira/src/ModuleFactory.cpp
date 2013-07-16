@@ -1,10 +1,10 @@
-#include "scitos_driver/ModuleFactory.h"
+#include "scitos_mira/ModuleFactory.h"
 
-#include "scitos_driver/ScitosCharger.h"
-#include "scitos_driver/ScitosDisplay.h"
-#include "scitos_driver/ScitosDrive.h"
-#include "scitos_driver/ScitosEBC.h"
-#include "scitos_driver/ScitosHead.h"
+#include "scitos_mira/ScitosCharger.h"
+#include "scitos_mira/ScitosDisplay.h"
+#include "scitos_mira/ScitosDrive.h"
+#include "scitos_mira/ScitosEBC.h"
+#include "scitos_mira/ScitosHead.h"
 
 ModuleFactory::ModuleFactory() {
 	Register("Charger", &ScitosCharger::Create);

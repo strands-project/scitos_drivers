@@ -1,6 +1,6 @@
 #include <ros/ros.h>
 
-#include <scitos_driver/ScitosG5.h>
+#include <scitos_mira/ScitosG5.h>
 
 #include <boost/thread.hpp>
 #include <string>

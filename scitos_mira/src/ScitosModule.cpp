@@ -1,6 +1,6 @@
-#include <scitos_driver/ScitosModule.h>
+#include <scitos_mira/ScitosModule.h>
 #include <string>
-#include <scitos_driver/ScitosG5.h>
+#include <scitos_mira/ScitosG5.h>
 ScitosModule::ScitosModule(std::string name) : name_(name), module_handle_(name_) {
   ROS_INFO("Initialising %s module..",name_.c_str());
 }

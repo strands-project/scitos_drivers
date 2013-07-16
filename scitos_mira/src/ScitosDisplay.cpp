@@ -1,5 +1,5 @@
-#include "scitos_driver/ScitosDisplay.h"
-#include "scitos_driver/ScitosG5.h"
+#include "scitos_mira/ScitosDisplay.h"
+#include "scitos_mira/ScitosG5.h"
 #include <std_msgs/Int8.h>
 
 
@@ -16,7 +16,7 @@ void ScitosDisplay::initialize() {
 }
 
 
-void ScitosDisplay::reconfigure_callback( scitos_driver::DisplayParametersConfig& config, uint32_t level) {
+void ScitosDisplay::reconfigure_callback( scitos_mira::DisplayParametersConfig& config, uint32_t level) {
 	ROS_INFO("Reconfigure request on ScitosDisplay module.");
 	//Set the MIRA parameters to what was selected...
 	if (config.EnableUserMenu) {
