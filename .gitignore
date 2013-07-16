@@ -14,8 +14,8 @@
 
 # ROS
 src/cfg/cpp/
-scitos_driver/cfg/cpp/
+scitos_mira/cfg/cpp/
 src/PackageList.txt
-scitos_driver/src/scitos_driver
-scitos_driver/docs/
+scitos_mira/src/scitos_mira
+scitos_mira/docs/
 *\#*
