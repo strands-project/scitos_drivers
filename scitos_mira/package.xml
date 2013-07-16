@@ -1,23 +1,32 @@
 <?xml version="1.0"?>
 <package>
   <name>scitos_mira</name>
-  <version>0.0.1</version>
-  <description>
-	Driver for Scitos-G5 using the MIRA framework.
-  </description>
+  <version>0.0.0</version>
+  <description>Driver for Scitos-G5 using the MIRA framework.</description>
 
-  <maintainer email="cburbridge@gmail.com">Chris Burbridge</maintainer>
+  <maintainer email="cburbridge@gmail.com">cburbridge</maintainer>
 
   <license>GPL</license>
 
-  <url type="website">http://github.com/strands-project/scitos_mira</url>
-
-  <author email="cburbridge@gmail.com">Chris Burbridge</author>
-
   <buildtool_depend>catkin</buildtool_depend>
-  <run_depend>scitos_driver</run_depend>
 
-  <export>
-    <metapackage/>
-  </export>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>scitos_msgs</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>nav_msgs</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>scitos_msgs</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+
+
 </package>

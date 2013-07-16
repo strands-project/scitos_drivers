@@ -1,0 +1,5 @@
+<launch>
+        <node pkg="scitos_mira" type="scitos_node" name="scitos_node" output="screen">
+		<param name="config_file" value="$(find scitos_mira)/resources/SCITOSDriver.xml" type="string"/>
+	</node>
+</launch>
