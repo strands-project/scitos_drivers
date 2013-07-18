@@ -5,16 +5,26 @@
 #include <boost/function.hpp>
 #include <boost/bind.hpp>
 
-ScitosG5::ScitosG5() : authority_("/", "sctios_ros", mira::Authority::ANONYMOUS),
+ScitosG5::ScitosG5(std::vector<std::string> modules) : authority_("/", "scitos_ros", mira::Authority::ANONYMOUS),
 					    node_() {
     ROS_INFO("Creating SCITOS G5 instance.");
-	// TODO: Read XML file or similar to figure what modules are present on robot
-	//       Maybe lookup on MIRA framework.
-    modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("Drive"), this) );
+    // TODO: Read XML file or similar to figure what modules are present on robot
+    //       Maybe lookup on MIRA framework.
+    ModuleFactory *factory = ModuleFactory::Get();
+    for (std::vector<std::string>::iterator i = modules.begin(); i!=modules.end(); i++) {
+      //ROS_INFO_STREAM("Loading module " << *i);
+      if (!factory->CheckForModule(*i)) {
+	ROS_ERROR_STREAM("A non existent module was trying to be created. Name=" << *i<<"\n will try to continue without!");
+      } else {
+	modules_.push_back( factory->CreateModule(*i, this) );
+      }
+    }
+    /*    modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("Drive"), this) );
     modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("Charger"), this) );
     modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("EBC"), this) );
     modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("Display"), this) );
     modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("Head"), this) );
+    */
     initialize();
 }
 
