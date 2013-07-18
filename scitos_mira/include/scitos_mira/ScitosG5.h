@@ -14,10 +14,11 @@
 #include <fw/Framework.h>
 #include <scitos_mira/ScitosModule.h>
 #include <vector>
+#include <string>
 
 class ScitosG5{
 public:
-  ScitosG5();
+  ScitosG5(std::vector<std::string> modules);
   ~ScitosG5();
 
   mira::Authority& getMiraAuthority();
