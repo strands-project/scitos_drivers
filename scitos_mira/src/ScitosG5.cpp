@@ -8,8 +8,7 @@
 ScitosG5::ScitosG5(std::vector<std::string> modules) : authority_("/", "scitos_ros", mira::Authority::ANONYMOUS),
 					    node_() {
     ROS_INFO("Creating SCITOS G5 instance.");
-    // TODO: Read XML file or similar to figure what modules are present on robot
-    //       Maybe lookup on MIRA framework.
+
     ModuleFactory *factory = ModuleFactory::Get();
     for (std::vector<std::string>::iterator i = modules.begin(); i!=modules.end(); i++) {
       //ROS_INFO_STREAM("Loading module " << *i);
