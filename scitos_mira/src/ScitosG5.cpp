@@ -18,12 +18,7 @@ ScitosG5::ScitosG5(std::vector<std::string> modules) : authority_("/", "scitos_r
 	modules_.push_back( factory->CreateModule(*i, this) );
       }
     }
-    /*    modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("Drive"), this) );
-    modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("Charger"), this) );
-    modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("EBC"), this) );
-    modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("Display"), this) );
-    modules_.push_back( ModuleFactory::Get()->CreateModule(std::string("Head"), this) );
-    */
+
     initialize();
 }
 
@@ -36,7 +31,7 @@ void ScitosG5::initialize() {
 
 void ScitosG5::spin() {
   //  ros::spin();
-  ros::Rate r(30);
+  ros::Rate r(5);
   while (ros::ok()) {
   	ros::spinOnce();
 	for (std::vector< boost::function<void ()> >::iterator i = spin_functions_.begin(); i!=spin_functions_.end(); i++){
