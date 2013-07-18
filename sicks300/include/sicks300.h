@@ -64,8 +64,6 @@ public:
   //! Sending laserscan
   void update();
 
-  //! Broadcasting transform, if endabled
-  void broadcast_transform();
 
 protected:
 
@@ -75,14 +73,9 @@ protected:
   sensor_msgs::LaserScan scan_data_;
   ros::Publisher scan_data_publisher_;
 
-  tf::TransformBroadcaster tf_broadcaster_;
-  tf::Vector3 transform_vector_;
-
-  //! Sets the field of view to 180 degree
-  bool reduced_FOV_;
-
-  //! Send Transform or not
-  bool send_transform_;
+  int field_of_view_;
+  int start_scan_;
+  int end_scan_;
 
   std::string device_name_;
   int baud_rate_;
