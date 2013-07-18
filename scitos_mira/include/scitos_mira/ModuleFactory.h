@@ -30,6 +30,7 @@ public:
 
     void Register(const std::string &name, ModuleCreator create);
     ScitosModule *CreateModule(std::string name,  ScitosG5 *robot);
+    bool CheckForModule(const std::string &name);
 };
 
 #endif /* MODULEFACTORY_H_ */

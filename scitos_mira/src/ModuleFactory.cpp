@@ -19,12 +19,20 @@ void ModuleFactory::Register(const std::string &name, ModuleCreator func) {
 }
 
 ScitosModule *ModuleFactory::CreateModule(std::string name, ScitosG5 *robot) {
-	std::map<std::string, ModuleCreator>::iterator it = modules_.find(name);
-	if (it != modules_.end()) {
-		ScitosModule *mod = it->second();
-		mod->setRobot(robot);
-		return mod;
-	}
-	ROS_ERROR("Trying to create unknown Scitos module.");
-	return NULL;
+  std::map<std::string, ModuleCreator>::iterator it = modules_.find(name);
+  if (it != modules_.end()) {
+    ScitosModule *mod = it->second();
+    mod->setRobot(robot);
+    return mod;
+  }
+  ROS_ERROR("Trying to create unknown Scitos module.");
+  return NULL;
+}
+
+bool ModuleFactory::CheckForModule(const std::string &name) {
+  std::map<std::string, ModuleCreator>::iterator it = modules_.find(name);
+  if (it != modules_.end()) {
+    return true;
+  }
+  return false;
 }
