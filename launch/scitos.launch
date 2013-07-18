@@ -6,7 +6,7 @@
         <include file="$(find sicks300)/launch/s300.launch"/>
 
 	<!-- FLIR PTU-D46 -->
-        <include file="$(find flir_pantilt_d46)/launch/ptu46.launch" respawn="true"/>
+        <include file="$(find flir_pantilt_d46)/launch/ptu46.launch"/>
 
 	<!-- Asus Xtion -->
         <include file="$(find openni_launch)/launch/openni.launch">
