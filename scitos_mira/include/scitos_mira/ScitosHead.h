@@ -9,6 +9,7 @@
 
 #include <scitos_mira/ScitosModule.h>
 #include <sensor_msgs/JointState.h>
+#include <scitos_msgs/HeadLightState.h>
 
 class ScitosHead: public ScitosModule {
 public:
@@ -18,10 +19,12 @@ public:
 
 	void initialize();
 	void joint_state_command_callback(const sensor_msgs::JointState::ConstPtr& msg);
+	void headlight_state_command_callback(const scitos_msgs::HeadLightState::ConstPtr& msg);
 	void publish_joint_state_actual();
 private:
 	ScitosHead();
 	ros::Subscriber joint_state_command_subscriber_;
+	ros::Subscriber headlight_state_command_subscriber_;
 	ros::Publisher  joint_state_actual_pub_;
 };
 
