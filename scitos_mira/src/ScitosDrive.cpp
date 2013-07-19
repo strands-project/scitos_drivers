@@ -22,11 +22,11 @@ void ScitosDrive::initialize() {
 	mileage_pub_ = robot_->getRosNode().advertise<std_msgs::Float32>("/mileage", 20);
 
 	robot_->getMiraAuthority().subscribe<mira::robot::Odometry2>("/robot/Odometry", //&ScitosBase::odometry_cb);
-			boost::bind(&ScitosDrive::odometry_data_callback, this, _1, 1));
+			&ScitosDrive::odometry_data_callback, this);
 	robot_->getMiraAuthority().subscribe<bool>("/robot/Bumper",
-			boost::bind(&ScitosDrive::bumper_data_callback, this, _1, 1));
+			&ScitosDrive::bumper_data_callback, this);
 	robot_->getMiraAuthority().subscribe<float>("/robot/Mileage",
-			boost::bind(&ScitosDrive::mileage_data_callback, this, _1, 1));
+			&ScitosDrive::mileage_data_callback, this);
 	
 	cmd_vel_subscriber_ = robot_->getRosNode().subscribe("/cmd_vel", 1000, &ScitosDrive::velocity_command_callback,
 				this);
@@ -44,20 +44,19 @@ void ScitosDrive::velocity_command_callback(const geometry_msgs::Twist::ConstPtr
 	r.wait();
 }
 
-void ScitosDrive::bumper_data_callback(mira::ChannelRead<bool> data, int i) {
+void ScitosDrive::bumper_data_callback(mira::ChannelRead<bool> data) {
   std_msgs::Bool out;
   out.data=data->value();					   
   bumper_pub_.publish(out);
 }
 
-void ScitosDrive::mileage_data_callback(mira::ChannelRead<float> data, int i) {
+void ScitosDrive::mileage_data_callback(mira::ChannelRead<float> data) {
   std_msgs::Float32 out;
   out.data = data->value();					   
   mileage_pub_.publish(out);
 }
 
-void ScitosDrive::odometry_data_callback(mira::ChannelRead<mira::robot::Odometry2> data,
-		int i) {
+void ScitosDrive::odometry_data_callback(mira::ChannelRead<mira::robot::Odometry2> data ) {
 	/// new odometry data through mira; put it out in ros
 	ros::Time odom_time = ros::Time::now(); // must be something better?
 	geometry_msgs::Quaternion orientation = tf::createQuaternionMsgFromYaw(

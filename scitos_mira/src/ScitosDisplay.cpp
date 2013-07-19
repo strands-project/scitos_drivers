@@ -11,7 +11,7 @@ void ScitosDisplay::initialize() {
 	
 	display_data_pub_ = robot_->getRosNode().advertise<std_msgs::Int8>("/user_menu_selected", 1);
 	robot_->getMiraAuthority().subscribe<uint8>("/robot/StatusDisplayUserMenuEvent", 
-			boost::bind(&ScitosDisplay::menu_data_callback, this, _1, 1));
+			&ScitosDisplay::menu_data_callback, this);
 
 }
 
@@ -30,7 +30,7 @@ void ScitosDisplay::reconfigure_callback( scitos_mira::DisplayParametersConfig& 
 	}
 }
 
-void ScitosDisplay::menu_data_callback(mira::ChannelRead<uint8> data, int i) {
+void ScitosDisplay::menu_data_callback(mira::ChannelRead<uint8> data) {
   std_msgs::Int8 item;
   item.data=data->value();
   display_data_pub_.publish(item);
