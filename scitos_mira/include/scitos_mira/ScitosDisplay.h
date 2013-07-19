@@ -21,7 +21,7 @@ public:
 	void initialize();
 	
 	void reconfigure_callback(scitos_mira::DisplayParametersConfig &config, uint32_t level);
-	void menu_data_callback(mira::ChannelRead<uint8> data,	int i);
+	void menu_data_callback(mira::ChannelRead<uint8> data);
 
 private:
 	ScitosDisplay();

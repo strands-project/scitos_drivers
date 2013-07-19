@@ -29,10 +29,10 @@ public:
 
 	void velocity_command_callback(const geometry_msgs::Twist::ConstPtr& msg);
 
-	void odometry_data_callback(mira::ChannelRead<mira::robot::Odometry2> data,	int i);
+	void odometry_data_callback(mira::ChannelRead<mira::robot::Odometry2> data);
 
-	void bumper_data_callback(mira::ChannelRead<bool> data, int i);
-	void mileage_data_callback(mira::ChannelRead<float> data, int i);
+	void bumper_data_callback(mira::ChannelRead<bool> data);
+	void mileage_data_callback(mira::ChannelRead<float> data);
 
 	bool reset_motor_stop(scitos_msgs::ResetMotorStop::Request  &req, scitos_msgs::ResetMotorStop::Response &res);
 	bool reset_odometry(scitos_msgs::ResetOdometry::Request  &req, scitos_msgs::ResetOdometry::Response &res);
