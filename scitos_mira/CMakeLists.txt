@@ -99,7 +99,7 @@ add_executable(scitos_node  src/scitos_node.cpp
 							src/ScitosEBC.cpp
 							src/ScitosHead.cpp)
 # make sure configure headers are build before node using them
-add_dependencies(scitos_node ${PROJECT_NAME}_gencfg) 
+add_dependencies(scitos_node ${PROJECT_NAME}_gencfg scitos_msgs_gencpp) 
 
 target_link_libraries(scitos_node ${catkin_LIBRARIES})
 
