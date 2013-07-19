@@ -13,16 +13,16 @@ ScitosCharger::ScitosCharger() : ScitosModule(std::string ("Charger")), reconfig
 void ScitosCharger::initialize() {
 	battery_pub_ = robot_->getRosNode().advertise<scitos_msgs::BatteryState>("/battery_state", 20);
 	robot_->getMiraAuthority().subscribe<mira::robot::BatteryState>("/robot/charger/Battery",
-							boost::bind(&ScitosCharger::battery_data_callback, this, _1, 1));
+							&ScitosCharger::battery_data_callback, this);
 
 	charger_pub_ = robot_->getRosNode().advertise<scitos_msgs::ChargerStatus>("/charger_status", 20);
 	robot_->getMiraAuthority().subscribe<uint8>("/robot/charger/ChargerStatus",
-							boost::bind(&ScitosCharger::charger_status_callback, this, _1, 1));
+							&ScitosCharger::charger_status_callback, this);
 
 	reconfigure_srv_.setCallback(boost::bind(&ScitosCharger::reconfigure_callback, this, _1, _2));
 }
 
-void ScitosCharger::battery_data_callback(mira::ChannelRead<mira::robot::BatteryState> data, int i) {
+void ScitosCharger::battery_data_callback(mira::ChannelRead<mira::robot::BatteryState> data) {
 	ros::Time time_now = ros::Time::now(); // must be something better? data->timestamp.toUnixNS();?
 	scitos_msgs::BatteryState b;
 
@@ -40,7 +40,7 @@ void ScitosCharger::battery_data_callback(mira::ChannelRead<mira::robot::Battery
 }
 
 
-void ScitosCharger::charger_status_callback(mira::ChannelRead<uint8> data, int i) {
+void ScitosCharger::charger_status_callback(mira::ChannelRead<uint8> data) {
 	ros::Time time_now = ros::Time::now(); 
 
 	scitos_msgs::ChargerStatus s;

@@ -24,8 +24,8 @@ public:
 
 	void initialize();
 
-	void battery_data_callback(mira::ChannelRead<mira::robot::BatteryState> data,	int i);
-	void charger_status_callback(mira::ChannelRead<uint8> data,	int i);
+	void battery_data_callback(mira::ChannelRead<mira::robot::BatteryState> data);
+	void charger_status_callback(mira::ChannelRead<uint8> data);
 	void reconfigure_callback(scitos_mira::ChargerParametersConfig &config, uint32_t level);
 private:
 
