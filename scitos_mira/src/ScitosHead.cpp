@@ -8,8 +8,48 @@ ScitosHead::ScitosHead() : ScitosModule(std::string ("Head")) {
 void ScitosHead::initialize() {
   joint_state_command_subscriber_ = robot_->getRosNode().subscribe("/head/commanded_state", 10, &ScitosHead::joint_state_command_callback,
 				this);
+  headlight_state_command_subscriber_ = robot_->getRosNode().subscribe("/head/cmd_light_state", 10, &ScitosHead::headlight_state_command_callback,
+				this);
+
   joint_state_actual_pub_ = robot_->getRosNode().advertise<sensor_msgs::JointState>("/head/actual_state", 20);
   robot_->registerSpinFunction(boost::bind(&ScitosHead::publish_joint_state_actual, this));
+}
+
+void ScitosHead::headlight_state_command_callback(const scitos_msgs::HeadLightState::ConstPtr& msg) {
+  //todo: Contact ML to get some documentation on how the head lights work.
+  set_mira_param_("Head.HeadLightInterval", std::to_string(msg->HeadLightInterval) );
+
+  set_mira_param_("Head.LEDState0", std::to_string(msg->LEDState0) );
+  set_mira_param_("Head.LEDPhase0", std::to_string(msg->LEDPhase0) );
+  set_mira_param_("Head.LEDAmplitude0", std::to_string(msg->LEDAmplitude0) );
+
+  set_mira_param_("Head.LEDState1", std::to_string(msg->LEDState1) );
+  set_mira_param_("Head.LEDPhase1", std::to_string(msg->LEDPhase1) );
+  set_mira_param_("Head.LEDAmplitude1", std::to_string(msg->LEDAmplitude1) );
+
+  set_mira_param_("Head.LEDState2", std::to_string(msg->LEDState2) );
+  set_mira_param_("Head.LEDPhase2", std::to_string(msg->LEDPhase2) );
+  set_mira_param_("Head.LEDAmplitude2", std::to_string(msg->LEDAmplitude2) );
+
+  set_mira_param_("Head.LEDState3", std::to_string(msg->LEDState3) );
+  set_mira_param_("Head.LEDPhase3", std::to_string(msg->LEDPhase3) );
+  set_mira_param_("Head.LEDAmplitude3", std::to_string(msg->LEDAmplitude3) );
+
+  set_mira_param_("Head.LEDState4", std::to_string(msg->LEDState4) );
+  set_mira_param_("Head.LEDPhase4", std::to_string(msg->LEDPhase4) );
+  set_mira_param_("Head.LEDAmplitude4", std::to_string(msg->LEDAmplitude4) );
+
+  set_mira_param_("Head.LEDState5", std::to_string(msg->LEDState5) );
+  set_mira_param_("Head.LEDPhase5", std::to_string(msg->LEDPhase5) );
+  set_mira_param_("Head.LEDAmplitude5", std::to_string(msg->LEDAmplitude5) );
+
+  set_mira_param_("Head.LEDState6", std::to_string(msg->LEDState6) );
+  set_mira_param_("Head.LEDPhase6", std::to_string(msg->LEDPhase6) );
+  set_mira_param_("Head.LEDAmplitude6", std::to_string(msg->LEDAmplitude6) );
+
+  set_mira_param_("Head.LEDState7", std::to_string(msg->LEDState7) );
+  set_mira_param_("Head.LEDPhase7", std::to_string(msg->LEDPhase7) );
+  set_mira_param_("Head.LEDAmplitude7", std::to_string(msg->LEDAmplitude7) );
 }
 
 void ScitosHead::joint_state_command_callback(const sensor_msgs::JointState::ConstPtr& msg) {

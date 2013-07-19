@@ -1,0 +1,33 @@
+HeadLightInterval: 100
+
+LEDState0: 0
+LEDPhase0: 1
+LEDAmplitude0: 1.0
+
+LEDState1: 0
+LEDPhase1: 1
+LEDAmplitude1: 1.0
+
+LEDState2: 0
+LEDPhase2: 1
+LEDAmplitude2: 1.0
+
+LEDState3: 0
+LEDPhase3: 1
+LEDAmplitude3: 1.0
+
+LEDState4: 0
+LEDPhase4: 1
+LEDAmplitude4: 1.0
+
+LEDState5: 0
+LEDPhase5: 1
+LEDAmplitude5: 1.0
+
+LEDState6: 0
+LEDPhase6: 1
+LEDAmplitude6: 1.0
+
+LEDState7: 0
+LEDPhase7: 1
+LEDAmplitude7: 1.0
