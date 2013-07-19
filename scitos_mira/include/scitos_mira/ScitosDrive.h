@@ -18,6 +18,7 @@
 #include <scitos_msgs/ResetOdometry.h>
 #include <scitos_msgs/EmergencyStop.h>
 #include <scitos_msgs/EnableMotors.h>
+#include <scitos_msgs/MotorStatus.h>
 
 class ScitosDrive: public ScitosModule {
 public:
@@ -33,6 +34,7 @@ public:
 
 	void bumper_data_callback(mira::ChannelRead<bool> data);
 	void mileage_data_callback(mira::ChannelRead<float> data);
+	void motor_status_callback(mira::ChannelRead<uint8> data);
 
 	bool reset_motor_stop(scitos_msgs::ResetMotorStop::Request  &req, scitos_msgs::ResetMotorStop::Response &res);
 	bool reset_odometry(scitos_msgs::ResetOdometry::Request  &req, scitos_msgs::ResetOdometry::Response &res);
@@ -45,6 +47,7 @@ private:
 	ros::Publisher odometry_pub_;
 	ros::Publisher bumper_pub_;
 	ros::Publisher mileage_pub_;
+	ros::Publisher motorstatus_pub_;
 	ros::ServiceServer reset_motor_stop_service_;
 	ros::ServiceServer reset_odometry_service_;
 	ros::ServiceServer emergency_stop_service_;
