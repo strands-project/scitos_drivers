@@ -65,6 +65,11 @@ void ScitosHead::joint_state_command_callback(const sensor_msgs::JointState::Con
 																			 "moveEyeLidUpDown",
 																			 (unsigned char)1,
 																			 (float)msg->position[i]);
+ 	} else if (msg->name[i].compare(std::string("EyeLids"))==0 ) {
+	  mira::RPCFuture<void> r = robot_->getMiraAuthority().callService<void>("/robot/Robot",
+																			 "moveEyeLidUpDown",
+																			 (unsigned char)2,
+																			 (float)msg->position[i]);
  	} else if (msg->name[i].compare(std::string("HeadPan"))==0 ) {
 	  	  mira::RPCFuture<void> r = robot_->getMiraAuthority().callService<void>("/robot/Robot",
 																			 "moveHeadLeftRight",
