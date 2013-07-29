@@ -1,0 +1,10 @@
+pub_rate: 1.0 # Optional
+base_path: '' # Optional, prepended to all diagnostic output
+analyzers:
+  computer:
+      type: GenericAnalyzer
+      path: Computers
+      contains: ['wlan0 Bandwidth',
+        'CPU Usage',
+        'CPU Temperature',
+        'wlan0 Connection' ]
