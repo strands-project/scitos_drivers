@@ -68,9 +68,10 @@ void ScitosDrive::motor_status_callback(mira::ChannelRead<uint8> data) {
   s.motor_stopped = (*data) & (1 << 1);
   s.free_run = (*data) & (1 << 2);
   s.emergency_button_pressed = (*data) & (1 << 3);
-  s.bus_error = (*data) & (1 << 4);
-  s.stall_mode_flag = (*data) & (1 << 5);
-  s.internal_error_flag = (*data) & (1 << 6);
+  s.bumper_pressed = (*data) & (1 << 4);
+  s.bus_error = (*data) & (1 << 5);
+  s.stall_mode_flag = (*data) & (1 << 6);
+  s.internal_error_flag = (*data) & (1 << 7);
   
   motorstatus_pub_.publish(s);
 }
