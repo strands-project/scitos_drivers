@@ -106,7 +106,7 @@ target_link_libraries(scitos_node ${catkin_LIBRARIES})
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(scitos_node scitos_generate_messages_cpp)
+add_dependencies(scitos_node scitos_msgs_gencpp)
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(scitos_node
