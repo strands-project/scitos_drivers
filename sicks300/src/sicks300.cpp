@@ -61,7 +61,7 @@ SickS300::SickS300()
   end_scan_ = 270 + field_of_view_/2;
 
   scan_data_.angle_min = -(field_of_view_/4.0) / 180.f * M_PI;
-  scan_data_.angle_max = -(field_of_view_/4.0) / 180.f * M_PI;
+  scan_data_.angle_max = (field_of_view_/4.0) / 180.f * M_PI;
   scan_data_.angle_increment = 0.5f / 180.f * M_PI;
   scan_data_.time_increment = 0;
   scan_data_.scan_time = 0.08;
