@@ -1,15 +1,20 @@
 <launch>
 	<!-- SCITOS G5 Robot -->
-        <include file="$(find scitos_mira)/launch/scitos_mira.launch"/>
-
+	<include file="$(find scitos_mira)/launch/scitos_mira.launch"/>
+	
 	<!-- SICK S300 -->
-        <include file="$(find sicks300)/launch/s300.launch"/>
+	<include file="$(find sicks300)/launch/s300.launch"/>
 
 	<!-- FLIR PTU-D46 -->
-        <include file="$(find flir_pantilt_d46)/launch/ptu46.launch"/>
+	<include file="$(find flir_pantilt_d46)/launch/ptu46.launch"/>
 
 	<!--- Robot state publisher -->
-        <include file="$(find scitos_description)/launch/scitos_state_publisher.launch"/>
+	<include file="$(find scitos_description)/launch/scitos_state_publisher.launch"/>
 	
+	<!-- PC Monitor -->
+	<node name="pc_monitor" pkg="scitos_pc_monitor" type="pc_monitor.py" />
+
+	<!-- Diagnostics aggregator -->
+	<include file="$(find scitos_bringup)/launch/diagnostic_agg.launch"/>
 
 </launch>
