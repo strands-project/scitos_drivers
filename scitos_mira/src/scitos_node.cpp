@@ -1,4 +1,5 @@
 #include <ros/ros.h>
+#include <ros/console.h>
 
 #include <scitos_mira/ScitosG5.h>
 
@@ -8,9 +9,36 @@
 
 #include <string>
 #include <vector>
+
+#include <error/LoggingCore.h>
+
+class RosLogSink : public mira::LogSink {
+  void consume(const mira::LogRecord &record) {
+	switch (record.level) {
+	case mira::SeverityLevel::CRITICAL:
+	case mira::SeverityLevel::ERROR:
+	  ROS_ERROR_STREAM("(MIRA) " << record.message);
+	  break;
+	case mira::SeverityLevel::WARNING:
+	  ROS_WARN_STREAM("(MIRA) " << record.message);
+	  break;
+	case mira::SeverityLevel::NOTICE:
+	  ROS_INFO_STREAM("(MIRA) " << record.message);
+	  break;
+	case mira::SeverityLevel::DEBUG:
+	  ROS_DEBUG_STREAM("(MIRA) " << record.message);
+	  break;
+	default:
+	  break;
+	}
+  }
+};
+
 int main(int argc, char **argv) {
 	ros::init(argc, argv, "scitos_node");
 
+	MIRA_LOGGER.registerSink(RosLogSink());
+	
 	std::string  config_file, port_number, scitos_modules;
 	std::vector<std::string> args;
 
