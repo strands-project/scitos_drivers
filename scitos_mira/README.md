@@ -25,6 +25,10 @@ The odometric position of the robot (Odometry.pose), and it's linear/angular vel
 State of the robots bumper, published regularly not only when the state changes.
 * `/mileage (std_msgs::Float32)`
 The distance in metres that the robot has travelled since the beginning of time.
+* `/charger_status (scitos_msgs::ChargerStatus)`
+Detailed information about the current status of the charging circuit.
+* `/motor_status (scitos_msgs::MotorStatus)`
+The state of the motors, free-run mode, emergency button status, bumer status.
 
 #### Subscribed topics
 *  `/cmd_vel (geometry_msgs::Twist)`
