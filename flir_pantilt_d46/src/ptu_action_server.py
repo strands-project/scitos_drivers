@@ -56,7 +56,7 @@ class PTUControl(object):
 		rospy.loginfo('going to (%s, %s)' % (pan, tilt))
 		msg_out = JointState()
 		msg_out.header.stamp = rospy.Time.now()
-		msg_out.name = ['head_pan_joint', 'head_tilt_joint']
+		msg_out.name = ['pan', 'tilt']
 		msg_out.position = [pan, tilt]
 		msg_out.velocity = [pan_vel, tilt_vel]
 		self.ptu_pub.publish(msg_out)
