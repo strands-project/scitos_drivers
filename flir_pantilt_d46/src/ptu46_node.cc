@@ -52,6 +52,9 @@ class PTU46_Node {
         ros::NodeHandle m_node;
         ros::Publisher  m_joint_pub;
         ros::Subscriber m_joint_sub;
+        std::string m_pan_joint_name;
+        std::string m_tilt_joint_name;
+  
 };
 
 PTU46_Node::PTU46_Node(ros::NodeHandle& node_handle)
@@ -59,6 +62,15 @@ PTU46_Node::PTU46_Node(ros::NodeHandle& node_handle)
     m_updater = new diagnostic_updater::Updater();
     m_updater->setHardwareID("none"); 
     m_updater->add("PTU Status", this, &PTU46_Node::produce_diagnostics);
+
+	// Get the desired joint names
+	m_node.param<std::string>("pan_joint_name", m_pan_joint_name, std::string("pan"));
+	m_node.param<std::string>("tilt_joint_name", m_tilt_joint_name, std::string("tilt"));
+
+	// Set the values to other nodes can get it even if default used
+	m_node.setParam("pan_joint_name", m_pan_joint_name);
+    m_node.setParam("tilt_joint_name", m_tilt_joint_name);
+
 }
 
 PTU46_Node::~PTU46_Node() {
@@ -126,14 +138,32 @@ void PTU46_Node::Disconnect() {
 void PTU46_Node::SetGoal(const sensor_msgs::JointState::ConstPtr& msg) {
     if (! ok())
         return;
-    double pan = msg->position[0];
-    double tilt = msg->position[1];
-    double panspeed = msg->velocity[0];
-    double tiltspeed = msg->velocity[1];
-    m_pantilt->SetPosition(PTU46_PAN, pan);
-    m_pantilt->SetPosition(PTU46_TILT, tilt);
-    m_pantilt->SetSpeed(PTU46_PAN, panspeed);
-    m_pantilt->SetSpeed(PTU46_TILT, tiltspeed);
+	unsigned int i=0;
+	double pan=0;
+	double tilt=0;
+	double panspeed=0;
+	double tiltspeed=0;
+	
+	for (i=0; i< msg->name.size(); i++) {
+	  if (msg->name[i].compare(m_pan_joint_name)==0 ) {
+		pan = msg->position[i];
+		panspeed = msg->velocity[i];
+
+		m_pantilt->SetPosition(PTU46_PAN, pan);
+		m_pantilt->SetSpeed(PTU46_PAN, panspeed);
+		
+	  } else if (msg->name[i].compare(m_tilt_joint_name)==0 ) {
+		tilt = msg->position[i];
+		tiltspeed = msg->velocity[i];
+
+		m_pantilt->SetPosition(PTU46_TILT, tilt);
+		m_pantilt->SetSpeed(PTU46_TILT, tiltspeed);
+		
+	  }  else {
+		ROS_WARN_STREAM("Trying to control the PTU with a bad joint name. Joint=" << msg->name[i]);
+	  }
+	}
+	
 }
 
 void PTU46_Node::produce_diagnostics(diagnostic_updater::DiagnosticStatusWrapper &stat) {
@@ -163,10 +193,10 @@ void PTU46_Node::spinOnce() {
     joint_state.name.resize(2);
     joint_state.position.resize(2);
     joint_state.velocity.resize(2);
-    joint_state.name[0] ="pan";
+    joint_state.name[0] = m_pan_joint_name;
     joint_state.position[0] = pan;
     joint_state.velocity[0] = panspeed;
-    joint_state.name[1] ="tilt";
+    joint_state.name[1] = m_tilt_joint_name;
     joint_state.position[1] = tilt;
     joint_state.velocity[1] = tiltspeed;
     m_joint_pub.publish(joint_state);
