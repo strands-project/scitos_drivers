@@ -66,6 +66,11 @@ PTU46_Node::PTU46_Node(ros::NodeHandle& node_handle)
 	// Get the desired joint names
 	m_node.param<std::string>("pan_joint_name", m_pan_joint_name, std::string("pan"));
 	m_node.param<std::string>("tilt_joint_name", m_tilt_joint_name, std::string("tilt"));
+
+	// Set the values to other nodes can get it even if default used
+	m_node.setParam("pan_joint_name", m_pan_joint_name);
+    m_node.setParam("tilt_joint_name", m_tilt_joint_name);
+
 }
 
 PTU46_Node::~PTU46_Node() {

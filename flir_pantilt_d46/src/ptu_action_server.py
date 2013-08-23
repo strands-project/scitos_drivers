@@ -23,6 +23,9 @@ class PTUControl(object):
 		self.pstep = rospy.get_param('/ptu/pan_step', 0.00089759763795882463)
 		self.tstep = rospy.get_param('/ptu/tilt_step', 0.00089759763795882463)
 
+		self.pan_joint_name = rospy.get_param('/ptu/pan_joint_name')							
+		self.tilt_joint_name = rospy.get_param('/ptu/tilt_joint_name')							
+
 		# setup the subscribers and publishers
 		rospy.Subscriber('state', JointState, self.cb_ptu_state)
 		self.ptu_pub = rospy.Publisher('cmd', JointState)
@@ -56,7 +59,7 @@ class PTUControl(object):
 		rospy.loginfo('going to (%s, %s)' % (pan, tilt))
 		msg_out = JointState()
 		msg_out.header.stamp = rospy.Time.now()
-		msg_out.name = ['pan', 'tilt']
+		msg_out.name = [self.pan_joint_name, self.tilt_joint_name]
 		msg_out.position = [pan, tilt]
 		msg_out.velocity = [pan_vel, tilt_vel]
 		self.ptu_pub.publish(msg_out)
