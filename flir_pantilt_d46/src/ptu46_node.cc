@@ -52,6 +52,9 @@ class PTU46_Node {
         ros::NodeHandle m_node;
         ros::Publisher  m_joint_pub;
         ros::Subscriber m_joint_sub;
+        std::string m_pan_joint_name;
+        std::string m_tilt_joint_name;
+  
 };
 
 PTU46_Node::PTU46_Node(ros::NodeHandle& node_handle)
@@ -59,6 +62,10 @@ PTU46_Node::PTU46_Node(ros::NodeHandle& node_handle)
     m_updater = new diagnostic_updater::Updater();
     m_updater->setHardwareID("none"); 
     m_updater->add("PTU Status", this, &PTU46_Node::produce_diagnostics);
+
+	// Get the desired joint names
+	m_node.param<std::string>("pan_joint_name", m_pan_joint_name, std::string("pan"));
+	m_node.param<std::string>("tilt_joint_name", m_tilt_joint_name, std::string("tilt"));
 }
 
 PTU46_Node::~PTU46_Node() {
@@ -133,14 +140,14 @@ void PTU46_Node::SetGoal(const sensor_msgs::JointState::ConstPtr& msg) {
 	double tiltspeed=0;
 	
 	for (i=0; i< msg->name.size(); i++) {
-	  if (msg->name[i].compare(std::string("pan"))==0 ) {
+	  if (msg->name[i].compare(m_pan_joint_name)==0 ) {
 		pan = msg->position[i];
 		panspeed = msg->velocity[i];
 
 		m_pantilt->SetPosition(PTU46_PAN, pan);
 		m_pantilt->SetSpeed(PTU46_PAN, panspeed);
 		
-	  } else if (msg->name[i].compare(std::string("tilt"))==0 ) {
+	  } else if (msg->name[i].compare(m_tilt_joint_name)==0 ) {
 		tilt = msg->position[i];
 		tiltspeed = msg->velocity[i];
 
@@ -181,10 +188,10 @@ void PTU46_Node::spinOnce() {
     joint_state.name.resize(2);
     joint_state.position.resize(2);
     joint_state.velocity.resize(2);
-    joint_state.name[0] ="pan";
+    joint_state.name[0] = m_pan_joint_name;
     joint_state.position[0] = pan;
     joint_state.velocity[0] = panspeed;
-    joint_state.name[1] ="tilt";
+    joint_state.name[1] = m_tilt_joint_name;
     joint_state.position[1] = tilt;
     joint_state.velocity[1] = tiltspeed;
     m_joint_pub.publish(joint_state);
