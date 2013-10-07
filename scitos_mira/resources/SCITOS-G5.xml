@@ -7,7 +7,7 @@
 
 		<Modules>
 			<MainControlUnit>
-				<OdometryInterval>100</OdometryInterval>
+				<OdometryInterval>20</OdometryInterval>
 				<Force>80</Force>
 				<RFIDReaderEnabled>true</RFIDReaderEnabled>
 				<FrontLaser>
@@ -46,7 +46,7 @@
 				</if>
 			</MainControlUnit>
 			<Drive>
-				<OdometryInterval>100</OdometryInterval>
+				<OdometryInterval>20</OdometryInterval>
 				<StopOnEmergency>true</StopOnEmergency>
 				<UseTransRotPID>false</UseTransRotPID>
 
