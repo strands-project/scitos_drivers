@@ -9,7 +9,14 @@
 	<include file="$(find flir_pantilt_d46)/launch/ptu46.launch"/>
 
 	<!-- Asus Xtion -->
+	<!--
 	<include file="$(find openni_launch)/launch/openni.launch">
+	  <arg name="camera" value="head_xtion" />
+	  <arg name="publish_tf" value="false" />
+	</include>
+	-->
+
+	<include file="$(find openni_wrapper)/launch/main.launch">
 	  <arg name="camera" value="head_xtion" />
 	  <arg name="publish_tf" value="false" />
 	</include>
