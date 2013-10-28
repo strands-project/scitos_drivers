@@ -103,14 +103,14 @@ void ScitosHead::publish_joint_state_actual() {
   js.name.push_back(std::string("EyesPan"));
   js.name.push_back(std::string("EyesTilt"));
   try {
-    for (std::vector<std::string>::iterator it = js.name.begin(); it != js.name.end(); it++) {
-	    value = get_mira_param_(std::string("Head.")+*it);
-	    js.position.push_back(::atof(value.c_str()) );
-    }
-    if (joint_state_actual_pub_)
-	    joint_state_actual_pub_.publish(js);
+	for (std::vector<std::string>::iterator it = js.name.begin(); it != js.name.end(); it++) {
+	  value = get_mira_param_(std::string("Head.")+*it);
+	  js.position.push_back(::atof(value.c_str()) );
+	}
+	if (joint_state_actual_pub_)
+	  joint_state_actual_pub_.publish(js);
   } catch (mira::XRPC& e) {
-    ROS_WARN("Missing head angle publication as MIRA parameter error.");
+	ROS_WARN("Missing head angle publication as MIRA parameter error.");
   }
   
 }
