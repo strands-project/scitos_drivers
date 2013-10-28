@@ -1,5 +1,6 @@
 #include "scitos_mira/ScitosHead.h"
 #include <scitos_mira/ScitosG5.h>
+#include <rpc/RPCError.h>
 
 ScitosHead::ScitosHead() : ScitosModule(std::string ("Head")) {
 
@@ -101,13 +102,16 @@ void ScitosHead::publish_joint_state_actual() {
   js.name.push_back(std::string("HeadTilt"));
   js.name.push_back(std::string("EyesPan"));
   js.name.push_back(std::string("EyesTilt"));
-
-  for (std::vector<std::string>::iterator it = js.name.begin(); it != js.name.end(); it++) {
-	value = get_mira_param_(std::string("Head.")+*it);
-	js.position.push_back(::atof(value.c_str()) );
+  try {
+    for (std::vector<std::string>::iterator it = js.name.begin(); it != js.name.end(); it++) {
+	    value = get_mira_param_(std::string("Head.")+*it);
+	    js.position.push_back(::atof(value.c_str()) );
+    }
+    if (joint_state_actual_pub_)
+	    joint_state_actual_pub_.publish(js);
+  } catch (mira::XRPC& e) {
+    ROS_WARN("Missing head angle publication as MIRA parameter error.");
   }
-  if (joint_state_actual_pub_)
-	joint_state_actual_pub_.publish(js);
   
 }
 
