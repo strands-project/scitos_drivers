@@ -20,6 +20,8 @@
 	  <arg name="camera" value="head_xtion" />
 	  <arg name="publish_tf" value="false" />
 	  <arg name="camera2" value="chest_xtion" />
+	  <arg name="with_camera" value="true" />
+	  <arg name="with_camera2" value="true" />
 	  <arg name="inverted" value="no" />
 	</include>
 
