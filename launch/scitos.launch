@@ -1,4 +1,7 @@
 <launch>
+	<arg name="with_chest_camera" value="true" />
+	<arg name="inverted" value="no" />
+	
 	<!-- SCITOS G5 Robot -->
 	<include file="$(find scitos_mira)/launch/scitos_mira.launch"/>
 
@@ -20,9 +23,8 @@
 	  <arg name="camera" value="head_xtion" />
 	  <arg name="publish_tf" value="false" />
 	  <arg name="camera2" value="chest_xtion" />
-	  <arg name="with_camera" value="true" />
-	  <arg name="with_camera2" value="true" />
-	  <arg name="inverted" value="no" />
+	  <arg name="with_chest_camera" value="$(arg with_chest_camera)" />
+	  <arg name="inverted" value="$(arg inverted)" />
 	</include>
 
 	<!--- Robot state publisher -->
