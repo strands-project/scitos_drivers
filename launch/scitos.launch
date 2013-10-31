@@ -19,6 +19,8 @@
 	<include file="$(find openni_wrapper)/launch/main.launch">
 	  <arg name="camera" value="head_xtion" />
 	  <arg name="publish_tf" value="false" />
+	  <arg name="camera2" value="chest_xtion" />
+	  <arg name="inverted" value="no" />
 	</include>
 
 	<!--- Robot state publisher -->
