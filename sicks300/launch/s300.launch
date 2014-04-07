@@ -1,6 +1,6 @@
 <launch>
-        <node pkg="sicks300" type="sick300_driver" name="sick300" output="screen">
-		<param name="devicename" value="/dev/ttyUSB0" type="string"/>
+    <node pkg="sicks300" type="sick300_driver" name="sick300" output="screen">
+		<param name="devicename" value="/dev/laser" type="string"/>
 		<param name="field_of_view" value="225" type="double"/>
 	</node>
 </launch>

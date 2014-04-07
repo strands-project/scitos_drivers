@@ -5,12 +5,12 @@
 	<!-- Type of the CAN bus [PCAN, MLCAN] -->
 	<var canType="MLCAN" />
 	<!-- CAN bus device (default=[PCAN: /dev/pcan32, MLCAN:/dev/ttyUSB2]) -->
-	<var canDevice="/dev/ttyUSB2" />
+	<var canDevice="/dev/can" />
 
 	<!-- Type of mounted front laser [SickS300, LeuzeRS4, Hokuyo-URG-04LX, LZRU901] -->
 	<var frontLaser="none" />
 	<!-- Device of the front laser (default=/dev/ttyUSB0) -->
-	<var frontLaserDevice="/dev/ttyUSB0" />
+	<var frontLaserDevice="/dev/laser" />
 
 	<!-- Type of mounted back laser [none, SickS300, LeuzeRS4, Hokuyo-URG-04LX, LZRU901] -->
 	<var rearLaser="none" />
