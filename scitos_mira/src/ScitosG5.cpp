@@ -4,6 +4,7 @@
 
 #include <boost/function.hpp>
 #include <boost/bind.hpp>
+#include <ros/spinner.h>
 
 ScitosG5::ScitosG5(std::vector<std::string> modules) : authority_("/", "scitos_ros", mira::Authority::ANONYMOUS),
 					    node_() {
@@ -13,9 +14,9 @@ ScitosG5::ScitosG5(std::vector<std::string> modules) : authority_("/", "scitos_r
     for (std::vector<std::string>::iterator i = modules.begin(); i!=modules.end(); i++) {
       //ROS_INFO_STREAM("Loading module " << *i);
       if (!factory->CheckForModule(*i)) {
-	ROS_ERROR_STREAM("A non existent module was trying to be created. Name=" << *i<<"\n will try to continue without!");
+		ROS_ERROR_STREAM("A non existent module was trying to be created. Name=" << *i<<"\n will try to continue without!");
       } else {
-	modules_.push_back( factory->CreateModule(*i, this) );
+		modules_.push_back( factory->CreateModule(*i, this) );
       }
     }
 
@@ -30,10 +31,10 @@ void ScitosG5::initialize() {
 }
 
 void ScitosG5::spin() {
-  //  ros::spin();
+  ros::AsyncSpinner spinner(1);
+  spinner.start();
   ros::Rate r(5);
   while (ros::ok()) {
-  	ros::spinOnce();
 	for (std::vector< boost::function<void ()> >::iterator i = spin_functions_.begin(); i!=spin_functions_.end(); i++){
 	  (*i)();
 	}
