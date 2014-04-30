@@ -124,6 +124,12 @@ class PTU46 {
         */
         bool SetPosition  (char type, float pos, bool Block = false);
 
+        void SetCheckLimits(bool val);
+
+        bool GetCheckLimits() {
+            return check_limits;
+        }
+
         /**
          * Sets the desired speed in radians/second
          * \param type 'p' or 't'
@@ -177,6 +183,7 @@ class PTU46 {
     protected:
         float tr;	///< tilt resolution (rads/count)
         float pr; 	///< pan resolution (rads/count)
+        bool check_limits;
 
         int fd;		///< serial port descriptor
         struct termios oldtio; ///< old terminal settings
