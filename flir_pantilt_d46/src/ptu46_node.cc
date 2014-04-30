@@ -54,6 +54,7 @@ class PTU46_Node {
         ros::Subscriber m_joint_sub;
         std::string m_pan_joint_name;
         std::string m_tilt_joint_name;
+        bool m_check_limits;
   
 };
 
@@ -66,11 +67,12 @@ PTU46_Node::PTU46_Node(ros::NodeHandle& node_handle)
 	// Get the desired joint names
 	m_node.param<std::string>("pan_joint_name", m_pan_joint_name, std::string("pan"));
 	m_node.param<std::string>("tilt_joint_name", m_tilt_joint_name, std::string("tilt"));
+    m_node.param<bool>("check_limits", m_check_limits, true);
 
 	// Set the values to other nodes can get it even if default used
 	m_node.setParam("pan_joint_name", m_pan_joint_name);
     m_node.setParam("tilt_joint_name", m_tilt_joint_name);
-
+    m_node.setParam("check_limits", m_check_limits);
 }
 
 PTU46_Node::~PTU46_Node() {
@@ -115,6 +117,8 @@ void PTU46_Node::Connect() {
     m_node.setParam("max_pan_speed", m_pantilt->GetMaxSpeed(PTU46_PAN));
     m_node.setParam("pan_step", m_pantilt->GetResolution(PTU46_PAN));
 
+    // set check limits
+    m_pantilt->SetCheckLimits(m_check_limits);
 
     // Publishers : Only publish the most recent reading
     m_joint_pub = m_node.advertise
