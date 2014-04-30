@@ -118,6 +118,7 @@ void PTU46_Node::Connect() {
     m_node.setParam("pan_step", m_pantilt->GetResolution(PTU46_PAN));
 
     // set check limits
+    ROS_INFO("check limits:  %d...", m_check_limits);
     m_pantilt->SetCheckLimits(m_check_limits);
 
     // Publishers : Only publish the most recent reading
