@@ -319,14 +319,6 @@ float PTU46::GetPosition (char type) {
     return strtod (&buffer[2],NULL) * GetResolution(type);
 }
 
-void PTU46::SetCheckLimits(bool val) {
-    check_limits = val;
-    if (check_limits) {
-        Write("le ");
-    } else {
-        Write("ld ");
-    }
-}
 
 // set position in radians
 bool PTU46::SetPosition (char type, float pos, bool Block) {
@@ -337,11 +329,9 @@ bool PTU46::SetPosition (char type, float pos, bool Block) {
     int Count = static_cast<int> (pos/GetResolution(type));
 
     // Check limits
-    if (check_limits) {
-        if (Count < (type == PTU46_TILT ? TMin : PMin) || Count > (type == PTU46_TILT ? TMax : PMax)) {
-            fprintf (stderr,"Pan Tilt Value out of Range: %c %f(%d) (%d-%d)\n", type, pos, Count, (type == PTU46_TILT ? TMin : PMin),(type == PTU46_TILT ? TMax : PMax));
-            return false;
-        }   
+    if (Count < (type == PTU46_TILT ? TMin : PMin) || Count > (type == PTU46_TILT ? TMax : PMax)) {
+        fprintf (stderr,"Pan Tilt Value out of Range: %c %f(%d) (%d-%d)\n", type, pos, Count, (type == PTU46_TILT ? TMin : PMin),(type == PTU46_TILT ? TMax : PMax));
+        return false;
     }
 
     char cmd[16];
