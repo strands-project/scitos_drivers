@@ -31,15 +31,16 @@ void ScitosG5::initialize() {
 }
 
 void ScitosG5::spin() {
-  ros::AsyncSpinner spinner(1);
-  spinner.start();
-  ros::Rate r(5);
-  while (ros::ok()) {
-	for (std::vector< boost::function<void ()> >::iterator i = spin_functions_.begin(); i!=spin_functions_.end(); i++){
-	  (*i)();
-	}
-	r.sleep();
-  }
+  // ros::AsyncSpinner spinner(1);
+  // spinner.start();
+  // ros::Rate r(5);
+  // while (ros::ok()) {
+  // 	for (std::vector< boost::function<void ()> >::iterator i = spin_functions_.begin(); i!=spin_functions_.end(); i++){
+  // 	  (*i)();
+  // 	}
+  // 	r.sleep();
+  //}
+  ros::spin();
 }
 
 ScitosG5::~ScitosG5() {

@@ -37,7 +37,7 @@ class RosLogSink : public mira::LogSink {
 int main(int argc, char **argv) {
 	ros::init(argc, argv, "scitos_node");
 
-	MIRA_LOGGER.registerSink(RosLogSink());
+	//	MIRA_LOGGER.registerSink(RosLogSink());
 	
 	std::string  config_file, port_number, scitos_modules;
 	std::vector<std::string> args;

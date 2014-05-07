@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <launch>
   <!-- scitos_modules argument; must be a space seperated list of hardware modules to load -->
-  <arg name="SCITOS_MODULES" default="Drive Charger EBC Display Head"/>
+  <arg name="SCITOS_MODULES" default="Drive"/>
 
   <node pkg="scitos_mira" type="scitos_node" name="scitos_node" output="screen">
     <param name="config_file" value="$(find scitos_mira)/resources/SCITOSDriver.xml" type="string"/>

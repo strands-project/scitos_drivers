@@ -7,11 +7,11 @@
 #include "scitos_mira/ScitosHead.h"
 
 ModuleFactory::ModuleFactory() {
-	Register("Charger", &ScitosCharger::Create);
-	Register("Display", &ScitosDisplay::Create);
-	Register("Drive", &ScitosDrive::Create);
-	Register("EBC", &ScitosEBC::Create);
-	Register("Head", &ScitosHead::Create);
+  //	Register("Charger", &ScitosCharger::Create);
+  //	/Register("Display", &ScitosDisplay::Create);
+  	Register("Drive", &ScitosDrive::Create);
+  //	Register("EBC", &ScitosEBC::Create);
+  //	Register("Head", &ScitosHead::Create);
 }
 
 void ModuleFactory::Register(const std::string &name, ModuleCreator func) {
