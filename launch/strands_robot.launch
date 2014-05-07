@@ -1,0 +1,56 @@
+<launch>
+	<arg name="machine" default="localhost" />
+	<arg name="user" default="" />
+	<arg name="head_camera" default="false" />
+	<arg name="chest_camera" default="false" />
+	<arg name="head_ip" default="localhost" />
+	<arg name="chest_ip" default="localhost" />
+
+	<machine name="$(arg machine)" address="$(arg machine)" env-loader="/opt/strands/strands_catkin_ws/devel/env.sh" user="$(arg user)" default="true"/>
+
+	<!-- SCITOS G5 Robot -->
+	<include file="$(find scitos_mira)/launch/scitos_mira.launch">
+	    <arg name="machine"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg machine)"/>
+	</include>
+
+	<!-- SICK S300 -->
+	<include file="$(find sicks300)/launch/s300.launch">
+	    <arg name="machine"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg machine)"/>
+	</include>
+
+	<!-- FLIR PTU-D46 -->
+	<include file="$(find flir_pantilt_d46)/launch/ptu46.launch">
+	    <arg name="machine"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg machine)"/>
+	</include>
+
+	<!--- Robot state publisher -->
+	<include file="$(find scitos_description)/launch/scitos_state_publisher.launch">
+	    <arg name="machine"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg machine)"/>
+	</include>
+
+	<!-- PC Monitor -->
+	<node name="pc_monitor" pkg="scitos_pc_monitor" type="pc_monitor.py" />
+
+	<!-- Diagnostics aggregator -->
+	<include file="$(find scitos_bringup)/launch/diagnostic_agg.launch" >
+	    <arg name="machine"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg machine)"/>
+	</include>
+
+	<!-- Head Xtion Camera -->
+	<include if="$(arg head_camera)" file="$(find openni_wrapper)/launch/main.launch">
+	    <arg name="camera" value="head_xtion" />
+    	<arg name="machine" value="$(arg head_ip)"/>
+	</include>
+
+	<!-- Chest Xtion Camera -->
+	<include if="$(arg chest_camera)" file="$(find openni_wrapper)/launch/main.launch">
+	    <arg name="camera" value="chest_xtion" />
+    	<arg name="machine" value="$(arg chest_ip)"/>
+	</include> 
+
+</launch>
