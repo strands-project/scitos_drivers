@@ -1,0 +1,18 @@
+<root>
+  <include file="SCITOSRobotAttributes-with-udev.xml" />
+
+	<!-- The default laser ignore interval file names. -->
+<!--	<var frontLaserIgnoreIntervals="${findpkg SCITOS}/etc/${robot}-IgnoreIntervals-${frontLaser}.xml"/> -->
+
+	<using name="robot/can/IncomingCAN"/>
+	<using name="robot/can/OutgoingCAN"/>
+
+	<namespace name="robot">
+		<namespace name="can">
+			<include file="${findpkg CANDriver}/etc/CANDriver.xml"/>
+		</namespace>
+		<using name="can/IncomingCAN"/>
+		<using name="can/OutgoingCAN"/>
+		<include file="SCITOS-G5.xml"/>
+	</namespace>
+</root>
