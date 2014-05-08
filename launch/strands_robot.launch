@@ -5,31 +5,27 @@
 	<arg name="chest_camera" default="false" />
 	<arg name="head_ip" default="localhost" />
 	<arg name="chest_ip" default="localhost" />
+	<arg name="with_mux" default="false" />
+	<arg name="js" default="$(optenv JOYSTICK_DEVICE /dev/js1)" />
 
 	<machine name="$(arg machine)" address="$(arg machine)" env-loader="/opt/strands/strands_catkin_ws/devel/env.sh" user="$(arg user)" default="true"/>
 
 	<!-- SCITOS G5 Robot -->
 	<include file="$(find scitos_mira)/launch/scitos_mira.launch">
 	    <arg name="machine"  value="$(arg machine)"/>
-	    <arg name="user"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg user)"/>
 	</include>
 
 	<!-- SICK S300 -->
 	<include file="$(find sicks300)/launch/s300.launch">
 	    <arg name="machine"  value="$(arg machine)"/>
-	    <arg name="user"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg user)"/>
 	</include>
 
 	<!-- FLIR PTU-D46 -->
 	<include file="$(find flir_pantilt_d46)/launch/ptu46.launch">
 	    <arg name="machine"  value="$(arg machine)"/>
-	    <arg name="user"  value="$(arg machine)"/>
-	</include>
-
-	<!--- Robot state publisher -->
-	<include file="$(find scitos_description)/launch/scitos_state_publisher.launch">
-	    <arg name="machine"  value="$(arg machine)"/>
-	    <arg name="user"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg user)"/>
 	</include>
 
 	<!-- PC Monitor -->
@@ -38,7 +34,7 @@
 	<!-- Diagnostics aggregator -->
 	<include file="$(find scitos_bringup)/launch/diagnostic_agg.launch" >
 	    <arg name="machine"  value="$(arg machine)"/>
-	    <arg name="user"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg user)"/>
 	</include>
 
 	<!-- Head Xtion Camera -->
@@ -52,5 +48,34 @@
 	    <arg name="camera" value="chest_xtion" />
     	<arg name="machine" value="$(arg chest_ip)"/>
 	</include> 
+
+	<!--- Robot state publisher -->
+	<include file="$(find scitos_description)/launch/scitos_state_publisher.launch">
+	    <arg name="machine"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg user)"/>
+	</include>
+
+	<!--- cmd vel mux -->
+    <include if="$(arg with_mux)" file="$(find scitos_cmd_vel_mux)/launch/mux.launch">
+	    <arg name="machine"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg user)"/>
+	</include>
+
+	<!--- Teleop Joystick -->
+     <include unless="$(arg with_mux)" file="$(find scitos_teleop)/launch/teleop_joystick.launch">
+        <arg name="js" value="$(arg js)" />
+	    <arg name="machine"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg user)"/>
+    </include>
+    <include if="$(arg with_mux)" file="$(find scitos_teleop)/launch/teleop_joystick_mux.launch">
+	    <arg name="machine"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg user)"/>
+	</include>
+
+	<!--- Docking -->
+    <include unless="$(arg with_mux)" file="$(find scitos_docking)/launch/charging.launch">
+	    <arg name="machine"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg user)"/>
+	</include>
 
 </launch>

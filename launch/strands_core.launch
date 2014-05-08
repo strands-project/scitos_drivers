@@ -7,7 +7,7 @@
 	<!-- Datacentre -->
 	<include file="$(find ros_datacentre)/launch/datacentre.launch" >
 	    <arg name="machine"  value="$(arg machine)"/>
-	    <arg name="user"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg user)"/>
 	</include>
 
 </launch>
