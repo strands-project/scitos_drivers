@@ -326,6 +326,13 @@ void PTU46::SetCheckLimits(bool val) {
     } else {
         Write("ld ");
     }
+    int len = read (fd, buffer, PTU46_BUFFER_LEN );
+
+    if (len <= 0 || buffer[0] != '*') {
+        fprintf(stderr,"Error setting limit checks\n");
+        return;
+    }
+
 }
 
 // set position in radians
