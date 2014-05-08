@@ -186,6 +186,7 @@ void PTU46_Node::spinOnce() {
 
     double panspeed  = m_pantilt->GetSpeed(PTU46_PAN);
     double tiltspeed = m_pantilt->GetSpeed(PTU46_TILT);
+    printf("pan: %lf, speed: %lf\n", pan, panspeed);
 
     // Publish Position & Speed
     sensor_msgs::JointState joint_state;
