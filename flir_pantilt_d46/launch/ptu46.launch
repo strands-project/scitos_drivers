@@ -1,6 +1,7 @@
 <launch>
 	<node name="ptu" pkg="flir_pantilt_d46" type="ptu_d46" output="screen">
 		<param name="port" value="/dev/ttyS0"/>
+		<param name="check_limits" value="False"/>
 	</node>
 	<node name="ptu_action_server" pkg="flir_pantilt_d46" type="ptu_action_server.py" output="screen">
 		<remap from="cmd" to="/ptu/cmd"/>
