@@ -80,14 +80,4 @@
 	    <arg name="user"  value="$(arg user)"/>
 	</include>
 
-	<!--- Docking -->
-    <include unless="$(arg with_mux)" file="$(find scitos_docking)/launch/charging.launch">
-	    <arg name="machine"  value="$(arg machine)"/>
-	    <arg name="user"  value="$(arg user)"/>
-	</include>
-    <include if="$(arg with_mux)" file="$(find scitos_docking)/launch/charging_mux.launch">
-	    <arg name="machine"  value="$(arg machine)"/>
-	    <arg name="user"  value="$(arg user)"/>
-	</include>
-
 </launch>

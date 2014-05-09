@@ -1,0 +1,65 @@
+<launch>
+	<arg name="machine" default="localhost" />
+	<arg name="user" default="" />
+    <arg name="with_camera" default="false"/>
+    <arg name="camera" default="chest_xtion"/>
+    <arg name="map"/>
+    <arg name="with_no_go_map" default="false"/>
+    <arg name="no_go_map"/>
+	<arg name="with_mux" default="false" />
+	<arg name="topological_map"/>
+
+	<machine name="$(arg machine)" address="$(arg machine)" env-loader="/opt/strands/strands_catkin_ws/devel/env.sh" user="$(arg user)" default="true"/>
+
+
+    <!-- launch 2d Navigation -->
+    <include file="$(find scitos_2d_navigation)/launch/scitos_2d_nav.launch">
+	    <arg name="machine"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg user)"/>
+		<arg name="with_camera" value="$(arg with_camera)"/>
+        <arg name="camera" value="$(arg camera)"/>
+		<arg name="map" value="$(arg map)"/>
+		<arg name="with_no_go_map" value="$(arg with_no_go_map)"/>
+		<arg name="no_go_map" value="$(arg no_go_map)"/>
+    </include>
+
+
+	<!--- Docking -->
+    <include unless="$(arg with_mux)" file="$(find scitos_docking)/launch/charging.launch">
+	    <arg name="machine"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg user)"/>
+	</include>
+    <include if="$(arg with_mux)" file="$(find scitos_docking)/launch/charging_mux.launch">
+	    <arg name="machine"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg user)"/>
+	</include>
+
+
+	<!--- Door Passing -->
+    <include file="$(find scitos_door_pass)/launch/doorpassing_mux.launch">
+	    <arg name="machine"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg user)"/>
+	</include>
+
+
+	<!--- Ramp Climbing -->
+    <include file="$(find scitos_ramp_climb)/launch/rampclimbing_mux.launch">
+	    <arg name="machine"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg user)"/>
+	</include>
+
+
+	<!--- Monitored Navigation -->
+	<include file="$(find monitored_navigation)/launch/monitored_nav.launch">
+	    <arg name="machine"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg user)"/>
+	</include>
+
+
+	<!--- Topological Navigation -->
+	<include file="$(find topological_navigation)/launch/topological_navigation.launch">
+	    <arg name="machine"  value="$(arg machine)"/>
+	    <arg name="user"  value="$(arg user)"/>
+		<arg name="map" value="$(arg topological_map)"/>
+	</include>
+</launch>
