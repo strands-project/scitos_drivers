@@ -7,6 +7,8 @@
 	<arg name="chest_ip" default="localhost" />
 	<arg name="with_mux" default="false" />
 	<arg name="js" default="$(optenv JOYSTICK_DEVICE /dev/js1)" />
+	<arg name="laser" default="/dev/ttyUSB0" />
+	<arg name="scitos_config" default="$(find scitos_mira)/resources/SCITOSDriver.xml"/>
 
 	<machine name="$(arg machine)" address="$(arg machine)" env-loader="/opt/strands/strands_catkin_ws/devel/env.sh" user="$(arg user)" default="true"/>
 
@@ -14,12 +16,14 @@
 	<include file="$(find scitos_mira)/launch/scitos_mira.launch">
 	    <arg name="machine"  value="$(arg machine)"/>
 	    <arg name="user"  value="$(arg user)"/>
+		<arg name="SCITOS_CONFIG" value="$(arg scitos_config)"/>
 	</include>
 
 	<!-- SICK S300 -->
 	<include file="$(find sicks300)/launch/s300.launch">
 	    <arg name="machine"  value="$(arg machine)"/>
 	    <arg name="user"  value="$(arg user)"/>
+	    <arg name="laser"  value="$(arg laser)"/>
 	</include>
 
 	<!-- FLIR PTU-D46 -->
