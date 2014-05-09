@@ -3,6 +3,10 @@
   <!-- scitos_modules argument; must be a space seperated list of hardware modules to load -->
   <arg name="SCITOS_MODULES" default="Drive Charger EBC Display Head"/>
   <arg name="SCITOS_CONFIG" default="$(find scitos_mira)/resources/SCITOSDriver.xml"/>
+  <arg name="machine" default="localhost" />
+  <arg name="user" default="" />
+
+  <machine name="$(arg machine)" address="$(arg machine)" env-loader="/opt/strands/strands_catkin_ws/devel/env.sh" user="$(arg user)" default="true"/>
 
   <node pkg="scitos_mira" type="scitos_node" name="scitos_node" output="screen">
     <param name="config_file" value="$(arg SCITOS_CONFIG)" type="string"/>
