@@ -22,6 +22,7 @@
         <arg name="camera_ip" value="$(arg camera_ip)"/>
 		<arg name="map" value="$(arg map)"/>
 		<arg name="with_no_go_map" value="$(arg with_no_go_map)"/>
+		<arg name="with_mux" value="$(arg with_mux)"/>
 		<arg name="no_go_map" value="$(arg no_go_map)"/>
     </include>
 
