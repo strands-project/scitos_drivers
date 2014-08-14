@@ -4,10 +4,19 @@
 
 	<machine name="$(arg machine)" address="$(arg machine)" env-loader="/opt/strands/strands_catkin_ws/devel/env.sh" user="$(arg user)" default="true"/>
 
+
 	<!-- Datacentre -->
-	<include file="$(find ros_datacentre)/launch/datacentre.launch" >
+
+	<arg name="db_path" default="/opt/strands/mongodb_store"/>
+	<arg name="port" default="62345" />
+	<arg name="defaults_path" default=""/>
+
+	<include file="$(find mongodb_store)/launch/mongodb_store.launch" >
 	    <arg name="machine"  value="$(arg machine)"/>
 	    <arg name="user"  value="$(arg user)"/>
+	    <arg name="db_path" default="$(arg db_path)"/>
+	    <arg name="port" default="$(arg port)" />
+	    <arg name="defaults_path" default="$(arg defaults_path)"/>
 	</include>
 
 </launch>
