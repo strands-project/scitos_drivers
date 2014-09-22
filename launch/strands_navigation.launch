@@ -46,7 +46,7 @@
 
 
 	<!--- Ramp Climbing -->
-    <include file="$(find scitos_ramp_climb)/launch/rampclimbing_mux.launch">
+    <include file="$(find ramp_climb)/launch/rampclimbing_mux.launch">
 	    <arg name="machine"  value="$(arg machine)"/>
 	    <arg name="user"  value="$(arg user)"/>
 	</include>
