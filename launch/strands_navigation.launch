@@ -39,7 +39,7 @@
 
 
 	<!--- Door Passing -->
-    <include file="$(find scitos_door_pass)/launch/doorpassing_mux.launch">
+    <include file="$(find door_pass)/launch/doorpassing_mux.launch">
 	    <arg name="machine"  value="$(arg machine)"/>
 	    <arg name="user"  value="$(arg user)"/>
 	</include>
