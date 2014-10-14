@@ -54,7 +54,7 @@ generate_dynamic_reconfigure_options(
   cfg/DisplayParameters.cfg
 )
 
-# add dynamic_reconfigure header directory
+#add dynamic_reconfigure header directory
 include_directories(cfg/cpp)
 
 ###################################
@@ -147,12 +147,6 @@ install(DIRECTORY include/${PROJECT_NAME}/
 install(DIRECTORY launch/
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
   FILES_MATCHING PATTERN "*.launch"
-)
-
-## Mark cfg files for installation
-install(DIRECTORY cfg/
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/cfg
-  FILES_MATCHING PATTERN "*.cfg"
 )
 
 ## Mark resources files for installation
