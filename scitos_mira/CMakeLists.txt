@@ -9,7 +9,7 @@ find_package(catkin REQUIRED COMPONENTS geometry_msgs roscpp std_msgs sensor_msg
 
 # include cmake file for MIRA
 include(CMakeLists.mira)
-MIRA_REQUIRE_PACKAGE(SCITOS 0.19.0)
+MIRA_REQUIRE_PACKAGE(SCITOS 0.22.7)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -54,7 +54,7 @@ generate_dynamic_reconfigure_options(
   cfg/DisplayParameters.cfg
 )
 
-# add dynamic_reconfigure header directory
+#add dynamic_reconfigure header directory
 include_directories(cfg/cpp)
 
 ###################################
@@ -130,18 +130,31 @@ add_dependencies(scitos_node scitos_msgs_gencpp)
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS scitos scitos_node
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+install(TARGETS scitos_node
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 ## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+  FILES_MATCHING PATTERN "*.h"
+  PATTERN ".svn" EXCLUDE
+)
+
+## Mark launch files for installation
+install(DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+  FILES_MATCHING PATTERN "*.launch"
+)
+
+## Mark resources files for installation
+install(DIRECTORY resources/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/resources
+  FILES_MATCHING PATTERN "*"
+)
+
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 # install(FILES
