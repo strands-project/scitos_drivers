@@ -9,7 +9,7 @@ find_package(catkin REQUIRED COMPONENTS geometry_msgs roscpp std_msgs sensor_msg
 
 # include cmake file for MIRA
 include(CMakeLists.mira)
-MIRA_REQUIRE_PACKAGE(SCITOS 0.19.0)
+MIRA_REQUIRE_PACKAGE(SCITOS 0.22.7)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
