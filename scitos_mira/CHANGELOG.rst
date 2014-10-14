@@ -2,8 +2,8 @@
 Changelog for package scitos_mira
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.2 (2014-10-14)
+------------------
 * added mira-scitos as dependency
 * added default MIRA_PATH to use with debian package
 * new SCITOS version

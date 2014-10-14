@@ -2,8 +2,8 @@
 Changelog for package flir_pantilt_d46
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.2 (2014-10-14)
+------------------
 * Added preemption to ptu_action_server
 * Adding machine tags to mira, sick and ptu launch files
 * removed stupid log
