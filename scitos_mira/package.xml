@@ -19,7 +19,6 @@
   <build_depend>scitos_msgs</build_depend>
   <build_depend>mira-scitos</build_depend>
   <build_depend>dynamic_reconfigure</build_depend>
-  <build_depend>mira-scitos</build_depend>
 
   <run_depend>geometry_msgs</run_depend>
   <run_depend>roscpp</run_depend>
