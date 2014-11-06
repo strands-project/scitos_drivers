@@ -2,8 +2,8 @@
 Changelog for package scitos_mira
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.3 (2014-11-06)
+------------------
 * added rpath
 * Contributors: Marc Hanheide
 
