@@ -2,6 +2,9 @@
 Changelog for package flir_pantilt_d46
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.0.3 (2014-11-06)
 ------------------
 * attempt to fix `#67 <https://github.com/strands-project/scitos_drivers/issues/67>`_ by adding install target
