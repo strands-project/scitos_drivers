@@ -1,11 +1,10 @@
 <launch>
 	<!-- Remote Launching -->
-	<arg name="remote" default="false"/>
 	<arg name="machine" default="localhost"/>
 	<arg name="user" default="" />
 
 	<!-- now has an IF checking for the arg "remote" -->
-	<machine name="$(arg machine)" address="$(arg machine)" env-loader="$(env ROS_ENV_LOADER)" user="$(arg user)" default="true" if="$(arg remote)" />
+	<machine name="$(arg machine)" address="$(arg machine)" env-loader="$(env ROS_ENV_LOADER)" user="$(arg user)" default="true" />
 
 	<node name="ptu" pkg="flir_pantilt_d46" type="ptu_d46" output="screen">
 		<param name="port" value="/dev/ttyS0"/>

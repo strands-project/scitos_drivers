@@ -5,12 +5,10 @@
 	<arg name="SCITOS_CONFIG" default="$(find scitos_mira)/resources/SCITOSDriver.xml"/>
 
 	<!-- Remote Launching -->
-    <arg name="remote" default="false"/>
     <arg name="machine" default="localhost"/>
     <arg name="user" default="" />
 
-    <!-- now has an IF checking for the arg "remote" -->
-    <machine name="$(arg machine)" address="$(arg machine)" env-loader="$(env ROS_ENV_LOADER)" user="$(arg user)" default="true" if="$(arg remote)" />
+    <machine name="$(arg machine)" address="$(arg machine)" env-loader="$(env ROS_ENV_LOADER)" user="$(arg user)" default="true" />
 
 	<node pkg="scitos_mira" type="scitos_node" name="scitos_node" output="screen">
 		<param name="config_file" value="$(arg SCITOS_CONFIG)" type="string"/>
