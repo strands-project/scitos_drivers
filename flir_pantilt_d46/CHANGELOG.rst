@@ -2,6 +2,14 @@
 Changelog for package flir_pantilt_d46
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.4 (2014-11-06)
+------------------
+
+0.0.3 (2014-11-06)
+------------------
+* attempt to fix `#67 <https://github.com/strands-project/scitos_drivers/issues/67>`_ by adding install target
+* Contributors: Marc Hanheide
+
 0.0.2 (2014-10-14)
 ------------------
 * Added preemption to ptu_action_server
