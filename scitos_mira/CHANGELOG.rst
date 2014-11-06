@@ -2,6 +2,11 @@
 Changelog for package scitos_mira
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* added rpath
+* Contributors: Marc Hanheide
+
 0.0.2 (2014-10-14)
 ------------------
 * added mira-scitos as dependency
