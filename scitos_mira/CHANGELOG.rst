@@ -2,8 +2,8 @@
 Changelog for package scitos_mira
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.4 (2014-11-06)
+------------------
 * enabling all EBC ports per default
   fixes `#70 <https://github.com/strands-project/scitos_drivers/issues/70>`_
 * Contributors: Marc Hanheide
