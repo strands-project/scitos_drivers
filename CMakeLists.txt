@@ -11,3 +11,7 @@ catkin_package(
 #  DEPENDS system_lib
 )
 
+
+install(DIRECTORY launch
+   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)

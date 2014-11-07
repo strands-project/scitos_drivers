@@ -1,0 +1,18 @@
+<launch>
+	<arg name="machine" default="localhost" />
+	<arg name="user" default="" />
+
+	<arg name="laser" default="/dev/ttyUSB0" />
+
+	<!-- now has an IF checking for the arg "remote" -->
+	<machine name="$(arg machine)" address="$(arg machine)" env-loader="$(env ROS_ENV_LOADER)" user="$(arg user)" default="true"/>
+
+
+	<!-- SICK S300 -->
+	<node pkg="sicks300" type="sick300_driver" name="sick300" output="screen">
+		<param name="devicename" value="$(arg laser)" type="string"/>
+		<param name="field_of_view" value="225" type="double"/>
+		<remap from="laserscan" to="scan"/>
+	</node>
+
+</launch>

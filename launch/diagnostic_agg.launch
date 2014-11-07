@@ -2,7 +2,8 @@
 	<arg name="machine" default="localhost" />
 	<arg name="user" default="" />
 
-	<machine name="$(arg machine)" address="$(arg machine)" env-loader="/opt/strands/strands_catkin_ws/devel/env.sh" user="$(arg user)" default="true"/>
+	<!-- now has an IF checking for the arg "remote" -->
+	<machine name="$(arg machine)" address="$(arg machine)" env-loader="$(env ROS_ENV_LOADER)" user="$(arg user)" default="true" />
 
 	<node pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator" >
 		<rosparam command="load" file="$(find scitos_bringup)/launch/diagnostics.yaml" />

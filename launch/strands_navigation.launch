@@ -1,68 +1,80 @@
 <launch>
-    <arg name="machine" default="localhost" />
-    <arg name="user" default="" />
-    <arg name="with_camera" default="false"/>
-    <arg name="camera" default="chest_xtion"/>
-    <arg name="camera_ip" default="localhost"/>
-    <arg name="map"/>
-    <arg name="with_no_go_map" default="false"/>
-    <arg name="no_go_map"/>
-    <arg name="with_mux" default="false" />
-    <arg name="topological_map"/>
+  <arg name="with_camera" default="false"/>
+  <arg name="camera" default="chest_xtion"/>
+  <arg name="camera_ip" default="localhost"/>
+  <arg name="camera_user" default="strands"/>
 
-    <machine name="$(arg machine)" address="$(arg machine)" env-loader="/opt/strands/strands_catkin_ws/devel/env.sh" user="$(arg user)" default="true"/>
+  <arg name="map"/>
+  <arg name="with_no_go_map" default="false"/>
+  <arg name="no_go_map"/>
+  <arg name="with_mux" default="false" />
+  <arg name="topological_map"/>
 
-
-    <!-- launch 2d Navigation -->
-    <include file="$(find scitos_2d_navigation)/launch/scitos_2d_nav.launch">
-        <arg name="machine"  value="$(arg machine)"/>
-        <arg name="user"  value="$(arg user)"/>
-        <arg name="with_camera" value="$(arg with_camera)"/>
-        <arg name="camera" value="$(arg camera)"/>
-        <arg name="camera_ip" value="$(arg camera_ip)"/>
-        <arg name="map" value="$(arg map)"/>
-        <arg name="with_no_go_map" value="$(arg with_no_go_map)"/>
-        <arg name="with_mux" value="$(arg with_mux)"/>
-        <arg name="no_go_map" value="$(arg no_go_map)"/>
-    </include>
+  <arg name="machine" default="localhost" />
+  <arg name="user" default="" />
 
 
-	<!--- Docking -->
-    <include unless="$(arg with_mux)" file="$(find scitos_docking)/launch/charging.launch">
+  <!-- now has an IF checking for the arg "remote" -->
+  <machine name="$(arg machine)" address="$(arg machine)" env-loader="$(env ROS_ENV_LOADER)" user="$(arg user)" default="true" />
+
+
+  <!-- strands_movebase -->
+  <include file="$(find strands_movebase)/launch/movebase.launch">
+    <arg name="machine"  value="$(arg machine)"/>
+    <arg name="user"  value="$(arg user)"/>
+
+    <arg name="with_camera" value="$(arg with_camera)"/>
+    <arg name="camera" value="$(arg camera)"/>
+    <arg name="camera_ip" value="$(arg camera_ip)"/>
+    <arg name="camera_user" value="$(arg camera_user)"/>
+
+    <arg name="map" value="$(arg map)"/>
+    <arg name="with_no_go_map" value="$(arg with_no_go_map)"/>
+    <arg name="with_mux" value="$(arg with_mux)"/>
+    <arg name="no_go_map" value="$(arg no_go_map)"/>
+  </include>
+
+
+  <!--- Docking -->
+  <include unless="$(arg with_mux)" file="$(find scitos_docking)/launch/charging.launch">
+    <arg name="machine"  value="$(arg machine)"/>
+    <arg name="user"  value="$(arg user)"/>
+
+  </include>
+  <include if="$(arg with_mux)" file="$(find scitos_docking)/launch/charging_mux.launch">
+    <arg name="machine"  value="$(arg machine)"/>
+    <arg name="user"  value="$(arg user)"/>
+
+  </include>
+
+
+  <!--- Door Passing -->
+  <include file="$(find door_pass)/launch/doorpassing_mux.launch">
+    <arg name="machine"  value="$(arg machine)"/>
+    <arg name="user"  value="$(arg user)"/>
+  </include>
+
+
+
+  <!--- Ramp Climbing -->
+  <include file="$(find ramp_climb)/launch/rampclimbing_mux.launch">
 	    <arg name="machine"  value="$(arg machine)"/>
 	    <arg name="user"  value="$(arg user)"/>
-    </include>
-    <include if="$(arg with_mux)" file="$(find scitos_docking)/launch/charging_mux.launch">
-	    <arg name="machine"  value="$(arg machine)"/>
-	    <arg name="user"  value="$(arg user)"/>
-    </include>
-
-
-	<!--- Door Passing -->
-    <include file="$(find door_pass)/launch/doorpassing_mux.launch">
-	    <arg name="machine"  value="$(arg machine)"/>
-	    <arg name="user"  value="$(arg user)"/>
-	</include>
-
-
-	<!--- Ramp Climbing -->
-    <include file="$(find ramp_climb)/launch/rampclimbing_mux.launch">
-	    <arg name="machine"  value="$(arg machine)"/>
-	    <arg name="user"  value="$(arg user)"/>
-	</include>
+  </include>
 
 
 	<!--- Monitored Navigation -->
-	<include file="$(find monitored_navigation)/launch/monitored_nav.launch">
-	    <arg name="machine"  value="$(arg machine)"/>
-	    <arg name="user"  value="$(arg user)"/>
+	<include file="$(find monitored_navigation)/launch/strands_monitored_nav.launch">
+		<arg name="machine"  value="$(arg machine)"/>
+		<arg name="user"  value="$(arg user)"/>
 	</include>
 
 
 	<!--- Topological Navigation -->
 	<include file="$(find topological_navigation)/launch/topological_navigation.launch">
-	    <arg name="machine"  value="$(arg machine)"/>
-	    <arg name="user"  value="$(arg user)"/>
+		<arg name="machine"  value="$(arg machine)"/>
+		<arg name="user"  value="$(arg user)"/>
 		<arg name="map" value="$(arg topological_map)"/>
 	</include>
+
 </launch>
