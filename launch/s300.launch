@@ -4,8 +4,8 @@
 
 	<arg name="laser" default="/dev/ttyUSB0" />
 
-	<!-- now has an IF checking for the arg "remote" -->
-	<machine name="$(arg machine)" address="$(arg machine)" env-loader="$(env ROS_ENV_LOADER)" user="$(arg user)" default="true"/>
+	<!-- NOW when launching in a remote mode it will need the ROS_ENV_LOADER set if not it will leave it empty -->
+	<machine name="$(arg machine)" address="$(arg machine)" env-loader="$(optenv ROS_ENV_LOADER )" user="$(arg user)" default="true"/>
 
 
 	<!-- SICK S300 -->

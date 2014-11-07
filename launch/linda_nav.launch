@@ -1,0 +1,52 @@
+<launch>
+  <arg name="machine" default="localhost" />
+  <arg name="user" default=""/>
+
+  <arg name="with_camera" default="true"/>
+
+  <arg name="camera" default="chest_xtion"/>
+  <arg name="camera_ip" default="right-cortex"/>
+  <arg name="camera_user" default="strands"/>
+
+
+  <arg name="map" default="/opt/strands/maps/WW_2014_06_18-cropped.yaml"/>
+  <arg name="with_no_go_map" default="true"/>
+  <arg name="no_go_map" default="/opt/strands/maps/WW_2014_06_18-nogo.yaml"/>
+  <arg name="with_mux" default="false" />
+
+  <arg name="topological_map" default="WW_2014_06_18"/>
+
+
+  <!-- NOW when launching in a remote mode it will need the ROS_ENV_LOADER set if not it will leave it empty -->
+  <machine name="$(arg machine)" address="$(arg machine)" env-loader="$(optenv ROS_ENV_LOADER )" user="$(arg user)" default="true" />
+
+
+  <!-- STRANDS navigation -->
+  <include file="$(find scitos_bringup)/launch/strands_navigation.launch" >
+    <arg name="machine" value="$(arg machine)"/>
+    <arg name="user" value="$(arg user)"/>
+    <!-- <arg name="remote" value="$(arg remote)"/> -->
+
+    <!-- strands_movebase -->
+    <arg name="with_camera" value="$(arg with_camera)"/>
+    <arg name="camera" value="$(arg camera)"/>
+    <arg name="camera_ip" value="$(arg camera_ip)"/>
+    <arg name="camera_user" value="$(arg camera_user)"/>
+
+    <arg name="map" value="$(arg map)"/>
+    <arg name="with_no_go_map" value="$(arg with_no_go_map)"/>
+    <arg name="no_go_map" value="$(arg no_go_map)"/>
+
+    <arg name="with_mux" value="$(arg with_mux)"/>
+
+    <arg name="topological_map" value="$(arg topological_map)"/>
+
+  </include>
+
+
+  <node name="gaze_at_pose" pkg="strands_gazing" type="gaze_at_pose"/>
+  <node name="pose_extractor" pkg="pose_extractor" type="extract_last_pose_from_path.py"/>
+  <node name="human_aware_navigation" pkg="strands_human_aware_navigation" type="human_aware_navigation.py"/>
+
+
+</launch>
