@@ -8,7 +8,7 @@
     <arg name="machine" default="localhost"/>
     <arg name="user" default="" />
 
-    <machine name="$(arg machine)" address="$(arg machine)" env-loader="$(env ROS_ENV_LOADER)" user="$(arg user)" default="true" />
+    <machine name="$(arg machine)" address="$(arg machine)" env-loader="$(optenv ROS_ENV_LOADER )" user="$(arg user)" default="true" />
 
 	<node pkg="scitos_mira" type="scitos_node" name="scitos_node" output="screen">
 		<param name="config_file" value="$(arg SCITOS_CONFIG)" type="string"/>
