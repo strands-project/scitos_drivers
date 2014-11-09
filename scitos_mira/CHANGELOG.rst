@@ -2,8 +2,8 @@
 Changelog for package scitos_mira
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.5 (2014-11-09)
+------------------
 * final and tested version of loader
 * new machine tag format
 * scitos_mira.launch with new machine tags
