@@ -2,6 +2,13 @@
 Changelog for package scitos_mira
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* final and tested version of loader
+* new machine tag format
+* scitos_mira.launch with new machine tags
+* Contributors: Jaime Pulido Fentanes, strands
+
 0.0.4 (2014-11-06)
 ------------------
 * enabling all EBC ports per default

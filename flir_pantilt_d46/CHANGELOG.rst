@@ -2,6 +2,13 @@
 Changelog for package flir_pantilt_d46
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* final and tested version of loader
+* new machine tag format
+* added new machine tags to ptu launch file
+* Contributors: Jaime Pulido Fentanes
+
 0.0.4 (2014-11-06)
 ------------------
 
