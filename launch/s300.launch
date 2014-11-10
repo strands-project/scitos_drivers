@@ -12,7 +12,7 @@
 	<node pkg="sicks300" type="sick300_driver" name="sick300" output="screen">
 		<param name="devicename" value="$(arg laser)" type="string"/>
 		<param name="field_of_view" value="225" type="double"/>
-		<param name="send_transform" value="false" type="bool"/>
+		<param name="send_transform" value="0" type="int"/>
 		<remap from="laserscan" to="scan"/>
 	</node>
 
