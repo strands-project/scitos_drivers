@@ -9,6 +9,7 @@
   <arg name="no_go_map"/>
   <arg name="with_mux" default="false" />
   <arg name="topological_map"/>
+  <arg name="mon_nav_config_file" default="$(find strands_recovery_behaviours)/config/monitored_nav_config.yaml"/>
 
   <arg name="machine" default="localhost" />
   <arg name="user" default="" />
@@ -62,19 +63,16 @@
 	    <arg name="user"  value="$(arg user)"/>
   </include>
 
-
-	<!--- Monitored Navigation -->
-	<include file="$(find monitored_navigation)/launch/strands_monitored_nav.launch">
-		<arg name="machine"  value="$(arg machine)"/>
-		<arg name="user"  value="$(arg user)"/>
-	</include>
+   <!--- Backtrack server -->
+   <include file="$(find backtrack_behaviour)/launch/backtrack.launch"/> 
 
 
-	<!--- Topological Navigation -->
+	<!--- Topological Navigation (includes monitored_navigation) -->
 	<include file="$(find topological_navigation)/launch/topological_navigation.launch">
 		<arg name="machine"  value="$(arg machine)"/>
 		<arg name="user"  value="$(arg user)"/>
 		<arg name="map" value="$(arg topological_map)"/>
+                <arg name="mon_nav_config_file" value="$(arg mon_nav_config_file)"/>
 	</include>
 
 </launch>
