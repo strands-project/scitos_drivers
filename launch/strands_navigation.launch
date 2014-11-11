@@ -2,7 +2,7 @@
   <arg name="with_camera" default="false"/>
   <arg name="camera" default="chest_xtion"/>
   <arg name="camera_ip" default="localhost"/>
-  <arg name="camera_user" default="strands"/>
+  <arg name="camera_user" default=""/>
 
   <arg name="map"/>
   <arg name="with_no_go_map" default="false"/>
@@ -63,8 +63,9 @@
   </include>
 
 
+
 	<!--- Monitored Navigation -->
-	<include file="$(find monitored_navigation)/launch/strands_monitored_nav.launch">
+	<include file="$(find strands_recovery_behaviours)/launch/strands_monitored_nav.launch">
 		<arg name="machine"  value="$(arg machine)"/>
 		<arg name="user"  value="$(arg user)"/>
 	</include>
