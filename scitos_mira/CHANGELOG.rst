@@ -2,8 +2,8 @@
 Changelog for package scitos_mira
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.6 (2014-11-11)
+------------------
 * changing OdometryInterval to 50 to avoid overshooting
 * Contributors: Bruno Lacerda
 
