@@ -94,5 +94,11 @@
 	    <arg name="machine"  value="$(arg machine)"/>
 	    <arg name="user"  value="$(arg user)"/>
 	</include>
+        
+        
+        <!--- STRANDS ui -->
+        <include file="$(find strands_ui)/launch/strands_ui.launch">
+        </include>
+        
 
 </launch>

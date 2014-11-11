@@ -23,6 +23,7 @@
 	<run_depend>scitos_apps</run_depend>
 	<run_depend>strands_apps</run_depend>
 	<run_depend>strands_navigation</run_depend>
+        <run_depend>strands_ui</run_depend>
 
   <export>
 
