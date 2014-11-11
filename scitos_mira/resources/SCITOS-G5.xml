@@ -7,7 +7,7 @@
 
 		<Modules>
 			<MainControlUnit>
-				<OdometryInterval>20</OdometryInterval>
+				<OdometryInterval>50</OdometryInterval>
 				<Force>80</Force>
 				<RFIDReaderEnabled>true</RFIDReaderEnabled>
 				<FrontLaser>
