@@ -2,6 +2,11 @@
 Changelog for package scitos_mira
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* changing OdometryInterval to 50 to avoid overshooting
+* Contributors: Bruno Lacerda
+
 0.0.5 (2014-11-09)
 ------------------
 * final and tested version of loader

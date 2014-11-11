@@ -2,6 +2,9 @@
 Changelog for package scitos_drivers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.0.5 (2014-11-09)
 ------------------
 
