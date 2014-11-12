@@ -1,0 +1,25 @@
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Changelog for package scitos_bringup
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Forthcoming
+-----------
+* changed version number
+* cleaning undesired files
+* preparing to move
+* Contributors: Jaime Pulido Fentanes, Marc Hanheide
+
+0.0.6 (2014-11-11)
+------------------
+
+0.0.5 (2014-11-09)
+------------------
+
+0.0.4 (2014-11-06 14:44)
+------------------------
+
+0.0.3 (2014-11-06 10:28)
+------------------------
+
+0.0.2 (2014-10-14)
+------------------
