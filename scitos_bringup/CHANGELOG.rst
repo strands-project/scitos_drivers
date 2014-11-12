@@ -2,8 +2,8 @@
 Changelog for package scitos_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.7 (2014-11-12)
+------------------
 * changed version number
 * cleaning undesired files
 * preparing to move
