@@ -1,5 +1,6 @@
 
-#include <scitos_mira/ScitosDrive.h>
+#include "scitos_mira/ScitosDrive.h"
+#include "scitos_mira/ScitosG5.h"
 
 #include <transform/RigidTransform.h>
 #include <geometry_msgs/Quaternion.h>
@@ -10,17 +11,18 @@
 #include <geometry_msgs/TransformStamped.h>
 #include <std_msgs/Bool.h>
 #include <std_msgs/Float32.h>
-#include <scitos_mira/ScitosG5.h>
+#include <std_msgs/UInt64.h>
 
 ScitosDrive::ScitosDrive() : ScitosModule(std::string ("Drive")) { 
 }
 
 void ScitosDrive::initialize() {
-
   odometry_pub_ = robot_->getRosNode().advertise<nav_msgs::Odometry>("/odom", 20);
   bumper_pub_ = robot_->getRosNode().advertise<std_msgs::Bool>("/bumper", 20);
   mileage_pub_ = robot_->getRosNode().advertise<std_msgs::Float32>("/mileage", 20);
   motorstatus_pub_ = robot_->getRosNode().advertise<scitos_msgs::MotorStatus>("/motor_status", 20);
+  rfid_pub_ = robot_->getRosNode().advertise<std_msgs::UInt64>("/rfid", 20);
+  magnetic_barrier_pub_ = robot_->getRosNode().advertise<std_msgs::Bool>("/magnetic_barrier", 20);
   
   robot_->getMiraAuthority().subscribe<mira::robot::Odometry2>("/robot/Odometry", //&ScitosBase::odometry_cb);
 							       &ScitosDrive::odometry_data_callback, this);
@@ -30,6 +32,8 @@ void ScitosDrive::initialize() {
 					      &ScitosDrive::mileage_data_callback, this);
   robot_->getMiraAuthority().subscribe<uint8>("/robot/MotorStatus",
 					      &ScitosDrive::motor_status_callback, this);
+  robot_->getMiraAuthority().subscribe<uint64>("/robot/RFIDFloorTag",
+					      &ScitosDrive::rfid_status_callback, this);
 	
   cmd_vel_subscriber_ = robot_->getRosNode().subscribe("/cmd_vel", 1000, &ScitosDrive::velocity_command_callback,
 						       this);
@@ -38,6 +42,10 @@ void ScitosDrive::initialize() {
   reset_odometry_service_ = robot_->getRosNode().advertiseService("/reset_odometry", &ScitosDrive::reset_odometry, this);
   emergency_stop_service_ = robot_->getRosNode().advertiseService("/emergency_stop", &ScitosDrive::emergency_stop, this);
   enable_motors_service_ = robot_->getRosNode().advertiseService("/enable_motors", &ScitosDrive::enable_motors, this);
+  change_force_service_ = robot_->getRosNode().advertiseService("/change_force", &ScitosDrive::change_force, this);
+  enable_rfid_service_ = robot_->getRosNode().advertiseService("/enable_rfid", &ScitosDrive::enable_rfid, this);
+
+  last_magnetic_barrier_detection = mira::Time::unixEpoch();
 }
 
 void ScitosDrive::velocity_command_callback(const geometry_msgs::Twist::ConstPtr& msg) {
@@ -48,9 +56,16 @@ void ScitosDrive::velocity_command_callback(const geometry_msgs::Twist::ConstPtr
 }
 
 void ScitosDrive::bumper_data_callback(mira::ChannelRead<bool> data) {
-  std_msgs::Bool out;
-  out.data=data->value();					   
-  bumper_pub_.publish(out);
+	std_msgs::Bool out;
+	out.data=data->value();					 
+	bumper_pub_.publish(out);
+
+	//magnetic barrier
+	mira::Duration last_bumper = mira::Duration(mira::Time::now()-last_magnetic_barrier_detection);
+	std_msgs::Bool mag;
+	mag.data = true;
+	if (last_bumper.totalMilliseconds() > 200) mag.data = false; 
+	magnetic_barrier_pub_.publish(mag); 
 }
 
 void ScitosDrive::mileage_data_callback(mira::ChannelRead<float> data) {
@@ -58,6 +73,14 @@ void ScitosDrive::mileage_data_callback(mira::ChannelRead<float> data) {
   out.data = data->value();					   
   mileage_pub_.publish(out);
 }
+
+void ScitosDrive::rfid_status_callback(mira::ChannelRead<uint64> data) {
+  std_msgs::UInt64 out;
+  out.data = data->value();					   
+  rfid_pub_.publish(out);
+  if (out.data == 0xabababab) last_magnetic_barrier_detection = mira::Time::now(); 
+}
+
 
 void ScitosDrive::motor_status_callback(mira::ChannelRead<uint8> data) {
   ros::Time time_now = ros::Time::now(); 
@@ -150,4 +173,15 @@ bool ScitosDrive::enable_motors(scitos_msgs::EnableMotors::Request  &req, scitos
   r.get(); 
 
   return true;
+}
+
+bool ScitosDrive::change_force(scitos_msgs::ChangeForce::Request  &req, scitos_msgs::ChangeForce::Response &res) {
+	// change mira params 
+	return set_mira_param_("MainControlUnit.Force",mira::toString(req.force));
+}
+
+bool ScitosDrive::enable_rfid(scitos_msgs::EnableRfid::Request  &req, scitos_msgs::EnableRfid::Response &res) {
+	if (req.enable == true) return set_mira_param_("MainControlUnit.RearLaser.Enabled","true");
+	if (req.enable == false) return set_mira_param_("MainControlUnit.RearLaser.Enabled","false");
+	return false;
 }

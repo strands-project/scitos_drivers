@@ -5,6 +5,9 @@
   <description>Driver for Scitos-G5 using the MIRA framework.</description>
 
   <maintainer email="cburbridge@gmail.com">cburbridge</maintainer>
+  
+  <author email="cburbridge@gmail.com">cburbridge</author>
+  <author email="tkrajnik@lincoln.ac.uk">Tom Krajnik</author>
 
   <license>GPL</license>
 

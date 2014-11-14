@@ -1,6 +1,5 @@
 #include "scitos_mira/ScitosEBC.h"
 
-#include "scitos_mira/ScitosG5.h"
 
 ScitosEBC::ScitosEBC() : ScitosModule(std::string ("EBC")), reconfigure_srv_(name_) {
 
@@ -14,6 +13,25 @@ void ScitosEBC::initialize() {
 void ScitosEBC::reconfigure_callback( scitos_mira::EBCParametersConfig& config, uint32_t level) {
 	ROS_DEBUG("Reconfigure request on ScitosEBC module.");
 	//Set the MIRA parameters to what was selected...
+	// Port MCU 
+	if (config.MCU_5V_Enabled)
+	  set_mira_param_("MainControlUnit.EBC_5V.Enabled","true");
+	else
+	  set_mira_param_("MainControlUnit.EBC_5V.Enabled","false");
+	set_mira_param_("MainControlUnit.EBC_5V.MaxCurrent",std::to_string(config.MCU_5V_MaxCurrent));
+				   
+	if (config.MCU_12V_Enabled)
+	  set_mira_param_("MainControlUnit.EBC_12V.Enabled","true");
+	else
+	  set_mira_param_("MainControlUnit.EBC_12V.Enabled","false");
+	set_mira_param_("MainControlUnit.EBC_12V.MaxCurrent",std::to_string(config.MCU_12V_MaxCurrent));
+	
+	if (config.MCU_24V_Enabled)
+	  set_mira_param_("MainControlUnit.EBC_24V.Enabled","true");
+	else
+	  set_mira_param_("MainControlUnit.EBC_24V.Enabled","false");
+	set_mira_param_("MainControlUnit.EBC_24V.MaxCurrent",std::to_string(config.MCU_24V_MaxCurrent));
+
 	// Port 0 
 	if (config.Port0_5V_Enabled)
 	  set_mira_param_("EBC7.Port0_5V.Enabled","true");
