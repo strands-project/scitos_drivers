@@ -8,10 +8,12 @@
 #ifndef SCITOSEBC_H_
 #define SCITOSEBC_H_
 
-#include <scitos_mira/ScitosModule.h>
+#include "scitos_mira/ScitosDrive.h"
+#include "scitos_mira/ScitosModule.h"
+#include "scitos_mira/EBCParametersConfig.h"
+#include "scitos_mira/ScitosG5.h"
 
 #include <dynamic_reconfigure/server.h>
-#include <scitos_mira/EBCParametersConfig.h>
 
 class ScitosEBC: public ScitosModule {
 public:

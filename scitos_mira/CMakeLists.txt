@@ -7,10 +7,6 @@ project(scitos_mira)
 find_package(catkin REQUIRED COMPONENTS geometry_msgs roscpp std_msgs sensor_msgs tf nav_msgs scitos_msgs dynamic_reconfigure)
 
 
-# include cmake file for MIRA
-include(CMakeLists.mira)
-MIRA_REQUIRE_PACKAGE(SCITOS 0.22.7)
-
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -86,6 +82,11 @@ include_directories(include
 # add_library(scitos
 #   src/${PROJECT_NAME}/scitos.cpp
 # )
+
+# include cmake file for MIRA
+include(CMakeLists.mira)
+MIRA_REQUIRE_PACKAGE(SCITOS 0.22.7)
+
 
 ## Declare a cpp executable
 #add_executable(scitos_node src/scitos_node.cpp)

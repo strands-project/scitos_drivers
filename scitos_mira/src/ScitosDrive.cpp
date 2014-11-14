@@ -1,5 +1,6 @@
 
-#include <scitos_mira/ScitosDrive.h>
+#include "scitos_mira/ScitosDrive.h"
+#include "scitos_mira/ScitosG5.h"
 
 #include <transform/RigidTransform.h>
 #include <geometry_msgs/Quaternion.h>
@@ -10,7 +11,6 @@
 #include <geometry_msgs/TransformStamped.h>
 #include <std_msgs/Bool.h>
 #include <std_msgs/Float32.h>
-#include <scitos_mira/ScitosG5.h>
 
 ScitosDrive::ScitosDrive() : ScitosModule(std::string ("Drive")) { 
 }
@@ -38,6 +38,8 @@ void ScitosDrive::initialize() {
   reset_odometry_service_ = robot_->getRosNode().advertiseService("/reset_odometry", &ScitosDrive::reset_odometry, this);
   emergency_stop_service_ = robot_->getRosNode().advertiseService("/emergency_stop", &ScitosDrive::emergency_stop, this);
   enable_motors_service_ = robot_->getRosNode().advertiseService("/enable_motors", &ScitosDrive::enable_motors, this);
+  change_force_service_ = robot_->getRosNode().advertiseService("/change_force", &ScitosDrive::change_force, this);
+
 }
 
 void ScitosDrive::velocity_command_callback(const geometry_msgs::Twist::ConstPtr& msg) {
@@ -150,4 +152,9 @@ bool ScitosDrive::enable_motors(scitos_msgs::EnableMotors::Request  &req, scitos
   r.get(); 
 
   return true;
+}
+
+bool ScitosDrive::change_force(scitos_msgs::ChangeForce::Request  &req, scitos_msgs::ChangeForce::Response &res) {
+	// change mira params 
+	return set_mira_param_("MainControlUnit.Force",mira::toString(req.force));
 }

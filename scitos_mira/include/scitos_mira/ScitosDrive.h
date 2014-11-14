@@ -13,12 +13,13 @@
 
 #include <geometry_msgs/Twist.h>
 #include <robot/Odometry.h> //# MIRA odometry
-#include <scitos_mira/ScitosModule.h>
+#include "scitos_mira/ScitosModule.h"
 #include <scitos_msgs/ResetMotorStop.h>
 #include <scitos_msgs/ResetOdometry.h>
 #include <scitos_msgs/EmergencyStop.h>
 #include <scitos_msgs/EnableMotors.h>
 #include <scitos_msgs/MotorStatus.h>
+#include <scitos_msgs/ChangeForce.h>
 
 class ScitosDrive: public ScitosModule {
 public:
@@ -40,6 +41,7 @@ public:
 	bool reset_odometry(scitos_msgs::ResetOdometry::Request  &req, scitos_msgs::ResetOdometry::Response &res);
 	bool emergency_stop(scitos_msgs::EmergencyStop::Request  &req, scitos_msgs::EmergencyStop::Response &res);
 	bool enable_motors(scitos_msgs::EnableMotors::Request  &req, scitos_msgs::EnableMotors::Response &res);
+	bool change_force(scitos_msgs::ChangeForce::Request  &req, scitos_msgs::ChangeForce::Response &res);
 
 private:
 	ScitosDrive();
@@ -52,6 +54,7 @@ private:
 	ros::ServiceServer reset_odometry_service_;
 	ros::ServiceServer emergency_stop_service_;
 	ros::ServiceServer enable_motors_service_;
+	ros::ServiceServer change_force_service_;
 };
 
 #endif
