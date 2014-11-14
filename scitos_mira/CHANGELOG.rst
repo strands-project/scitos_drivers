@@ -2,8 +2,8 @@
 Changelog for package scitos_mira
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.8 (2014-11-14)
+------------------
 * Magnetic stripe detection added.
 * MCU power controled as other EBC's, motor force reconfigurable parameter.
 * Adding respawn to scitos node, removing launch files from scitos drivers, making scitos drivers a metapackage again

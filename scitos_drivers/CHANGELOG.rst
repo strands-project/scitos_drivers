@@ -2,8 +2,8 @@
 Changelog for package scitos_drivers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.8 (2014-11-14)
+------------------
 * Deleting extra lines in CMakeLists.txt which create problems in metapackages
 * Adding respawn to scitos node, removing launch files from scitos drivers, making scitos drivers a metapackage again
 * Contributors: Jaime Pulido Fentanes
