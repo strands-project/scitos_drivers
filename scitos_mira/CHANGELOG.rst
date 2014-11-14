@@ -2,6 +2,13 @@
 Changelog for package scitos_mira
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Magnetic stripe detection added.
+* MCU power controled as other EBC's, motor force reconfigurable parameter.
+* Adding respawn to scitos node, removing launch files from scitos drivers, making scitos drivers a metapackage again
+* Contributors: Jaime Pulido Fentanes, Tom Krajnik
+
 0.0.6 (2014-11-11)
 ------------------
 * changing OdometryInterval to 50 to avoid overshooting

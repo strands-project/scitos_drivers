@@ -2,6 +2,11 @@
 Changelog for package scitos_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Adding respawn to scitos node, removing launch files from scitos drivers, making scitos drivers a metapackage again
+* Contributors: Jaime Pulido Fentanes
+
 0.0.7 (2014-11-12)
 ------------------
 * changed version number
