@@ -2,6 +2,11 @@
 Changelog for package scitos_drivers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Revert "adding scitos_bringup to run dependencies"
+* Contributors: Marc Hanheide
+
 0.0.9 (2014-11-18)
 ------------------
 * adding scitos_bringup to run dependencies
