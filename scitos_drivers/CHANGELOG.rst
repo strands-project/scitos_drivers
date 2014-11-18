@@ -2,6 +2,11 @@
 Changelog for package scitos_drivers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* fixing dependencies 2
+* Contributors: Jaime Pulido Fentanes
+
 0.0.10 (2014-11-18)
 -------------------
 * Revert "adding scitos_bringup to run dependencies"

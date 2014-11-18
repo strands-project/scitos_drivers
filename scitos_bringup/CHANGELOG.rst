@@ -2,6 +2,12 @@
 Changelog for package scitos_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* removing unnecessary dependencies
+* fixing dependencies
+* Contributors: Jaime Pulido Fentanes
+
 0.0.10 (2014-11-18)
 -------------------
 
