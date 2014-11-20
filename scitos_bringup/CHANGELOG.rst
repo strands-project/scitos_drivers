@@ -2,6 +2,9 @@
 Changelog for package scitos_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.0.11 (2014-11-18)
 -------------------
 * removing unnecessary dependencies
