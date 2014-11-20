@@ -16,11 +16,13 @@
 #include "scitos_mira/ScitosModule.h"
 #include <scitos_msgs/ResetMotorStop.h>
 #include <scitos_msgs/ResetOdometry.h>
+#include <scitos_msgs/ResetBarrierStop.h>
 #include <scitos_msgs/EmergencyStop.h>
 #include <scitos_msgs/EnableMotors.h>
 #include <scitos_msgs/MotorStatus.h>
 #include <scitos_msgs/ChangeForce.h>
 #include <scitos_msgs/EnableRfid.h>
+#include <scitos_msgs/BarrierStatus.h>
 #include <utils/Time.h>
 
 class ScitosDrive: public ScitosModule {
@@ -46,7 +48,8 @@ public:
 	bool enable_motors(scitos_msgs::EnableMotors::Request  &req, scitos_msgs::EnableMotors::Response &res);
 	bool change_force(scitos_msgs::ChangeForce::Request  &req, scitos_msgs::ChangeForce::Response &res);
 	bool enable_rfid(scitos_msgs::EnableRfid::Request  &req, scitos_msgs::EnableRfid::Response &res);
-
+	bool reset_barrier_stop(scitos_msgs::ResetBarrierStop::Request  &req, scitos_msgs::ResetBarrierStop::Response &res);
+	void publish_barrier_status();
 private:
 	ScitosDrive();
 	ros::Subscriber cmd_vel_subscriber_;
@@ -63,7 +66,9 @@ private:
 	ros::ServiceServer enable_motors_service_;
 	ros::ServiceServer change_force_service_;
 	ros::ServiceServer enable_rfid_service_;
-	mira::Time last_magnetic_barrier_detection;
+	ros::ServiceServer reset_barrier_stop_service_;
+
+	scitos_msgs::BarrierStatus barrier_status_;
 };
 
 #endif
