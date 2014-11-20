@@ -13,6 +13,8 @@
 #include <std_msgs/Float32.h>
 #include <std_msgs/UInt64.h>
 
+uint64 MAGNETIC_BARRIER_RFID_CODE=0xabababab;
+
 ScitosDrive::ScitosDrive() : ScitosModule(std::string ("Drive")) { 
 }
 
@@ -22,7 +24,7 @@ void ScitosDrive::initialize() {
   mileage_pub_ = robot_->getRosNode().advertise<std_msgs::Float32>("/mileage", 20);
   motorstatus_pub_ = robot_->getRosNode().advertise<scitos_msgs::MotorStatus>("/motor_status", 20);
   rfid_pub_ = robot_->getRosNode().advertise<std_msgs::UInt64>("/rfid", 20);
-  magnetic_barrier_pub_ = robot_->getRosNode().advertise<std_msgs::Bool>("/magnetic_barrier", 20);
+  magnetic_barrier_pub_ = robot_->getRosNode().advertise<scitos_msgs::BarrierStatus>("/barrier_status", 20);
   
   robot_->getMiraAuthority().subscribe<mira::robot::Odometry2>("/robot/Odometry", //&ScitosBase::odometry_cb);
 							       &ScitosDrive::odometry_data_callback, this);
@@ -44,28 +46,27 @@ void ScitosDrive::initialize() {
   enable_motors_service_ = robot_->getRosNode().advertiseService("/enable_motors", &ScitosDrive::enable_motors, this);
   change_force_service_ = robot_->getRosNode().advertiseService("/change_force", &ScitosDrive::change_force, this);
   enable_rfid_service_ = robot_->getRosNode().advertiseService("/enable_rfid", &ScitosDrive::enable_rfid, this);
+  reset_barrier_stop_service_ = robot_->getRosNode().advertiseService("/reset_barrier_stop", &ScitosDrive::reset_barrier_stop, this);
 
-  last_magnetic_barrier_detection = mira::Time::unixEpoch();
+  barrier_status_.barrier_stopped = false;
+  barrier_status_.last_detection_stamp = ros::Time(0);
+  robot_->registerSpinFunction(boost::bind(&ScitosDrive::publish_barrier_status, this));
+
 }
 
 void ScitosDrive::velocity_command_callback(const geometry_msgs::Twist::ConstPtr& msg) {
-	mira::RigidTransform<float, 2> speed(msg->linear.x, 0, msg->angular.z);
-	mira::RPCFuture<void> r = robot_->getMiraAuthority().callService<void>("/robot/Robot",
-			"setVelocity", speed);
-	r.wait();
+  if (! barrier_status_.barrier_stopped ) {
+      mira::RigidTransform<float, 2> speed(msg->linear.x, 0, msg->angular.z);
+      mira::RPCFuture<void> r = robot_->getMiraAuthority().callService<void>("/robot/Robot",
+									     "setVelocity", speed);
+      r.wait();
+  }
 }
 
 void ScitosDrive::bumper_data_callback(mira::ChannelRead<bool> data) {
 	std_msgs::Bool out;
 	out.data=data->value();					 
 	bumper_pub_.publish(out);
-
-	//magnetic barrier
-	mira::Duration last_bumper = mira::Duration(mira::Time::now()-last_magnetic_barrier_detection);
-	std_msgs::Bool mag;
-	mag.data = true;
-	if (last_bumper.totalMilliseconds() > 200) mag.data = false; 
-	magnetic_barrier_pub_.publish(mag); 
 }
 
 void ScitosDrive::mileage_data_callback(mira::ChannelRead<float> data) {
@@ -75,10 +76,13 @@ void ScitosDrive::mileage_data_callback(mira::ChannelRead<float> data) {
 }
 
 void ScitosDrive::rfid_status_callback(mira::ChannelRead<uint64> data) {
+  if (data->value() == MAGNETIC_BARRIER_RFID_CODE) {
+    barrier_status_.barrier_stopped = true;
+    barrier_status_.last_detection_stamp = ros::Time::now(); 
+  }
   std_msgs::UInt64 out;
-  out.data = data->value();					   
+  out.data = data->value();
   rfid_pub_.publish(out);
-  if (out.data == 0xabababab) last_magnetic_barrier_detection = mira::Time::now(); 
 }
 
 
@@ -99,6 +103,10 @@ void ScitosDrive::motor_status_callback(mira::ChannelRead<uint8> data) {
   motorstatus_pub_.publish(s);
 }
 
+void ScitosDrive::publish_barrier_status() {
+  barrier_status_.header.stamp = ros::Time::now();
+  magnetic_barrier_pub_.publish(barrier_status_);
+}
 
 void ScitosDrive::odometry_data_callback(mira::ChannelRead<mira::robot::Odometry2> data ) {
 	/// new odometry data through mira; put it out in ros
@@ -181,7 +189,14 @@ bool ScitosDrive::change_force(scitos_msgs::ChangeForce::Request  &req, scitos_m
 }
 
 bool ScitosDrive::enable_rfid(scitos_msgs::EnableRfid::Request  &req, scitos_msgs::EnableRfid::Response &res) {
-	if (req.enable == true) return set_mira_param_("MainControlUnit.RearLaser.Enabled","true");
-	if (req.enable == false) return set_mira_param_("MainControlUnit.RearLaser.Enabled","false");
-	return false;
+  if (req.enable == true) 
+    return set_mira_param_("MainControlUnit.RearLaser.Enabled","true");
+  if (req.enable == false) 
+    return set_mira_param_("MainControlUnit.RearLaser.Enabled","false");
+  return false;
+}
+
+bool ScitosDrive::reset_barrier_stop(scitos_msgs::ResetBarrierStop::Request  &req, scitos_msgs::ResetBarrierStop::Response &res) {
+  barrier_status_.barrier_stopped = false;
+  return true;
 }
