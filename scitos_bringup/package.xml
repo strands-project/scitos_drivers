@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>scitos_bringup</name>
-  <version>0.0.12</version>
+  <version>0.0.14</version>
   <description>The scitos_bringup package</description>
 
   <maintainer email="pulidofentanes@gmail.com">Jaime Pulido Fentanes</maintainer>
