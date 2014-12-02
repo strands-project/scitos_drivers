@@ -2,6 +2,9 @@
 Changelog for package scitos_mira
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.0.12 (2014-11-20)
 -------------------
 * Fix maintainer name.
