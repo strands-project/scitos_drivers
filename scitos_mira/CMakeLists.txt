@@ -85,7 +85,7 @@ include_directories(include
 
 # include cmake file for MIRA
 include(CMakeLists.mira)
-MIRA_REQUIRE_PACKAGE(SCITOS 0.22.7)
+MIRA_REQUIRE_PACKAGE(SCITOS 0.23.1)
 
 
 ## Declare a cpp executable
