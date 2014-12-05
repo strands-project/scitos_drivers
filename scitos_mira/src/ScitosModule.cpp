@@ -20,7 +20,7 @@ bool ScitosModule::set_mira_param_(std::string param_name, std::string value) {
 	try {
 	  r.get(); 
 	} catch (mira::XRPC& e){
-	  ROS_WARN("Mira RPC error caught when setting parameter: ", e.what() );
+	  ROS_WARN("Mira RPC error caught when setting parameter: %s", e.what() );
 	  return false;
 	}
 	return true; 
