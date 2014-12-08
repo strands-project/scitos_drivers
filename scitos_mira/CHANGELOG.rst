@@ -2,6 +2,12 @@
 Changelog for package scitos_mira
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix warning message when setting parameter.
+* Update indigo branch to use latest MIRA version.
+* Contributors: Chris Burbridge
+
 0.0.13 (2014-12-02)
 -------------------
 
