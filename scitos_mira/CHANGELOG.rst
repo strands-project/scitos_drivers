@@ -2,6 +2,9 @@
 Changelog for package scitos_mira
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.0.15 (2014-12-08)
 -------------------
 * Fix warning message when setting parameter.
