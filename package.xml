@@ -6,7 +6,7 @@
 
   <maintainer email="cburbridge@gmail.com">Chris Burbridge</maintainer>
 
-  <license>GPL</license>
+  <license>MIT</license>
 
   <author email="cburbridge@gmail.com">Chris Burbridge</author>
 
@@ -17,7 +17,8 @@
   <run_depend>diagnostic_msgs</run_depend>
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
-
+  <run_depend>sysstat</run_depend>
+  <run_depend>lm-sensors</rundepend>
 
 
   <export>

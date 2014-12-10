@@ -4,21 +4,9 @@ scitos_pc_monitor
 This package provides a node that monitors the health of the embedded scitos pc. Status updates are published as diagnostics messages on /diagnostics. These messages are collated by a diagnostics aggregator, which then allows them to be viewed on the scitos_dashboard.
 
 
-Dependencies
-------------
-The following decencies are required for this package:
-
-* mpstat, from the sysstat package
-* sensors, from the lm-sensors
-
-These are met by running
-```
-sudo apt-get install lm-sensors sysstat
-```
-
 Running
 -------
-The monitor is now started automatically when you use scitos_bringup. To start independently (assuming a roscore is existing somewhere, ie from scitos bringup):
+The monitor is started automatically when you use scitos_bringup. To start independently (assuming a roscore is existing somewhere, ie from scitos bringup):
 
 ```
 rosrun scitos_pc_monitor pc_monitor.py
