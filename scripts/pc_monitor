@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
-import sysmon
+import scitos_pc_monitor.sysmon as sysmon
 from diagnostic_msgs.msg import DiagnosticArray, DiagnosticStatus, KeyValue
 
 class PCMonitor(object):
