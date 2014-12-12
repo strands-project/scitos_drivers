@@ -18,7 +18,7 @@
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
   <run_depend>sysstat</run_depend>
-  <run_depend>lm-sensors</rundepend>
+  <run_depend>lm-sensors</run_depend>
 
 
   <export>
