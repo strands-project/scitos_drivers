@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>flir_pantilt_d46</name>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <description>
      Driver for the FLIR ptu46 pan/tilt, forked from wu_robotics, which was forked from player.
   </description>

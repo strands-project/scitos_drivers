@@ -2,8 +2,8 @@
 Changelog for package scitos_pc_monitor
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.1 (2014-12-17)
+------------------
 * `scitos_pc_monitor` package
 * Prepare pc_monitor for move to scitos_drivers
 * Contributors: Chris Burbridge
