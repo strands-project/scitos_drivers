@@ -19,6 +19,7 @@
   <run_depend>sicks300</run_depend>
   <run_depend>flir_pantilt_d46</run_depend>
   <run_depend>scitos_bringup</run_depend>
+  <run_depend>scitos_pc_monitor</run_depend>
 
   <export>
 		<metapackage/>
