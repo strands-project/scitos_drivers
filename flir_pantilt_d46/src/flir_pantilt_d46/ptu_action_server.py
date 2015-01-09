@@ -30,7 +30,7 @@ class PTUControl(object):
 
 		# setup the subscribers and publishers
 		rospy.Subscriber('state', JointState, self.cb_ptu_state)
-		self.ptu_pub = rospy.Publisher('cmd', JointState)
+		self.ptu_pub = rospy.Publisher('cmd', JointState, queue_size=1)
 		self.as_goto = actionlib.SimpleActionServer('SetPTUState', \
 		flir_pantilt_d46.msg.PtuGotoAction, execute_cb=self.cb_goto,auto_start=False)
 		self.as_goto.register_preempt_callback(self.preemptCallback)
