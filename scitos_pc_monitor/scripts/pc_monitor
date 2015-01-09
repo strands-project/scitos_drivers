@@ -26,7 +26,7 @@ class PCMonitor(object):
 
         self._monitors = [self._cpu_temp_mon, self._cpu_usage_mon, self._bandwidth_mon, self._wlan_mon ]
 
-        self._diagnostic_pub = rospy.Publisher("/diagnostics",DiagnosticArray)
+        self._diagnostic_pub = rospy.Publisher("/diagnostics",DiagnosticArray, queue_size=1)
         
 
     def spin(self):
