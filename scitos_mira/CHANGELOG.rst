@@ -2,8 +2,8 @@
 Changelog for package scitos_mira
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.2 (2015-01-13)
+------------------
 * indigo-0.1.1
 * Manual indigo version bump.
 * Contributors: Chris Burbridge

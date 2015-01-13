@@ -2,8 +2,8 @@
 Changelog for package scitos_drivers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.2 (2015-01-13)
+------------------
 * indigo-0.1.1
 * Manual indigo version bump.
 * Add scitos_pc_monitor to metapackage.
