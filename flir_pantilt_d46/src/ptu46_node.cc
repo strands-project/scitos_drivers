@@ -4,6 +4,7 @@
 #include <sensor_msgs/JointState.h>
 #include <diagnostic_updater/diagnostic_updater.h>
 #include <diagnostic_updater/publisher.h>
+#include "flir_pantilt_d46/SetControlMode.h"
 
 namespace PTU46 {
 
@@ -45,6 +46,9 @@ class PTU46_Node {
         void SetGoal(const sensor_msgs::JointState::ConstPtr& msg);
 
         void produce_diagnostics(diagnostic_updater::DiagnosticStatusWrapper &stat);
+        bool SetControlModeSrv(flir_pantilt_d46::SetControlMode::Request  &req,
+							   flir_pantilt_d46::SetControlMode::Response &res);
+
 
     protected:
         diagnostic_updater::Updater* m_updater;
@@ -52,10 +56,12 @@ class PTU46_Node {
         ros::NodeHandle m_node;
         ros::Publisher  m_joint_pub;
         ros::Subscriber m_joint_sub;
+        ros::ServiceServer m_control_mode_srv;
         std::string m_pan_joint_name;
         std::string m_tilt_joint_name;
         bool m_check_limits;
-  
+        bool m_velocity_control;
+
 };
 
 PTU46_Node::PTU46_Node(ros::NodeHandle& node_handle)
@@ -69,10 +75,14 @@ PTU46_Node::PTU46_Node(ros::NodeHandle& node_handle)
 	m_node.param<std::string>("tilt_joint_name", m_tilt_joint_name, std::string("tilt"));
     m_node.param<bool>("check_limits", m_check_limits, true);
 
+	// Check if velocity control should be on by default
+    m_node.param("velocity_control", m_velocity_control, false);
+
 	// Set the values to other nodes can get it even if default used
 	m_node.setParam("pan_joint_name", m_pan_joint_name);
     m_node.setParam("tilt_joint_name", m_tilt_joint_name);
     m_node.setParam("check_limits", m_check_limits);
+    m_node.setParam("velocity_control", m_velocity_control);
 }
 
 PTU46_Node::~PTU46_Node() {
@@ -121,6 +131,15 @@ void PTU46_Node::Connect() {
     ROS_INFO("check limits:  %d...", m_check_limits);
     m_pantilt->SetCheckLimits(m_check_limits);
 
+	// set velocity control
+	if (m_velocity_control) {
+	  m_pantilt->SetMode(PTU46_VELOCITY);
+	  ROS_INFO("PTU starting in VELOCITY control mode.");
+    } else {
+	  ROS_INFO("PTU starting in POSITION control mode.");
+	  m_pantilt->SetMode(PTU46_POSITION);
+	}
+
     // Publishers : Only publish the most recent reading
     m_joint_pub = m_node.advertise
                   <sensor_msgs::JointState>("state", 1);
@@ -128,6 +147,9 @@ void PTU46_Node::Connect() {
     // Subscribers : Only subscribe to the most recent instructions
     m_joint_sub = m_node.subscribe
                   <sensor_msgs::JointState>("cmd", 1, &PTU46_Node::SetGoal, this);
+
+	m_control_mode_srv = m_node.advertiseService("set_conrol_mode",
+												 &PTU46_Node::SetControlModeSrv, this);
 
 }
 
@@ -139,6 +161,32 @@ void PTU46_Node::Disconnect() {
     }
 }
 
+/** Service handler for setting control mode */
+bool PTU46_Node::SetControlModeSrv(flir_pantilt_d46::SetControlMode::Request  &req,
+         flir_pantilt_d46::SetControlMode::Response &res) {
+  bool ok = false;
+
+  if (req.control_type == flir_pantilt_d46::SetControlMode::Request::POSITION_CONTROL) {
+	ROS_INFO("Setting PTU control mode to POSITION");
+	ok = m_pantilt->SetMode(PTU46_POSITION);
+	if (ok) {
+	  m_velocity_control = false;
+	}
+  } else if(req.control_type == flir_pantilt_d46::SetControlMode::Request::VELOCITY_CONTROL) {
+	ROS_INFO("Setting PTU control mode to VELOCITY");
+	ok = m_pantilt->SetMode(PTU46_VELOCITY);
+	if (ok) {
+	  m_velocity_control = true;
+	}
+  } else {
+	ROS_WARN("Trying to set PTU to unknown control mode.");
+	ok = false;
+  }
+  m_node.setParam("velocity_control", m_velocity_control);
+  res.success = ok;
+  return true;
+}
+  
 /** Callback for getting new Goal JointState */
 void PTU46_Node::SetGoal(const sensor_msgs::JointState::ConstPtr& msg) {
     if (! ok())
@@ -151,14 +199,16 @@ void PTU46_Node::SetGoal(const sensor_msgs::JointState::ConstPtr& msg) {
 	
 	for (i=0; i< msg->name.size(); i++) {
 	  if (msg->name[i].compare(m_pan_joint_name)==0 ) {
-		pan = msg->position[i];
+		if (!m_velocity_control)
+		  pan = msg->position[i];
 		panspeed = msg->velocity[i];
 
 		m_pantilt->SetPosition(PTU46_PAN, pan);
 		m_pantilt->SetSpeed(PTU46_PAN, panspeed);
 		
 	  } else if (msg->name[i].compare(m_tilt_joint_name)==0 ) {
-		tilt = msg->position[i];
+		if (!m_velocity_control)
+		  tilt = msg->position[i];
 		tiltspeed = msg->velocity[i];
 
 		m_pantilt->SetPosition(PTU46_TILT, tilt);
