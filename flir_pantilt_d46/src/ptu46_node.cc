@@ -148,7 +148,7 @@ void PTU46_Node::Connect() {
     m_joint_sub = m_node.subscribe
                   <sensor_msgs::JointState>("cmd", 1, &PTU46_Node::SetGoal, this);
 
-	m_control_mode_srv = m_node.advertiseService("set_conrol_mode",
+	m_control_mode_srv = m_node.advertiseService("set_control_mode",
 												 &PTU46_Node::SetControlModeSrv, this);
 
 }
