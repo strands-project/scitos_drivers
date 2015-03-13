@@ -1,0 +1,5 @@
+int8 POSITION_CONTROL=0
+int8 VELOCITY_CONTROL=1
+int8 control_type
+---
+bool success
