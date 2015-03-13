@@ -4,7 +4,7 @@ project(flir_pantilt_d46)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS actionlib actionlib_msgs diagnostic_updater roscpp rospy sensor_msgs std_msgs)
+find_package(catkin REQUIRED COMPONENTS actionlib actionlib_msgs diagnostic_updater roscpp rospy sensor_msgs std_msgs message_generation)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -28,11 +28,10 @@ catkin_python_setup()
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  SetControlMode.srv
+)
 
 # Actions
 add_action_files(
