@@ -57,6 +57,7 @@ class PTU46_Node {
         ros::Subscriber m_joint_sub;
         ros::ServiceServer m_reset_srv;
         ros::Subscriber m_joint_sub_vel;  
+        ros::ServiceServer m_reset_srv;
         std::string m_pan_joint_name;
         std::string m_tilt_joint_name;
         bool m_check_limits;
