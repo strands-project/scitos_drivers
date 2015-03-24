@@ -4,6 +4,7 @@
 #include <sensor_msgs/JointState.h>
 #include <diagnostic_updater/diagnostic_updater.h>
 #include <diagnostic_updater/publisher.h>
+#include <std_srvs/Empty.h>
 
 namespace PTU46 {
 
@@ -45,6 +46,7 @@ class PTU46_Node {
         void SetGoal(const sensor_msgs::JointState::ConstPtr& msg);
 
         void produce_diagnostics(diagnostic_updater::DiagnosticStatusWrapper &stat);
+        bool ResetPtuSrv(std_srvs::Empty::Request  &req, std_srvs::Empty::Response &res);
 
     protected:
         diagnostic_updater::Updater* m_updater;
@@ -52,6 +54,7 @@ class PTU46_Node {
         ros::NodeHandle m_node;
         ros::Publisher  m_joint_pub;
         ros::Subscriber m_joint_sub;
+        ros::ServiceServer m_reset_srv;
         std::string m_pan_joint_name;
         std::string m_tilt_joint_name;
         bool m_check_limits;
@@ -129,6 +132,8 @@ void PTU46_Node::Connect() {
     m_joint_sub = m_node.subscribe
                   <sensor_msgs::JointState>("cmd", 1, &PTU46_Node::SetGoal, this);
 
+    // Reset service handle
+	m_reset_srv = m_node.advertiseService("reset", &PTU46_Node::ResetPtuSrv, this);
 }
 
 /** Disconnect */
@@ -137,6 +142,12 @@ void PTU46_Node::Disconnect() {
         delete m_pantilt;   // Closes the connection
         m_pantilt = NULL;   // Marks the service as disconnected
     }
+}
+
+/* Service handle for reseting the PTU */
+bool PTU46_Node::ResetPtuSrv(std_srvs::Empty::Request  &req, std_srvs::Empty::Response &res) {
+  m_pantilt->Reset();
+  return true;
 }
 
 /** Callback for getting new Goal JointState */

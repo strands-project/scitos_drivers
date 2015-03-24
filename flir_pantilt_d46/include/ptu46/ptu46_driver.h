@@ -2,6 +2,7 @@
 #define _PTU46_DRIVER_H_
 
 #include <termios.h>
+#include <boost/thread/mutex.hpp>
 
 // serial defines
 #define PTU46_DEFAULT_BAUD 9600
@@ -151,6 +152,13 @@ class PTU46 {
          */
         char GetMode ();
 
+	/**
+	 * Reset the PTU unit, performing a calibaration.
+	 * Blocks until the reset is complete. 
+	 * \return true if success, otherwise false.
+	 */
+	bool Reset ();
+
     private:
         /** Get radian/count resolution
          * \param type 'p' or 't'
@@ -179,6 +187,8 @@ class PTU46 {
         int TSMax;	///< Max Tilt Speed in Counts/second
         int PSMin;	///< Min Pan Speed in Counts/second
         int PSMax;	///< Max Pan Speed in Counts/second
+
+	boost::mutex io_mutex;
 
     protected:
         float tr;	///< tilt resolution (rads/count)
