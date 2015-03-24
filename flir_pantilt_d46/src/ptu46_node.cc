@@ -43,7 +43,8 @@ class PTU46_Node {
         void spinOnce();
 
         // Callback Methods
-        void SetGoal(const sensor_msgs::JointState::ConstPtr& msg);
+        void SetGoalPosition(const sensor_msgs::JointState::ConstPtr& msg);
+        void SetGoalVelocity(const sensor_msgs::JointState::ConstPtr& msg);
 
         void produce_diagnostics(diagnostic_updater::DiagnosticStatusWrapper &stat);
         bool ResetPtuSrv(std_srvs::Empty::Request  &req, std_srvs::Empty::Response &res);
@@ -55,14 +56,16 @@ class PTU46_Node {
         ros::Publisher  m_joint_pub;
         ros::Subscriber m_joint_sub;
         ros::ServiceServer m_reset_srv;
+        ros::Subscriber m_joint_sub_vel;  
         std::string m_pan_joint_name;
         std::string m_tilt_joint_name;
         bool m_check_limits;
-  
+        bool m_velocity_control;
+
 };
 
 PTU46_Node::PTU46_Node(ros::NodeHandle& node_handle)
-        :m_pantilt(NULL), m_node(node_handle) {
+  :m_pantilt(NULL), m_node(node_handle), m_velocity_control(false) {
     m_updater = new diagnostic_updater::Updater();
     m_updater->setHardwareID("none"); 
     m_updater->add("PTU Status", this, &PTU46_Node::produce_diagnostics);
@@ -124,13 +127,24 @@ void PTU46_Node::Connect() {
     ROS_INFO("check limits:  %d...", m_check_limits);
     m_pantilt->SetCheckLimits(m_check_limits);
 
+	// set velocity control
+	if (m_velocity_control) {
+	  m_pantilt->SetMode(PTU46_VELOCITY);
+	  ROS_INFO("PTU starting in VELOCITY control mode.");
+    } else {
+	  ROS_INFO("PTU starting in POSITION control mode.");
+	  m_pantilt->SetMode(PTU46_POSITION);
+	}
+
     // Publishers : Only publish the most recent reading
     m_joint_pub = m_node.advertise
                   <sensor_msgs::JointState>("state", 1);
 
     // Subscribers : Only subscribe to the most recent instructions
     m_joint_sub = m_node.subscribe
-                  <sensor_msgs::JointState>("cmd", 1, &PTU46_Node::SetGoal, this);
+                  <sensor_msgs::JointState>("cmd", 1, &PTU46_Node::SetGoalPosition, this);
+    m_joint_sub_vel = m_node.subscribe
+	              <sensor_msgs::JointState>("cmd_vel", 1, &PTU46_Node::SetGoalVelocity, this);
 
     // Reset service handle
 	m_reset_srv = m_node.advertiseService("reset", &PTU46_Node::ResetPtuSrv, this);
@@ -151,9 +165,19 @@ bool PTU46_Node::ResetPtuSrv(std_srvs::Empty::Request  &req, std_srvs::Empty::Re
 }
 
 /** Callback for getting new Goal JointState */
-void PTU46_Node::SetGoal(const sensor_msgs::JointState::ConstPtr& msg) {
+void PTU46_Node::SetGoalPosition(const sensor_msgs::JointState::ConstPtr& msg) {
     if (! ok())
         return;
+	if (m_velocity_control) {
+	  ROS_INFO("Reverting PTU control mode to POSITION");
+	  bool success = m_pantilt->SetMode(PTU46_POSITION);
+	  if (! success) {
+		ROS_WARN("Position goal ignored - error setting position control mode.");
+		return;
+	  }
+	  m_velocity_control = false;
+	}
+	  
 	unsigned int i=0;
 	double pan=0;
 	double tilt=0;
@@ -173,6 +197,44 @@ void PTU46_Node::SetGoal(const sensor_msgs::JointState::ConstPtr& msg) {
 		tiltspeed = msg->velocity[i];
 
 		m_pantilt->SetPosition(PTU46_TILT, tilt);
+		m_pantilt->SetSpeed(PTU46_TILT, tiltspeed);
+		
+	  }  else {
+		ROS_WARN_STREAM("Trying to control the PTU with a bad joint name. Joint=" << msg->name[i]);
+	  }
+	}
+	
+}
+
+/** Callback for getting new velocity Goal JointState */
+void PTU46_Node::SetGoalVelocity(const sensor_msgs::JointState::ConstPtr& msg) {
+    if (! ok())
+        return;
+	if (! m_velocity_control) {
+	  ROS_INFO("Setting PTU control mode to VELOCITY.");
+	  bool success = m_pantilt->SetMode(PTU46_VELOCITY);
+	  if (! success) {
+		ROS_WARN("Velocity goal ignored - error setting velocity control mode.");
+		return;
+	  }
+	  m_velocity_control = true;
+	}
+
+	unsigned int i=0;
+	double pan=0;
+	double tilt=0;
+	double panspeed=0;
+	double tiltspeed=0;
+	
+	for (i=0; i< msg->name.size(); i++) {
+	  if (msg->name[i].compare(m_pan_joint_name)==0 ) {
+		panspeed = msg->velocity[i];
+
+		m_pantilt->SetSpeed(PTU46_PAN, panspeed);
+		
+	  } else if (msg->name[i].compare(m_tilt_joint_name)==0 ) {
+		tiltspeed = msg->velocity[i];
+
 		m_pantilt->SetSpeed(PTU46_TILT, tiltspeed);
 		
 	  }  else {
