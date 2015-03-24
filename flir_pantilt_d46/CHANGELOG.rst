@@ -9,6 +9,22 @@ Changelog for package flir_pantilt_d46
 * Manual indigo version bump.
 * Contributors: Chris Burbridge
 
+Forthcoming
+-----------
+* Merge branch 'reset_service' of https://github.com/cburbridge/scitos_drivers into cburbridge-reset_service
+  Conflicts:
+  flir_pantilt_d46/src/ptu46_node.cc
+* Add service to reset/calibrate PTU.
+* Add velocity control option as new topic.
+* Add service to reset/calibrate PTU.
+* Add velocity control option as new topic.
+* indigo-0.1.2
+* Update changelogs.
+* Fix publisher queue_size for indigo.
+* indigo-0.1.1
+* Manual indigo version bump.
+* Contributors: Chris Burbridge
+
 0.0.13 (2014-12-02)
 -------------------
 

@@ -11,6 +11,18 @@ Changelog for package scitos_bringup
 * Manual indigo version bump.
 * Contributors: Chris Burbridge
 
+Forthcoming
+-----------
+* indigo-0.1.2
+* Update changelogs.
+* Fix openni wrapper include.
+  Renamed default camera to head_xtion, since the non-strands scitos by default has a head camera not a chest camera attached to the main machine. Removed obsolete publish_tf argument.
+* Update for renamed pc_monitor.
+* indigo-0.1.1
+* Manual indigo version bump.
+* Fix s300 launch include.
+* Contributors: Chris Burbridge
+
 0.0.13 (2014-12-02)
 -------------------
 

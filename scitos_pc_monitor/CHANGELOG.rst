@@ -17,6 +17,17 @@ Changelog for package scitos_pc_monitor
 * Prepare pc_monitor for move to scitos_drivers
 * Contributors: Chris Burbridge
 
+Forthcoming
+-----------
+* indigo-0.1.2
+* Update changelogs.
+* Fix publisher queue_size for indigo.
+* indigo-0.1.1
+* Update changelogs.
+* Manual indigo version bump.
+* Prepare pc_monitor for move to scitos_drivers
+* Contributors: Chris Burbridge
+
 0.0.16 (2014-12-10 12:02:30 +0000)
 ----------------------------------
 
