@@ -2,6 +2,13 @@
 Changelog for package flir_pantilt_d46
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.2 (2015-01-13)
+------------------
+* Fix publisher queue_size for indigo.
+* indigo-0.1.1
+* Manual indigo version bump.
+* Contributors: Chris Burbridge
+
 0.0.13 (2014-12-02)
 -------------------
 
