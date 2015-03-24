@@ -4,7 +4,7 @@ project(flir_pantilt_d46)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS actionlib actionlib_msgs diagnostic_updater roscpp rospy sensor_msgs std_msgs)
+find_package(catkin REQUIRED COMPONENTS actionlib actionlib_msgs diagnostic_updater roscpp rospy sensor_msgs std_msgs std_srvs)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)

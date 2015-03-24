@@ -252,6 +252,7 @@ int PTU46::Write(const char * data, int length) {
 
 // get radians/count resolution
 float PTU46::GetRes(char type) {
+    boost::mutex::scoped_lock scoped_lock(io_mutex);
     if (fd < 0)
         return -1;
     char cmd[4] = " r ";
@@ -275,6 +276,7 @@ float PTU46::GetRes(char type) {
 
 // get position limit
 int PTU46::GetLimit(char type, char LimType) {
+    boost::mutex::scoped_lock scoped_lock(io_mutex);
     if (fd < 0)
         return -1;
     char cmd[4] = "   ";
@@ -298,6 +300,7 @@ int PTU46::GetLimit(char type, char LimType) {
 
 // get position in radians
 float PTU46::GetPosition (char type) {
+    boost::mutex::scoped_lock scoped_lock(io_mutex);
     if (fd < 0)
         return -1;
 
@@ -320,6 +323,7 @@ float PTU46::GetPosition (char type) {
 }
 
 void PTU46::SetCheckLimits(bool val) {
+    boost::mutex::scoped_lock scoped_lock(io_mutex);
     check_limits = val;
     if (check_limits) {
         Write("le ");
@@ -337,6 +341,7 @@ void PTU46::SetCheckLimits(bool val) {
 
 // set position in radians
 bool PTU46::SetPosition (char type, float pos, bool Block) {
+    boost::mutex::scoped_lock scoped_lock(io_mutex);
     if (fd < 0)
         return false;
 
@@ -397,6 +402,7 @@ float PTU46::GetSpeed (char type) {
 
 // set speed in radians/sec
 bool PTU46::SetSpeed (char type, float pos) {
+    boost::mutex::scoped_lock scoped_lock(io_mutex);
     if (fd < 0)
         return false;
 
@@ -426,6 +432,7 @@ bool PTU46::SetSpeed (char type, float pos) {
 
 // set movement mode (position/velocity)
 bool PTU46::SetMode (char type) {
+    boost::mutex::scoped_lock scoped_lock(io_mutex);
     if (fd < 0)
         return false;
 
@@ -446,6 +453,7 @@ bool PTU46::SetMode (char type) {
 
 // get ptu mode
 char PTU46::GetMode () {
+    boost::mutex::scoped_lock scoped_lock(io_mutex);
     if (fd < 0)
         return -1;
 
@@ -467,4 +475,30 @@ char PTU46::GetMode () {
         return -1;
 }
 
+bool PTU46::Reset() {
+    boost::mutex::scoped_lock scoped_lock(io_mutex);
+    if (fd < 0)
+      return false;
+    Write(" r "); // reset pan-tilt unit (also clears any bad input on serial port)
+    
+    // wait for reset to complete
+    int len = 0;
+    char temp;
+    char response[10] = "!T!T!P!P*";
+    
+    for (int i = 0; i < 9; ++i) {
+      while ((len = read(fd, &temp, 1 )) == 0) {};
+      if ((len != 1) || (temp != response[i])) {
+                fprintf(stderr,"Error Resetting Pan Tilt unit\n");
+                fprintf(stderr,"Stopping access to pan-tilt unit\n");
+                Disconnect();
+		return false;
+      }
+    }
+    // delay here so data has arrived at serial port so we can flush it
+    usleep(100000);
+    tcflush(fd, TCIFLUSH);
+    return true;
+    
+  }
 }
