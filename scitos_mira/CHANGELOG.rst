@@ -8,8 +8,8 @@ Changelog for package scitos_mira
 * Manual indigo version bump.
 * Contributors: Chris Burbridge
 
-Forthcoming
------------
+0.1.4 (2015-04-13)
+------------------
 * Fixed indentatioN
 * Added rear laser to the ebc cfgs
 * Contributors: Nils Bore
