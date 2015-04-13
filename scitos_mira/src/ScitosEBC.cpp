@@ -70,4 +70,10 @@ void ScitosEBC::reconfigure_callback( scitos_mira::EBCParametersConfig& config, 
 	  set_mira_param_("EBC7.Port1_24V.Enabled","false");
 	set_mira_param_("EBC7.Port1_24V.MaxCurrent",std::to_string(config.Port1_24V_MaxCurrent));
 
+    // Rear Laser
+    if (config.RearLaser_Enabled)
+	  set_mira_param_("MainControlUnit.RearLaser.Enabled","true");
+	else
+	  set_mira_param_("MainControlUnit.RearLaser.Enabled","false");
+
 }
