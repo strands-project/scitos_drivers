@@ -48,6 +48,16 @@ void ScitosDrive::initialize() {
   enable_rfid_service_ = robot_->getRosNode().advertiseService("/enable_rfid", &ScitosDrive::enable_rfid, this);
   reset_barrier_stop_service_ = robot_->getRosNode().advertiseService("/reset_barrier_stop", &ScitosDrive::reset_barrier_stop, this);
 
+  bool magnetic_barrier_enabled = true;
+  ros::param::param("~magnetic_barrier_enabled", magnetic_barrier_enabled, magnetic_barrier_enabled);
+  if (magnetic_barrier_enabled) {
+    set_mira_param_("MainControlUnit.RearLaser.Enabled", "true");
+  }  else {
+    ROS_WARN("Magnetic barrier motor stop not enabled.");
+    set_mira_param_("MainControlUnit.RearLaser.Enabled", "false");
+  }
+
+
   barrier_status_.barrier_stopped = false;
   barrier_status_.last_detection_stamp = ros::Time(0);
   robot_->registerSpinFunction(boost::bind(&ScitosDrive::publish_barrier_status, this));
