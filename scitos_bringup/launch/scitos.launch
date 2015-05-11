@@ -19,10 +19,10 @@
 	<include file="$(find scitos_description)/launch/scitos_state_publisher.launch"/>
 
         <!-- Odom Mileage -->
-        <node name="odometry_mileage" pkg="odometry_mileage" type="odometry_mileage" />	
+        <node name="odometry_mileage" pkg="odometry_mileage" type="odometry_mileage" respawn="true"/>	
 	
 	<!-- PC Monitor -->
-	<node name="pc_monitor" pkg="scitos_pc_monitor" type="pc_monitor" />
+	<node name="pc_monitor" pkg="scitos_pc_monitor" type="pc_monitor" respawn="true"/>
 
 	<!-- Diagnostics aggregator -->
 	<include file="$(find scitos_bringup)/launch/diagnostic_agg.launch"/>
