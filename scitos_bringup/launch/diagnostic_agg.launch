@@ -5,7 +5,7 @@
 	<!-- NOW when launching in a remote mode it will need the ROS_ENV_LOADER set if not it will leave it empty -->
 	<machine name="$(arg machine)" address="$(arg machine)" env-loader="$(optenv ROS_ENV_LOADER )" user="$(arg user)" default="true" />
 
-	<node pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator" >
+	<node pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator" respawn="true">
 		<rosparam command="load" file="$(find scitos_bringup)/launch/diagnostics.yaml" />
 	</node>
 </launch>
