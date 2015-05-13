@@ -9,8 +9,8 @@ Changelog for package scitos_drivers
 * Add scitos_pc_monitor to metapackage.
 * Contributors: Chris Burbridge
 
-Forthcoming
------------
+0.1.6 (2015-05-13)
+------------------
 
 0.1.5 (2015-04-22)
 ------------------
