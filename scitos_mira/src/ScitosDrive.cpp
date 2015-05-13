@@ -25,8 +25,7 @@ void ScitosDrive::initialize() {
   motorstatus_pub_ = robot_->getRosNode().advertise<scitos_msgs::MotorStatus>("/motor_status", 20);
   rfid_pub_ = robot_->getRosNode().advertise<std_msgs::UInt64>("/rfid", 20);
   magnetic_barrier_pub_ = robot_->getRosNode().advertise<scitos_msgs::BarrierStatus>("/barrier_status", 20);
-  bool latch=true;
-  emergency_stop_pub_ = robot_->getRosNode().advertise<scitos_msgs::BarrierStatus>("/emergency_stop_status", 20, latch);
+  emergency_stop_pub_ = robot_->getRosNode().advertise<std_msgs::Bool>("/emergency_stop_status", 20, true);
   
   robot_->getMiraAuthority().subscribe<mira::robot::Odometry2>("/robot/Odometry", //&ScitosBase::odometry_cb);
 							       &ScitosDrive::odometry_data_callback, this);
