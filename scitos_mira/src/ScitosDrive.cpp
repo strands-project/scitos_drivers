@@ -66,7 +66,7 @@ void ScitosDrive::initialize() {
 }
 
 void ScitosDrive::velocity_command_callback(const geometry_msgs::Twist::ConstPtr& msg) {
-  if (! barrier_status_.barrier_stopped || ! emergency_stop_.data) {
+  if ( !barrier_status_.barrier_stopped && !emergency_stop_.data) {
       mira::RigidTransform<float, 2> speed(msg->linear.x, 0, msg->angular.z);
       mira::RPCFuture<void> r = robot_->getMiraAuthority().callService<void>("/robot/Robot",
 									     "setVelocity", speed);
