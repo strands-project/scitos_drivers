@@ -11,6 +11,11 @@ Changelog for package scitos_bringup
 * Manual indigo version bump.
 * Contributors: Chris Burbridge
 
+Forthcoming
+-----------
+* Adding respawn flags.
+* Contributors: Christian Dondrup
+
 0.1.5 (2015-04-22)
 ------------------
 
