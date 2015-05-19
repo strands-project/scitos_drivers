@@ -8,6 +8,12 @@ Changelog for package scitos_mira
 * Manual indigo version bump.
 * Contributors: Chris Burbridge
 
+Forthcoming
+-----------
+* Don't reset odometry on start.
+  Allows restarting the mira interface node without messing up amcl.
+* Contributors: Chris Burbridge
+
 0.1.6 (2015-05-13)
 ------------------
 
