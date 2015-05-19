@@ -8,6 +8,7 @@
 		<Modules>
 			<MainControlUnit>
 				<OdometryInterval>50</OdometryInterval>
+				<ResetOdometryOnStart>false</ResetOdometryOnStart>
 				<Force>80</Force>
 				<RFIDReaderEnabled>true</RFIDReaderEnabled>
 				<FrontLaser>
