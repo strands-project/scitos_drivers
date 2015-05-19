@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>scitos_pc_monitor</name>
-  <version>0.1.6</version>
+  <version>0.1.7</version>
   <description>Monitors the SCITOS embedded PC, ouputs diagnostics messages.</description>
 
   <maintainer email="cburbridge@gmail.com">Chris Burbridge</maintainer>
