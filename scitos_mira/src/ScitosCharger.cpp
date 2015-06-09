@@ -20,7 +20,29 @@ void ScitosCharger::initialize() {
 							&ScitosCharger::charger_status_callback, this);
 
 	reconfigure_srv_.setCallback(boost::bind(&ScitosCharger::reconfigure_callback, this, _1, _2));
+
+	save_persistent_errors_service_ = robot_->getRosNode().advertiseService("charger/save_persistent_errors", 
+									       &ScitosCharger::save_persistent_errors, 
+									       this);
+
 }
+
+bool ScitosCharger::save_persistent_errors(scitos_msgs::SavePersistentErrors::Request  &req, scitos_msgs::SavePersistentErrors::Response &res) {
+  ROS_INFO_STREAM("Saving persistent error log to '" << req.filename << "'");
+  
+  //  call_mira_service
+  try {
+    mira::RPCFuture<void> r = robot_->getMiraAuthority().callService<void>("/robot/Robot", 
+									 std::string("savePersistentErrors"),
+									 req.filename);
+  } catch (mira::XRPC& e) {
+    ROS_ERROR_STREAM("Problem with RPC savePersistentErrors: " << e.message());
+    return false;
+  }
+  return true;
+
+}
+
 
 void ScitosCharger::battery_data_callback(mira::ChannelRead<mira::robot::BatteryState> data) {
 	ros::Time time_now = ros::Time::now(); // must be something better? data->timestamp.toUnixNS();?
