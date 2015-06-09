@@ -8,8 +8,8 @@ Changelog for package scitos_mira
 * Manual indigo version bump.
 * Contributors: Chris Burbridge
 
-Forthcoming
------------
+0.1.8 (2015-06-09)
+------------------
 * Add service to get persistent charger error log.
 * fixing logic
 * fix typo
