@@ -25,6 +25,7 @@ void ScitosDrive::initialize() {
   motorstatus_pub_ = robot_->getRosNode().advertise<scitos_msgs::MotorStatus>("/motor_status", 20);
   rfid_pub_ = robot_->getRosNode().advertise<std_msgs::UInt64>("/rfid", 20);
   magnetic_barrier_pub_ = robot_->getRosNode().advertise<scitos_msgs::BarrierStatus>("/barrier_status", 20);
+  emergency_stop_pub_ = robot_->getRosNode().advertise<std_msgs::Bool>("/emergency_stop_status", 20, true);
   
   robot_->getMiraAuthority().subscribe<mira::robot::Odometry2>("/robot/Odometry", //&ScitosBase::odometry_cb);
 							       &ScitosDrive::odometry_data_callback, this);
@@ -57,7 +58,7 @@ void ScitosDrive::initialize() {
     set_mira_param_("MainControlUnit.RearLaser.Enabled", "false");
   }
 
-
+  emergency_stop_.data = false;
   barrier_status_.barrier_stopped = false;
   barrier_status_.last_detection_stamp = ros::Time(0);
   robot_->registerSpinFunction(boost::bind(&ScitosDrive::publish_barrier_status, this));
@@ -65,7 +66,7 @@ void ScitosDrive::initialize() {
 }
 
 void ScitosDrive::velocity_command_callback(const geometry_msgs::Twist::ConstPtr& msg) {
-  if (! barrier_status_.barrier_stopped ) {
+  if ( !barrier_status_.barrier_stopped && !emergency_stop_.data) {
       mira::RigidTransform<float, 2> speed(msg->linear.x, 0, msg->angular.z);
       mira::RPCFuture<void> r = robot_->getMiraAuthority().callService<void>("/robot/Robot",
 									     "setVelocity", speed);
@@ -157,6 +158,8 @@ void ScitosDrive::odometry_data_callback(mira::ChannelRead<mira::robot::Odometry
 
 bool ScitosDrive::reset_motor_stop(scitos_msgs::ResetMotorStop::Request  &req, scitos_msgs::ResetMotorStop::Response &res) {
   //  call_mira_service
+  emergency_stop_.data = false;
+  emergency_stop_pub_.publish(emergency_stop_);
   mira::RPCFuture<void> r = robot_->getMiraAuthority().callService<void>("/robot/Robot", std::string("resetMotorStop"));
   r.timedWait(mira::Duration::seconds(1));
   r.get(); 
@@ -176,6 +179,8 @@ bool ScitosDrive::reset_odometry(scitos_msgs::ResetOdometry::Request  &req, scit
 
 bool ScitosDrive::emergency_stop(scitos_msgs::EmergencyStop::Request  &req, scitos_msgs::EmergencyStop::Response &res) {
   //  call_mira_service
+  emergency_stop_.data = true;
+  emergency_stop_pub_.publish(emergency_stop_);
   mira::RPCFuture<void> r = robot_->getMiraAuthority().callService<void>("/robot/Robot", std::string("emergencyStop"));
   r.timedWait(mira::Duration::seconds(1));
   r.get(); 

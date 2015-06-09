@@ -14,6 +14,7 @@
 #include <geometry_msgs/Twist.h>
 #include <robot/Odometry.h> //# MIRA odometry
 #include "scitos_mira/ScitosModule.h"
+#include <std_msgs/Bool.h>
 #include <scitos_msgs/ResetMotorStop.h>
 #include <scitos_msgs/ResetOdometry.h>
 #include <scitos_msgs/ResetBarrierStop.h>
@@ -58,7 +59,8 @@ private:
 	ros::Publisher mileage_pub_;
 	ros::Publisher motorstatus_pub_;
 	ros::Publisher rfid_pub_;
-	ros::Publisher magnetic_barrier_pub_;
+    ros::Publisher magnetic_barrier_pub_;
+    ros::Publisher emergency_stop_pub_;
 
 	ros::ServiceServer reset_motor_stop_service_;
 	ros::ServiceServer reset_odometry_service_;
@@ -66,9 +68,9 @@ private:
 	ros::ServiceServer enable_motors_service_;
 	ros::ServiceServer change_force_service_;
 	ros::ServiceServer enable_rfid_service_;
-	ros::ServiceServer reset_barrier_stop_service_;
-
-	scitos_msgs::BarrierStatus barrier_status_;
+    ros::ServiceServer reset_barrier_stop_service_;
+    std_msgs::Bool emergency_stop_;
+    scitos_msgs::BarrierStatus barrier_status_;
 };
 
 #endif
