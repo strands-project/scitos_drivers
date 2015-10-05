@@ -2,12 +2,13 @@
 	<!-- Remote Launching -->
 	<arg name="machine" default="localhost"/>
 	<arg name="user" default="" />
+	<arg name="port" default="/dev/ttyS0" />
 
 	<!-- NOW when launching in a remote mode it will need the ROS_ENV_LOADER set if not it will leave it empty -->
 	<machine name="$(arg machine)" address="$(arg machine)" env-loader="$(optenv ROS_ENV_LOADER )" user="$(arg user)" default="true" />
 
 	<node name="ptu" pkg="flir_pantilt_d46" type="ptu_d46" output="screen" respawn="true">
-		<param name="port" value="/dev/ttyS0"/>
+		<param name="port" value="$(arg port)"/>
 		<param name="check_limits" value="False"/>
 	</node>
 
