@@ -89,7 +89,7 @@ void ScitosDrive::mileage_data_callback(mira::ChannelRead<float> data) {
 void ScitosDrive::rfid_status_callback(mira::ChannelRead<uint64> data) {
   if (data->value() == MAGNETIC_BARRIER_RFID_CODE) {
     barrier_status_.barrier_stopped = true;
-    barrier_status_.last_detection_stamp = ros::Time::now(); 
+    barrier_status_.last_detection_stamp = ros::Time().fromNSec(data->timestamp.toUnixNS()); //Before it was ros::Time::now(). Changed it to the actual mira timestamp 
   }
   std_msgs::UInt64 out;
   out.data = data->value();
@@ -98,7 +98,7 @@ void ScitosDrive::rfid_status_callback(mira::ChannelRead<uint64> data) {
 
 
 void ScitosDrive::motor_status_callback(mira::ChannelRead<uint8> data) {
-  ros::Time time_now = ros::Time::now(); 
+  ros::Time time_now = ros::Time().fromNSec(data->timestamp.toUnixNS()); //Before it was ros::Time::now(). Changed it to the actual mira timestamp
   
   scitos_msgs::MotorStatus s;
   s.header.stamp=time_now;
@@ -121,7 +121,7 @@ void ScitosDrive::publish_barrier_status() {
 
 void ScitosDrive::odometry_data_callback(mira::ChannelRead<mira::robot::Odometry2> data ) {
 	/// new odometry data through mira; put it out in ros
-	ros::Time odom_time = ros::Time::now(); // must be something better?
+	ros::Time odom_time = ros::Time().fromNSec(data->timestamp.toUnixNS()); //Before it was ros::Time::now(). Changed it to the actual mira timestamp
 	geometry_msgs::Quaternion orientation = tf::createQuaternionMsgFromYaw(
 			data->value().pose.phi());
 

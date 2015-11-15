@@ -45,7 +45,7 @@ bool ScitosCharger::save_persistent_errors(scitos_msgs::SavePersistentErrors::Re
 
 
 void ScitosCharger::battery_data_callback(mira::ChannelRead<mira::robot::BatteryState> data) {
-	ros::Time time_now = ros::Time::now(); // must be something better? data->timestamp.toUnixNS();?
+	ros::Time time_now = ros::Time().fromNSec(data->timestamp.toUnixNS()); //Before it was ros::Time::now(). Changed it to the actual mira timestamp
 	scitos_msgs::BatteryState b;
 
 	b.header.seq = data->sequenceID;
@@ -63,7 +63,7 @@ void ScitosCharger::battery_data_callback(mira::ChannelRead<mira::robot::Battery
 
 
 void ScitosCharger::charger_status_callback(mira::ChannelRead<uint8> data) {
-	ros::Time time_now = ros::Time::now(); 
+	ros::Time time_now = ros::Time().fromNSec(data->timestamp.toUnixNS()); //Before it was ros::Time::now(). Changed it to the actual mira timestamp
 
 	scitos_msgs::ChargerStatus s;
 	s.header.stamp=time_now;
