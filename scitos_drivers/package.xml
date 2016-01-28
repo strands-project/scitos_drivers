@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>scitos_drivers</name>
-  <version>0.1.8</version>
+  <version>0.1.9</version>
   <description>
 	Driver for Scitos-G5 using the MIRA framework. Includes drivers for other typical Scitos Hardware, eg laser scanner.
   </description>
