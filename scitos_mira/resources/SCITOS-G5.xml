@@ -7,6 +7,9 @@
 
 		<Modules>
 			<MainControlUnit>
+				<MotorResetOnErrorCurrentThreshold>0.03</MotorResetOnErrorCurrentThreshold>
+				<MotorResetOnErrorTimeout>500</MotorResetOnErrorTimeout>
+
 				<OdometryInterval>50</OdometryInterval>
 				<ResetOdometryOnStart>false</ResetOdometryOnStart>
 				<Force>80</Force>
