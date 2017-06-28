@@ -6,7 +6,7 @@
      Driver for the FLIR ptu46 pan/tilt, forked from wu_robotics, which was forked from player.
   </description>
 
-  <maintainer email="cburbridge@gmail.com">Chris Burbridge</maintainer>
+  <maintainer email="marc@hanheide.net">Marc Hanheide</maintainer>
 
   <license>GPL</license>
 

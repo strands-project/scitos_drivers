@@ -4,11 +4,11 @@
   <version>0.1.9</version>
   <description>Monitors the SCITOS embedded PC, ouputs diagnostics messages.</description>
 
-  <maintainer email="cburbridge@gmail.com">Chris Burbridge</maintainer>
+  <maintainer email="marc@hanheide.net">Marc Hanheide</maintainer>
 
   <license>MIT</license>
 
-  <author email="cburbridge@gmail.com">Chris Burbridge</author>
+  <author email="marc@hanheide.net">Marc Hanheide</author>
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>diagnostic_msgs</build_depend>
