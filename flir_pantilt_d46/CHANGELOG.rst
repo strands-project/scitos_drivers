@@ -9,8 +9,8 @@ Changelog for package flir_pantilt_d46
 * Manual indigo version bump.
 * Contributors: Chris Burbridge
 
-Forthcoming
------------
+0.2.0 (2017-06-28)
+------------------
 * changelogs
 * changed maintainer from Chris to Marc
 * Contributors: Marc Hanheide

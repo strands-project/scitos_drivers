@@ -8,8 +8,8 @@ Changelog for package scitos_mira
 * Manual indigo version bump.
 * Contributors: Chris Burbridge
 
-Forthcoming
------------
+0.2.0 (2017-06-28)
+------------------
 * added qt4 dep
 * changelogs
 * changed maintainer from Chris to Marc
