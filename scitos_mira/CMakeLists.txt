@@ -85,7 +85,7 @@ include_directories(include
 
 # include cmake file for MIRA
 include(CMakeLists.mira)
-MIRA_REQUIRE_PACKAGE(SCITOS 0.23.1)
+MIRA_REQUIRE_PACKAGE(SCITOS)
 
 
 ## Declare a cpp executable
@@ -184,3 +184,11 @@ install(DIRECTORY resources/
 
 # for mira support (auto linking, enabling C++0x support,...)
 catkin_add_mira(scitos_node)
+
+
+
+if(CMAKE_HOST_UNIX)
+  catkin_add_env_hooks(90.mira-path SHELLS sh DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/env_hooks)
+else()
+  message(FATAL_ERROR "Only UNIX builds supported.")
+endif()

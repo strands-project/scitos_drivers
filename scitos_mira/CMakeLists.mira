@@ -4,7 +4,9 @@ message(STATUS "Detecting MIRA root directory")
 # Examines each path in MIRA_PATH in order to find the MIRA root directory, which
 # is identified by the file "make/Insource.make"
 
-SET(ENV{MIRA_PATH} "$ENV{MIRA_PATH}:/opt/mira-scitos")
+SET(ENV{MIRA_PATH} "$ENV{MIRA_PATH}:/opt/mira-scitos:${CMAKE_SOURCE_DIR}")
+
+SET(FORCE_USE_QT4 1)
 
 set(FindMIRARoot_MIRA_PATH "$ENV{MIRA_PATH}")
 if(UNIX)
