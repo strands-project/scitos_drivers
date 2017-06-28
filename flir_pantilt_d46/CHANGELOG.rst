@@ -11,6 +11,10 @@ Changelog for package flir_pantilt_d46
 
 Forthcoming
 -----------
+* changelogs
+* changed maintainer from Chris to Marc
+* Contributors: Marc Hanheide
+
 * changed maintainer from Chris to Marc
 * Contributors: Marc Hanheide
 

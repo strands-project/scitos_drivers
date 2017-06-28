@@ -10,6 +10,14 @@ Changelog for package scitos_mira
 
 Forthcoming
 -----------
+* added qt4 dep
+* changelogs
+* changed maintainer from Chris to Marc
+* modifications required for new MIRA and Kinetic, plus setting MIRA_PATH from setup.bash
+* MotorReset enabled
+  fixes https://github.com/strands-project/scitos_robot/issues/77
+* Contributors: Marc Hanheide
+
 * changed maintainer from Chris to Marc
 * modifications required for new MIRA and Kinetic, plus setting MIRA_PATH from setup.bash
 * MotorReset enabled

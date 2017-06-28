@@ -13,6 +13,9 @@ Changelog for package scitos_bringup
 
 Forthcoming
 -----------
+* removed odometry_mileage as it caused a cyclic dependency
+* changelogs
+* Contributors: Marc Hanheide
 
 0.1.9 (2016-01-28)
 ------------------

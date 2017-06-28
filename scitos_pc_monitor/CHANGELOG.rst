@@ -19,6 +19,10 @@ Changelog for package scitos_pc_monitor
 
 Forthcoming
 -----------
+* changelogs
+* changed maintainer from Chris to Marc
+* Contributors: Marc Hanheide
+
 * changed maintainer from Chris to Marc
 * Contributors: Marc Hanheide
 

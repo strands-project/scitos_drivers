@@ -11,6 +11,10 @@ Changelog for package scitos_drivers
 
 Forthcoming
 -----------
+* changelogs
+* changed maintainer from Chris to Marc
+* Contributors: Marc Hanheide
+
 * changed maintainer from Chris to Marc
 * Contributors: Marc Hanheide
 
