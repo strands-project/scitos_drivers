@@ -12,7 +12,7 @@
 
   <url type="website">http://github.com/strands-project/scitos_drivers</url>
 
-  <author email="marc@hanheide.net">Marc Hanheide</author>
+  <author email="cburbridge@gmail.com">Chris Burbridge</author>
 
   <buildtool_depend>catkin</buildtool_depend>
   <run_depend>scitos_mira</run_depend>
