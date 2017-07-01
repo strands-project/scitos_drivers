@@ -8,8 +8,7 @@
 
   <license>MIT</license>
 
-  <author email="marc@hanheide.net">Marc Hanheide</author>
-
+  <author email="cburbridge@gmail.com">Chris Burbridge</author>
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>diagnostic_msgs</build_depend>
   <build_depend>rospy</build_depend>
