@@ -17,6 +17,15 @@ Changelog for package scitos_pc_monitor
 * Prepare pc_monitor for move to scitos_drivers
 * Contributors: Chris Burbridge
 
+0.2.0 (2017-06-28)
+------------------
+* changelogs
+* changed maintainer from Chris to Marc
+* Contributors: Marc Hanheide
+
+* changed maintainer from Chris to Marc
+* Contributors: Marc Hanheide
+
 0.1.9 (2016-01-28)
 ------------------
 

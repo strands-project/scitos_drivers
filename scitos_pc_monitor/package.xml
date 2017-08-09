@@ -1,15 +1,14 @@
 <?xml version="1.0"?>
 <package>
   <name>scitos_pc_monitor</name>
-  <version>0.1.9</version>
+  <version>0.2.0</version>
   <description>Monitors the SCITOS embedded PC, ouputs diagnostics messages.</description>
 
-  <maintainer email="cburbridge@gmail.com">Chris Burbridge</maintainer>
+  <maintainer email="marc@hanheide.net">Marc Hanheide</maintainer>
 
   <license>MIT</license>
 
   <author email="cburbridge@gmail.com">Chris Burbridge</author>
-
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>diagnostic_msgs</build_depend>
   <build_depend>rospy</build_depend>

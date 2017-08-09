@@ -1,7 +1,7 @@
 <launch>
 	<arg name="camera" default="head_xtion" />
 	
- 	<!-- SCITOS G5 Robot -->
+        <!-- SCITOS G5 Robot -->
 	<include file="$(find scitos_mira)/launch/scitos_mira.launch"/>
 
 	<!-- SICK S300 -->
@@ -18,9 +18,6 @@
 	<!--- Robot state publisher -->
 	<include file="$(find scitos_description)/launch/scitos_state_publisher.launch"/>
 
-        <!-- Odom Mileage -->
-        <node name="odometry_mileage" pkg="odometry_mileage" type="odometry_mileage" respawn="true"/>	
-	
 	<!-- PC Monitor -->
 	<node name="pc_monitor" pkg="scitos_pc_monitor" type="pc_monitor" respawn="true"/>
 

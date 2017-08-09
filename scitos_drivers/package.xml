@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <package>
   <name>scitos_drivers</name>
-  <version>0.1.9</version>
+  <version>0.2.0</version>
   <description>
 	Driver for Scitos-G5 using the MIRA framework. Includes drivers for other typical Scitos Hardware, eg laser scanner.
   </description>
 
-  <maintainer email="cburbridge@gmail.com">Chris Burbridge</maintainer>
+  <maintainer email="marc@hanheide.net">Marc Hanheide</maintainer>
 
   <license>GPL</license>
 

@@ -11,6 +11,12 @@ Changelog for package scitos_bringup
 * Manual indigo version bump.
 * Contributors: Chris Burbridge
 
+0.2.0 (2017-06-28)
+------------------
+* removed odometry_mileage as it caused a cyclic dependency
+* changelogs
+* Contributors: Marc Hanheide
+
 0.1.9 (2016-01-28)
 ------------------
 

@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <package>
   <name>scitos_mira</name>
-  <version>0.1.9</version>
+  <version>0.2.0</version>
   <description>Driver for Scitos-G5 using the MIRA framework.</description>
 
-  <maintainer email="cburbridge@gmail.com">Chris Burbridge</maintainer>
+  <maintainer email="marc@hanheide.net">Marc Hanheide</maintainer>
   
+  <author email="marc@hanheide.net">Marc Hanheide</author>
   <author email="cburbridge@gmail.com">Chris Burbridge</author>
   <author email="tkrajnik@lincoln.ac.uk">Tom Krajnik</author>
 
@@ -22,6 +23,7 @@
   <build_depend>scitos_msgs</build_depend>
   <build_depend>mira-scitos</build_depend>
   <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>libqt4-dev</build_depend>
 
   <run_depend>geometry_msgs</run_depend>
   <run_depend>roscpp</run_depend>
@@ -32,6 +34,6 @@
   <run_depend>scitos_msgs</run_depend>
   <run_depend>mira-scitos</run_depend>
   <run_depend>dynamic_reconfigure</run_depend>
-
+  <run_depend>libqt4-dev</run_depend>
 
 </package>

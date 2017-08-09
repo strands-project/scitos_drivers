@@ -8,6 +8,22 @@ Changelog for package scitos_mira
 * Manual indigo version bump.
 * Contributors: Chris Burbridge
 
+0.2.0 (2017-06-28)
+------------------
+* added qt4 dep
+* changelogs
+* changed maintainer from Chris to Marc
+* modifications required for new MIRA and Kinetic, plus setting MIRA_PATH from setup.bash
+* MotorReset enabled
+  fixes https://github.com/strands-project/scitos_robot/issues/77
+* Contributors: Marc Hanheide
+
+* changed maintainer from Chris to Marc
+* modifications required for new MIRA and Kinetic, plus setting MIRA_PATH from setup.bash
+* MotorReset enabled
+  fixes https://github.com/strands-project/scitos_robot/issues/77
+* Contributors: Marc Hanheide
+
 0.1.9 (2016-01-28)
 ------------------
 * changed ros::Time::now() to actual mira timestamp for the messaged taken from MIRA and published into ROS

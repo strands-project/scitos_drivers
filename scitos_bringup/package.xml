@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>scitos_bringup</name>
-  <version>0.1.9</version>
+  <version>0.2.0</version>
   <description>The scitos_bringup package</description>
 
   <maintainer email="pulidofentanes@gmail.com">Jaime Pulido Fentanes</maintainer>
@@ -18,7 +18,6 @@
 	<run_depend>sicks300</run_depend>
 	<run_depend>scitos_common</run_depend>
 	<run_depend>scitos_description</run_depend>
-	<run_depend>strands_apps</run_depend>
 
   <export>
 
