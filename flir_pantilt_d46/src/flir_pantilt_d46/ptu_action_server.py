@@ -7,7 +7,8 @@ from sensor_msgs.msg import JointState
 import threading
 import numpy as np
 
-class PTUControl(object):
+class PTUControl(object, sequential_moves):
+	self.sequential_moves = sequential_moves
 	pan      = 0
 	tilt     = 0
 	pan_vel  = 0
@@ -76,33 +77,48 @@ class PTUControl(object):
 		#msg_out.position = [pan, tilt]
 		#msg_out.velocity = [pan_vel, tilt_vel]
 		#self.ptu_pub.publish(msg_out)
-		pan_msg = JointState()
-		pan_msg.header.stamp = rospy.Time.now()
-		pan_msg.name = [self.pan_joint_name]
-		pan_msg.position = [pan]
-		pan_msg.velocity = [pan_vel]
-		self.ptu_pub.publish(pan_msg)
+		if self.sequential_moves:
+			pan_msg = JointState()
+			pan_msg.header.stamp = rospy.Time.now()
+			pan_msg.name = [self.pan_joint_name]
+			pan_msg.position = [pan]
+			pan_msg.velocity = [pan_vel]
+			self.ptu_pub.publish(pan_msg)
 
-		# wait for it to get there
-		wait_rate = rospy.Rate(10)
-		while not self._at_goal((pan, self.tilt)) and not rospy.is_shutdown():
-			if self._get_preempt_status():
-				return
-			wait_rate.sleep()
+			# wait for it to get there
+			wait_rate = rospy.Rate(10)
+			while not self._at_goal((pan, self.tilt)) and not rospy.is_shutdown():
+				if self._get_preempt_status():
+					return
+				wait_rate.sleep()
 
-		tilt_msg = JointState()
-		tilt_msg.header.stamp = rospy.Time.now()
-		tilt_msg.name = [self.tilt_joint_name]
-		tilt_msg.position = [tilt]
-		tilt_msg.velocity = [tilt_vel]
-		self.ptu_pub.publish(tilt_msg)
+			tilt_msg = JointState()
+			tilt_msg.header.stamp = rospy.Time.now()
+			tilt_msg.name = [self.tilt_joint_name]
+			tilt_msg.position = [tilt]
+			tilt_msg.velocity = [tilt_vel]
+			self.ptu_pub.publish(tilt_msg)
 
-		# wait for it to get there
-		wait_rate = rospy.Rate(10)
-		while not self._at_goal((self.pan, tilt)) and not rospy.is_shutdown():
-			if self._get_preempt_status():
-				break
-			wait_rate.sleep()
+			# wait for it to get there
+			wait_rate = rospy.Rate(10)
+			while not self._at_goal((self.pan, tilt)) and not rospy.is_shutdown():
+				if self._get_preempt_status():
+					break
+				wait_rate.sleep()
+		else:
+			msg_out = JointState()
+			msg_out.header.stamp = rospy.Time.now()
+			msg_out.name = [self.pan_joint_name, self.tilt_joint_name]
+			msg_out.position = [pan, tilt]
+			msg_out.velocity = [pan_vel, tilt_vel]
+			self.ptu_pub.publish(msg_out)
+
+			# wait for it to get there
+			wait_rate = rospy.Rate(10)
+			while not self._at_goal((pan, tilt)) and not rospy.is_shutdown():
+				if self._get_preempt_status():
+					break
+				wait_rate.sleep()
 
 	def _at_goal(self, goal):
 		return all(np.abs(np.array(goal) - (self.pan, self.tilt)) <= np.degrees((self.pstep, self.tstep)))
@@ -131,5 +147,6 @@ class PTUControl(object):
 
 if __name__ == '__main__':
 	rospy.init_node('ptu46_action_server')
+	sequential_moves = rospy.get_param('~sequential_moves', 'false')
 	PTUControl()
 	rospy.spin()
