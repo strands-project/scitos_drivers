@@ -148,5 +148,5 @@ class PTUControl(object, sequential_moves):
 if __name__ == '__main__':
 	rospy.init_node('ptu46_action_server')
 	sequential_moves = rospy.get_param('~sequential_moves', 'false')
-	PTUControl()
+	PTUControl(sequential_moves)
 	rospy.spin()
