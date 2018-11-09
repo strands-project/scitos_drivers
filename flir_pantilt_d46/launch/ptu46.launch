@@ -14,8 +14,8 @@
 	</node>
 
 	<node name="ptu_action_server" pkg="flir_pantilt_d46" type="ptu_action_server.py" output="screen" respawn="true">
+                <param name="sequential_moves" value="$(arg sequential_moves)" />
 		<remap from="cmd" to="/ptu/cmd"/>
 		<remap from="state" to="/ptu/state"/>
-                <param name="sequential_moves value="$(arg sequential_moves)" />
 	</node>
 </launch>

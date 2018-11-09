@@ -7,8 +7,7 @@ from sensor_msgs.msg import JointState
 import threading
 import numpy as np
 
-class PTUControl(object, sequential_moves):
-	self.sequential_moves = sequential_moves
+class PTUControl(object):
 	pan      = 0
 	tilt     = 0
 	pan_vel  = 0
@@ -16,8 +15,9 @@ class PTUControl(object, sequential_moves):
 	state_lock = threading.Lock()
 	preempt_lock = threading.Lock()
 
-	def __init__(self):
+	def __init__(self, sequential_moves):
 		# setup some parameters
+		self.sequential_moves = sequential_moves
 		self.tsmin = rospy.get_param('/ptu/min_tilt_speed', 4.0)
 		self.tsmax = rospy.get_param('/ptu/max_tilt_speed', 140.0)
 		self.psmin = rospy.get_param('/ptu/min_pan_speed' , 4.0)
