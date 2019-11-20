@@ -3,6 +3,7 @@
 	<arg name="machine" default="localhost"/>
 	<arg name="user" default="" />
 	<arg name="port" default="/dev/ttyS0" />
+        <arg name="sequential_moves" default="false" />
 
 	<!-- NOW when launching in a remote mode it will need the ROS_ENV_LOADER set if not it will leave it empty -->
 	<machine name="$(arg machine)" address="$(arg machine)" env-loader="$(optenv ROS_ENV_LOADER )" user="$(arg user)" default="true" />
@@ -13,6 +14,7 @@
 	</node>
 
 	<node name="ptu_action_server" pkg="flir_pantilt_d46" type="ptu_action_server.py" output="screen" respawn="true">
+                <param name="sequential_moves" value="$(arg sequential_moves)" />
 		<remap from="cmd" to="/ptu/cmd"/>
 		<remap from="state" to="/ptu/state"/>
 	</node>
