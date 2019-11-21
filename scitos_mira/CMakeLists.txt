@@ -85,8 +85,7 @@ include_directories(include
 
 # include cmake file for MIRA
 include(CMakeLists.mira)
-MIRA_REQUIRE_PACKAGE(MIRAFramework)
-MIRA_REQUIRE_PACKAGE(RobotDataTypes)
+MIRA_REQUIRE_PACKAGE(SCITOS)
 
 
 ## Declare a cpp executable
