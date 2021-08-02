@@ -1,5 +1,4 @@
 <launch>
-	<arg name="camera" default="head_xtion" />
 	
         <!-- SCITOS G5 Robot -->
 	<include file="$(find scitos_mira)/launch/scitos_mira_x3.launch"/>

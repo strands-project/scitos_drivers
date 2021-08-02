@@ -2,16 +2,10 @@
 <launch>
 	<!-- scitos_modules argument; must be a space seperated list of hardware modules to load -->
 	<arg name="SCITOS_MODULES" default="Drive Charger"/>
-	<arg name="SCITOS_CONFIG" default="$(find scitos_mira)/resources/SCITOSDriver.xml"/>
+	<arg name="SCITOS_CONFIG" default="/opt/MIRA-commercial/domains/robot/SCITOS/etc/SCITOSDriver.xml"/>
 	<!-- BARRIER_ENABLED should be set to true to enable the magnetic strip detector to cut out
 	the motors. If set to false, then magnetic safety barriers will have no effect. -->
-	<arg name="BARRIER_ENABLED" default="true"/>
-
-	<!-- Remote Launching -->
-    <arg name="machine" default="localhost"/>
-    <arg name="user" default="" />
-
-    <machine name="$(arg machine)" address="$(arg machine)" env-loader="$(optenv ROS_ENV_LOADER )" user="$(arg user)" default="true" />
+	<arg name="BARRIER_ENABLED" default="false"/>
 
 	<node pkg="scitos_mira" type="scitos_node" name="scitos_node" output="screen" respawn="true">
 		<param name="config_file" value="$(arg SCITOS_CONFIG)" type="string"/>
