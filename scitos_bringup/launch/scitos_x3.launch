@@ -1,0 +1,14 @@
+<launch>
+	<arg name="camera" default="head_xtion" />
+	
+        <!-- SCITOS G5 Robot -->
+	<include file="$(find scitos_mira)/launch/scitos_mira_x3.launch"/>
+
+	<!-- SICK S300 -->
+	<include file="$(find scitos_bringup)/launch/s300.launch"/>
+	
+	<!--- Robot state publisher -->
+	<include file="$(find scitos_description)/launch/scitos_state_publisher.launch"/>
+
+
+</launch>
