@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
 	}
 	  
 
-	ROS_INFO_STREAM("Creating G5 with modules [" << scitos_modules << "]");
+	ROS_INFO_STREAM("Creating SCITOS with modules [" << scitos_modules << "]");
 	std::vector<std::string> modules;
 	boost::split(modules, scitos_modules, boost::is_any_of("\t "));
 	ScitosG5 s(modules);
