@@ -2,7 +2,9 @@
 <launch>
 	<!-- scitos_modules argument; must be a space seperated list of hardware modules to load -->
 	<arg name="SCITOS_MODULES" default="Drive Charger"/>
-	<arg name="SCITOS_CONFIG" default="/opt/MIRA-commercial/domains/robot/SCITOS/etc/SCITOSDriver.xml"/>
+	<arg name="SCITOS_CONFIG" default="/opt/MIRA-commercial/domains/robot/SCITOS/etc/SCITOSDriver.xml"/> 
+	<!-- <arg name="SCITOS_CONFIG" default="$(find scitos_mira)/resources/SCITOSDriver.xml"/> -->
+
 	<!-- BARRIER_ENABLED should be set to true to enable the magnetic strip detector to cut out
 	the motors. If set to false, then magnetic safety barriers will have no effect. -->
 	<arg name="BARRIER_ENABLED" default="false"/>
